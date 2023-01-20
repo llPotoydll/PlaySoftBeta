@@ -14,12 +14,12 @@ public class SongController : ControllerBase
 
     [HttpGet]
     public ActionResult<List<Song>> GetAll() =>
-    SongSevice.GetAll();
+    SongService.GetAll();
 
     [HttpGet("{id}")]
     public ActionResult<Song> Get(int id)
     {
-        var song = SongSevice.Get(id);
+        var song = SongService.Get(id);
 
         if (song == null)
             return NotFound();
@@ -30,7 +30,7 @@ public class SongController : ControllerBase
     [HttpPost]
     public IActionResult Create(Song song)
     {
-        SongSevice.Add(song);
+        SongService.Add(song);
         return CreatedAtAction(nameof(Get), new { id = song.songID }, song);
     }
     
@@ -41,11 +41,11 @@ public IActionResult Update(int id, Song song)
     if (id != song.songID)
         return BadRequest();
            
-    var existingSong = SongSevice.Get(id);
+    var existingSong = SongService.Get(id);
     if(existingSong is null)
         return NotFound();
    
-    SongSevice.Update(song);           
+    SongService.Update(song);           
    
     return NoContent();
 }
@@ -53,12 +53,12 @@ public IActionResult Update(int id, Song song)
 [HttpDelete("{id}")]
 public IActionResult Delete(int id)
 {
-    var song = SongSevice.Get(id);
+    var song = SongService.Get(id);
    
     if (song is null)
         return NotFound();
        
-    SongSevice.Delete(id);
+    SongService.Delete(id);
    
     return NoContent();
 }

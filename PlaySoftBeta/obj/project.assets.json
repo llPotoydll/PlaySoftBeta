@@ -224,19 +224,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\hlahoz\\.nuget\\packages\\": {}
+    "C:\\Users\\hugo\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\hlahoz\\Desktop\\clase\\entornoServidor\\PlaySoftBeta\\PlaySoftBeta\\PlaySoftBeta.csproj",
+      "projectUniqueName": "C:\\Users\\hugo\\Desktop\\PlaySoftBeta\\PlaySoftBeta\\PlaySoftBeta.csproj",
       "projectName": "PlaySoftBeta",
-      "projectPath": "C:\\Users\\hlahoz\\Desktop\\clase\\entornoServidor\\PlaySoftBeta\\PlaySoftBeta\\PlaySoftBeta.csproj",
-      "packagesPath": "C:\\Users\\hlahoz\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\hlahoz\\Desktop\\clase\\entornoServidor\\PlaySoftBeta\\PlaySoftBeta\\obj\\",
+      "projectPath": "C:\\Users\\hugo\\Desktop\\PlaySoftBeta\\PlaySoftBeta\\PlaySoftBeta.csproj",
+      "packagesPath": "C:\\Users\\hugo\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\hugo\\Desktop\\PlaySoftBeta\\PlaySoftBeta\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\hlahoz\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\hugo\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
@@ -284,7 +284,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.405\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.403\\RuntimeIdentifierGraph.json"
       }
     }
   }

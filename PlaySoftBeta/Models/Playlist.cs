@@ -1,6 +1,6 @@
 namespace PlaySoftBeta.Models
 {
-    class Playlist
+    public class Playlist
     {
         public int playlistID { get; set; }
         public string playListName { get; set; }

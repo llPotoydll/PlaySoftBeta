@@ -6,7 +6,7 @@ namespace PlaySoftBeta.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class PlayListController : ControllerBase
+public class PlaylistController : ControllerBase
 {
     public PlaylistController()
     {
@@ -19,16 +19,16 @@ public class PlayListController : ControllerBase
     [HttpGet("{id}")]
     public ActionResult<Playlist> Get(int id)
     {
-        var playlilst = PlaylistService.Get(id);
+        var playlist = PlaylistService.Get(id);
 
         if (playlist == null)
             return NotFound();
 
-        return playlilst;
+        return playlist;
     }
     
     [HttpPost]
-    public IActionResult Create(PLaylist pLaylist)
+    public IActionResult Create(Playlist pLaylist)
     {
         PlaylistService.Add(pLaylist);
         return CreatedAtAction(nameof(Get), new { id = pLaylist.playlistID }, pLaylist);

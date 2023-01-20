@@ -2,16 +2,16 @@ using PlaySoftBeta.Models;
 
 namespace PlaySoftBeta.Services;
 
-public static class PlaylistSevice
+public static class PlaylistService
 {
     static List<Playlist> Playlists { get; }
     static int nextId = 1;
 
-    public static List<PLaylist> GetAll() => Playlists;
+    public static List<Playlist> GetAll() => Playlists;
 
     public static Playlist? Get(int id) => Playlists.FirstOrDefault(p => p.playlistID == id);
 
-    public static void Add(Paylist playlist)
+    public static void Add(Playlist playlist)
     {
         playlist.playlistID = nextId++;
         Playlists.Add(playlist);
