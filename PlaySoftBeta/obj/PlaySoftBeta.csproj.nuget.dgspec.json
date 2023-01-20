@@ -1,27 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\llpot\\Documents\\proyectoAlex\\PlaySoftBeta\\PlaySoftBeta\\PlaySoftBeta\\PlaySoftBeta.csproj": {}
+    "C:\\Users\\hlahoz\\Desktop\\clase\\entornoServidor\\PlaySoftBeta\\PlaySoftBeta\\PlaySoftBeta.csproj": {}
   },
   "projects": {
-    "C:\\Users\\llpot\\Documents\\proyectoAlex\\PlaySoftBeta\\PlaySoftBeta\\PlaySoftBeta\\PlaySoftBeta.csproj": {
+    "C:\\Users\\hlahoz\\Desktop\\clase\\entornoServidor\\PlaySoftBeta\\PlaySoftBeta\\PlaySoftBeta.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\llpot\\Documents\\proyectoAlex\\PlaySoftBeta\\PlaySoftBeta\\PlaySoftBeta\\PlaySoftBeta.csproj",
+        "projectUniqueName": "C:\\Users\\hlahoz\\Desktop\\clase\\entornoServidor\\PlaySoftBeta\\PlaySoftBeta\\PlaySoftBeta.csproj",
         "projectName": "PlaySoftBeta",
-        "projectPath": "C:\\Users\\llpot\\Documents\\proyectoAlex\\PlaySoftBeta\\PlaySoftBeta\\PlaySoftBeta\\PlaySoftBeta.csproj",
-        "packagesPath": "C:\\Users\\llpot\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\llpot\\Documents\\proyectoAlex\\PlaySoftBeta\\PlaySoftBeta\\PlaySoftBeta\\obj\\",
+        "projectPath": "C:\\Users\\hlahoz\\Desktop\\clase\\entornoServidor\\PlaySoftBeta\\PlaySoftBeta\\PlaySoftBeta.csproj",
+        "packagesPath": "C:\\Users\\hlahoz\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\hlahoz\\Desktop\\clase\\entornoServidor\\PlaySoftBeta\\PlaySoftBeta\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\llpot\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\hlahoz\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -64,7 +62,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.405\\RuntimeIdentifierGraph.json"
         }
       }
     }
