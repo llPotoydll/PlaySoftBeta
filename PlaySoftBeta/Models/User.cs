@@ -1,4 +1,5 @@
-namespace Models
+namespace PlaySoftBeta.Models
+
 {
     class User
     {

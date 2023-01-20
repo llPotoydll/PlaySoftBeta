@@ -1,4 +1,4 @@
-namespace Models
+namespace PlaySoftBeta.Models
 {
     class Song
     {
