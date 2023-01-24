@@ -4,7 +4,7 @@ namespace PlaySoftBeta.Models
     {
         public int playlistID { get; set; }
         public string playListName { get; set; }
-        public List<Song>? allSongs { get; }
+        public List<Song>? allSongs { get; set;}
         public Boolean privacity { get; set; }
     }
 }

@@ -5,6 +5,14 @@ namespace PlaySoftBeta.Services;
 public static class PlaylistService
 {
     static List<Playlist> Playlists { get; }
+
+    static PlaylistService()
+    {
+        Playlists = new List<Playlist>
+        {
+            new Playlist { playlistID = 0, playListName = "PPlaylist", allSongs = null, privacity = true }
+        };
+    }
     static int nextId = 1;
 
     public static List<Playlist> GetAll() => Playlists;
