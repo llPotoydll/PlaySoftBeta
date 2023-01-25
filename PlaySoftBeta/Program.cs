@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using PlaySoftBeta.Models;
+using Microsoft.EntityFrameworkCore.SqlServer;
 
 
 var builder = WebApplication.CreateBuilder(args);
