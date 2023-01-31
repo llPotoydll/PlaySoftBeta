@@ -1,9 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using PlaySoftBeta.Models;
-using Microsoft.EntityFrameworkCore.SqlServer;
+using Npgsql;
 
 
 var builder = WebApplication.CreateBuilder(args);
+
+var conBuilder = new NpgsqlConnectionStringBuilder(builder.Configuration.GetConnectionString("local"));
 
 builder.Services.AddDbContext<RepositoryContext>(options =>
 {
