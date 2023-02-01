@@ -1,65 +1,91 @@
 using PlaySoftBeta.Models;
 using PlaySoftBeta.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace PlaySoftBeta.Controllers;
 
-[ApiController]
+
 [Route("[controller]")]
+[ApiController]
 public class UserController : ControllerBase
 {
-    public UserController()
+    private readonly RepositoryContext _context;
+    public UserController(RepositoryContext context)
     {
+        _context = context;
     }
 
     [HttpGet]
-    public ActionResult<List<User>> GetAll() =>
-    UserService.GetAll();
+    public async Task<ActionResult<IEnumerable<User>>> getUsers()
+    {
+        if (_context.Users == null)
+        {
+            return NotFound();
+        }
+        return await _context.Users.ToListAsync();
+    }
 
     [HttpGet("{id}")]
-    public ActionResult<User> Get(int id)
+    public async Task<ActionResult<User>> getUser(int id)
     {
-        var user = UserService.Get(id);
+        {
+            // var user = UserService.Get(id);
 
-        if (user == null)
-            return NotFound();
+            // if (user == null)
+            //     return NotFound();
 
-        return user;
-    }
+            // return user;
 
-    [HttpPost]
-    public IActionResult Create(User user)
-    {
-        UserService.Add(user);
-        return CreatedAtAction(nameof(Get), new { id = user.userID }, user);
-    }
+            if (_context.Users == null)
+            {
+                return NotFound();
+            }
+            var user = await _context.Users.FindAsync(id);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return user;
+        }
+
+      /*  [HttpPost]
+        public IActionResult Create(User user)
+        {
+            UserService.Add(user);
+            return CreatedAtAction(nameof(Get), new { id = user.userID }, user);
+        }
 
 
-    [HttpPut("{id}")]
-    public IActionResult Update(int id, User user)
-    {
-        if (id != user.userID)
-            return BadRequest();
+        [HttpPut("{id}")]
+        public IActionResult Update(int id, User user)
+        {
+            if (id != user.userID)
+                return BadRequest();
 
-        var existingUser = UserService.Get(id);
-        if (existingUser is null)
-            return NotFound();
+            var existingUser = UserService.Get(id);
+            if (existingUser is null)
+                return NotFound();
 
-        UserService.Update(user);
+            UserService.Update(user);
 
-        return NoContent();
-    }
+            return NoContent();
+        }
 
-    [HttpDelete("{id}")]
-    public IActionResult Delete(int id)
-    {
-        var user = UserService.Get(id);
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            var user = UserService.Get(id);
 
-        if (user is null)
-            return NotFound();
+            if (user is null)
+                return NotFound();
 
-        UserService.Delete(id);
+            UserService.Delete(id);
 
-        return NoContent();
+            return NoContent();
+        }
+        */
     }
 }
