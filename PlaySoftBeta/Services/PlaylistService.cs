@@ -10,7 +10,7 @@ public static class PlaylistService
     {
         Playlists = new List<Playlist>
         {
-            new Playlist { playlistID = 0, playListName = "PPlaylist", allSongs = null, privacity = true }
+            new Playlist { playlistID = 0, playListName = "PPlaylist", privacity = true }
         };
     }
     static int nextId = 1;

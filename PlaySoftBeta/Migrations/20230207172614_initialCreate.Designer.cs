@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace PlaySoftBeta.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20230125165342_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20230207172614_initialCreate")]
+    partial class initialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

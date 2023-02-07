@@ -9,6 +9,7 @@ public class RepositoryContext : DbContext
         }
 
         public DbSet<User> Users {get; set;} = null!;
-        DbSet<Playlist> Playlists {get; set;} = null!;
-        DbSet<Song> Songs {get; set;} = null!;
+        public DbSet<Playlist> Playlists {get; set;} = null!;
+        public DbSet<Playlist> PlaylistsLines {get; set;} = null;
+        public DbSet<Song> Songs {get; set;} = null!;
 }
