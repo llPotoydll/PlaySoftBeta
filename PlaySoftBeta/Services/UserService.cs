@@ -11,8 +11,8 @@ public static class UserService
     {
         Users = new List<User>
         {
-            new User { userID = 0, name = "pepe", allPlayLists = null, password = "123" },
-            new User { userID = 1, name = "pablo", allPlayLists = null, password = "321" }
+            new User { userID = 0, name = "pepe", password = "123" },
+            new User { userID = 1, name = "pablo", password = "321" }
         };
     }
     public static List<User> GetAll() => Users;
