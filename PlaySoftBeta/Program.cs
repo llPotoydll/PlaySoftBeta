@@ -9,7 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<RepositoryContext>(options =>
 {
-   options.UseSqlServer(builder.Configuration.GetConnectionString("RepositoryContext"));
+   options.UseInMemoryDatabase("testDb");
+   //options.UseSqlServer(builder.Configuration.GetConnectionString("RepositoryContext"));
 });
 
 // Add services to the container.
