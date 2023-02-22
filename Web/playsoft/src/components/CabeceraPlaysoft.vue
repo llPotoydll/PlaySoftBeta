@@ -3,7 +3,6 @@
 
     <img :src="logo" class="logo">
 
-    <v-spacer></v-spacer>
 
     <div class="d-flex align-center">
       <h1 class="title"> PLAYSOFT </h1>
@@ -11,8 +10,8 @@
 
     <v-spacer></v-spacer>
 
-    <v-btn href="" target="_blank" text>
-      <span class="mr-2" :class="item">Menu</span>
+    <v-btn href="Menuawd.vue" target="_blank" text >
+      <span class="mr-2" :class="item" >Menu</span>
     </v-btn>
     <v-btn href="" target="_blank" text>
       <span class="mr-2">Login</span>
@@ -28,7 +27,8 @@ export default {
   name: 'CabeceraPlaysoft',
   data: function () {
     return {
-      logo: require('../assets/images/Logo.png')
+      logo: require('../assets/images/Logo.png'),
+      menu: ('../Menu.vue')
     }
   }
 }
