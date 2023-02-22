@@ -1,31 +1,38 @@
 using PlaySoftBeta.Models;
+using PlaySoftBeta.Repository;
+using PlaySoftBeta.DTOs;
 
 namespace PlaySoftBeta.Services;
 
-public static class UserService
+public class UserServiceImpl : IUserService
 {
     static List<User>? Users { get; set; }
     static int nextId = 1;
+    private IUserRepositoy userRepositoy;
 
     //   private static readonly RepositoryContext _context;
 
-    static UserService()
+    static UserServiceImpl()
     {
         Users = new List<User> { };
     }
 
     //public static List<User> GetAll() => Users;
 
-    public static User? Get(string email, string password)
+    public void getUserByEmail(string email, string password)
     {
         //comprobar que el email y la contraseña coinciden con alguno de la db
+        User user  = userRepositoy.GetUserByEmail(email);
+        if(user.password.Equals(password)){
+            //iniciar sesion si
+        }else{
+            //error
+        }
         User u = new User();
-        u.get
 
-        return u;
     }
 
-    public static void Add(User user)
+    public void createNewUser(String user)
     {
         //añadir nuevo usuario
     }

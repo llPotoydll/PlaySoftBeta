@@ -11,6 +11,8 @@ namespace PlaySoftBeta.Controllers;
 public class UserController : ControllerBase
 {
 
+    private IUserService userService;
+
    /* [HttpGet]
     public async Task<ActionResult<IEnumerable<User>>> getUsers()
     {
@@ -24,14 +26,14 @@ public class UserController : ControllerBase
     [HttpGet("login")]
     public async Task<ActionResult<User>> getUser(string email, string password)
     {
-        UserService.Get(email, password);
+        userService.getUserByEmail(email, password);
         return null;
     }
 
     [HttpPost]
-    public async Task<ActionResult<User>> PostUser(User user)
+    public async Task<ActionResult<User>> PostUser(String user)
     {
-        UserService.Add(user);
+        userService.createNewUser(user);
         return null;
     }
 
