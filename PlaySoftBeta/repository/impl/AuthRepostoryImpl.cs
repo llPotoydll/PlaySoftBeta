@@ -1,14 +1,12 @@
-
-
 using PlaySoftBeta.Models;
 
 namespace PlaySoftBeta.Repository
 {
-    public class UserRepository : IUserRepositoy, IDisposable
+    public class AuthRepository : IAuthRepositoy, IDisposable
     {
         private RepositoryContext context;
 
-        public UserRepository(RepositoryContext context)
+        public AuthRepository(RepositoryContext context)
         {
             this.context = context;
         }
@@ -16,6 +14,11 @@ namespace PlaySoftBeta.Repository
         public void Dispose()
         {
             throw new NotImplementedException();
+        }
+
+        public User GetUserByEmail(string userEmail)
+        {
+            return context.Users.Find(userEmail);
         }
 
         public void Save()
