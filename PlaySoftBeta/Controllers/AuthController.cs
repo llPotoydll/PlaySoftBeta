@@ -18,10 +18,11 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("login")]
+
     public async Task<ActionResult<User>> getUser(string email, string password)
     {
         AuthLoginOutDTO a = authService.login(email, password);
-        return null;
+        return Ok();
     }
 
     [HttpPost]
