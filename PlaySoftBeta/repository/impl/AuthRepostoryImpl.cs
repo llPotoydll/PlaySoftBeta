@@ -1,4 +1,5 @@
 using PlaySoftBeta.Models;
+using PlaySoftBeta.DTOs;
 
 namespace PlaySoftBeta.Repository
 {
@@ -19,6 +20,20 @@ namespace PlaySoftBeta.Repository
         public User GetUserByEmail(string userEmail)
         {
             return context.Users.Find(userEmail);
+        }
+
+        public void registerUser(AuhtRegisterUserDTO user)
+        {
+             context.Users.Add(user);
+        }
+
+        public Boolean checkEmail(string userEmail)
+        {
+            if (context.Users.Any(user => user.email == userEmail))
+            {
+                return true;
+            }
+            return false;
         }
 
         public void Save()

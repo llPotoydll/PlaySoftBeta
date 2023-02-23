@@ -19,14 +19,14 @@ public class AuthController : ControllerBase
 
     [HttpPost("login")]
 
-    public async Task<ActionResult<User>> getUser(string email, string password)
+    public async Task<ActionResult<User>> getUser(AuthLoginInDTO user)
     {
-        AuthLoginOutDTO a = authService.login(email, password);
-        return Ok();
+        AuthLoginOutDTO a = authService.login(user);
+        return null;
     }
 
     [HttpPost]
-    public async Task<ActionResult<User>> PostUser(String user)
+    public async Task<ActionResult<User>> PostUser(AuhtRegisterUserDTO user)
     {
         authService.register(user);
         return null;

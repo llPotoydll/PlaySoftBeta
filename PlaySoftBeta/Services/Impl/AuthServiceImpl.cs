@@ -8,29 +8,22 @@ public class AuthServiceImpl : IAuthService
 {
     private IAuthRepositoy authRepositoy;
 
-    public AuthLoginOutDTO login(string email, string password)
+    public AuthLoginOutDTO login(AuthLoginInDTO authLoginInDTO)
     {
-        AuthLoginInDTO authLoginInDTO = new AuthLoginInDTO();
-        authLoginInDTO.email = email;
-        authLoginInDTO.password = password;
+        AuthLoginOutDTO authLoginOutDTO = authRepositoy.GetUserByEmail(authLoginInDTO.email);
 
-        try
+        if (authLoginOutDTO.password.Equals(authLoginInDTO.password))
         {
-            User user = authRepositoy.GetUserByEmail(authLoginInDTO.email);
-            if (user.password.Equals(authLoginInDTO.password))
-            {
-                AuthLoginOutDTO authLoginOutDTO = new AuthLoginOutDTO();
-                authLoginOutDTO.email = user.email;
-                
-                authLoginOutDTO.username = user.username;
-                return authLoginOutDTO;
-            }
-            return null;
+            return authLoginOutDTO;
         }
-        catch (Exception e) { 
-            return null;
-        }
+        return null; //error
     }
 
-    public void register(String user) { }
+    public void register(AuhtRegisterUserDTO auhtRegisterUserDTO)
+    {
+        if (!authRepositoy.checkEmail(auhtRegisterUserDTO.email))
+        {
+            //registrar nuevo usuario
+        }
+    }
 }
