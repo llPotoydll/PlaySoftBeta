@@ -6,11 +6,17 @@ namespace PlaySoftBeta.Services;
 
 public class AuthServiceImpl : IAuthService
 {
-    private IAuthRepositoy authRepositoy;
+    private readonly IAuthRepositoy authRepository;
+
+
+    public AuthServiceImpl(IAuthRepositoy authRepository)
+    {
+        this.authRepository = authRepository;
+    }
 
     public AuthLoginOutDTO login(AuthLoginInDTO authLoginInDTO)
     {
-        AuthLoginOutDTO authLoginOutDTO = authRepositoy.GetUserByEmail(authLoginInDTO.email);
+        AuthLoginOutDTO authLoginOutDTO = authRepository.GetUserByEmail(authLoginInDTO.email);
 
         if (authLoginOutDTO.password.Equals(authLoginInDTO.password))
         {
@@ -21,9 +27,11 @@ public class AuthServiceImpl : IAuthService
 
     public void register(AuhtRegisterUserDTO auhtRegisterUserDTO)
     {
-        if (!authRepositoy.checkEmail(auhtRegisterUserDTO.email))
+        if (!authRepository.checkEmail(auhtRegisterUserDTO.email))
         {
-            //registrar nuevo usuario
+            if (auhtRegisterUserDTO.password.Equals(auhtRegisterUserDTO.verifyPassword)){
+                authRepository.registerUser(auhtRegisterUserDTO);
+            }
         }
     }
 }

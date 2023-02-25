@@ -2,8 +2,6 @@ using PlaySoftBeta.DTOs;
 using PlaySoftBeta.Models;
 using PlaySoftBeta.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-
 namespace PlaySoftBeta.Controllers;
 
 [Route("[controller]")]
@@ -25,10 +23,10 @@ public class AuthController : ControllerBase
         return null;
     }
 
-    [HttpPost]
-    public async Task<ActionResult<User>> PostUser(AuhtRegisterUserDTO user)
+    [HttpPost("register")]
+    public async Task<ActionResult> PostUser(AuhtRegisterUserDTO user)
     {
         authService.register(user);
-        return null;
+        return Ok();
     }
 }

@@ -1,15 +1,17 @@
 using PlaySoftBeta.Models;
 using PlaySoftBeta.DTOs;
+using AutoMapper;
 
 namespace PlaySoftBeta.Repository
 {
     public class AuthRepository : IAuthRepositoy, IDisposable
     {
         private RepositoryContext context;
-
-        public AuthRepository(RepositoryContext context)
+        private readonly IMapper mapper;
+        public AuthRepository(RepositoryContext context, IMapper mapper)
         {
             this.context = context;
+            this.mapper = mapper;
         }
 
         public void Dispose()
@@ -17,14 +19,15 @@ namespace PlaySoftBeta.Repository
             throw new NotImplementedException();
         }
 
-        public User GetUserByEmail(string userEmail)
+        public AuthLoginOutDTO GetUserByEmail(string userEmail)
         {
-            return context.Users.Find(userEmail);
+            User user = context.Users.Find(userEmail);
+            return mapper.Map<AuthLoginOutDTO>(user);
         }
 
-        public void registerUser(AuhtRegisterUserDTO user)
+        public void registerUser(AuhtRegisterUserDTO authDTO)
         {
-             context.Users.Add(user);
+             context.Users.Add(mapper.Map<User>(authDTO));
         }
 
         public Boolean checkEmail(string userEmail)

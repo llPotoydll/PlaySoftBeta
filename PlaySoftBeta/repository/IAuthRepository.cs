@@ -5,7 +5,7 @@ namespace PlaySoftBeta.Repository;
 
 public interface IAuthRepositoy : IDisposable
 {
-    User GetUserByEmail(String userEmail);
+    AuthLoginOutDTO GetUserByEmail(String userEmail);
     Boolean checkEmail(String userEmail);
     void registerUser(AuhtRegisterUserDTO user);
     void Save();
