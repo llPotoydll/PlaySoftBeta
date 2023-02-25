@@ -8,25 +8,34 @@ namespace PlaySoftBeta.Controllers;
 [ApiController]
 public class AuthController : ControllerBase
 {
-    private readonly IAuthService authService;
+    private readonly IAuthService _authService;
 
     public AuthController(IAuthService authService)
     {
-        this.authService = authService;
+        _authService = authService;
     }
 
     [HttpPost("login")]
 
-    public async Task<ActionResult<User>> getUser(AuthLoginInDTO user)
+    public async Task<ActionResult<User>> GetUser(AuthLoginInDTO user)
     {
-        AuthLoginOutDTO a = authService.login(user);
-        return null;
+
+        var loggedUser = _authService.Login(user);
+        if (loggedUser != null)
+        {
+            return Ok(loggedUser);
+        }
+        return BadRequest();
     }
 
     [HttpPost("register")]
     public async Task<ActionResult> PostUser(AuhtRegisterUserDTO user)
     {
-        authService.register(user);
-        return Ok();
+        if (_authService.Register(user))
+        {
+            return Ok("User registred");
+        }
+        return BadRequest("Bad register");
+        
     }
 }

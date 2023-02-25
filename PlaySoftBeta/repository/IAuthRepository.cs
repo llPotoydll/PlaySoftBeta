@@ -3,10 +3,10 @@ using PlaySoftBeta.DTOs;
 
 namespace PlaySoftBeta.Repository;
 
-public interface IAuthRepositoy : IDisposable
+public interface IAuthRepositoy
 {
     AuthLoginOutDTO GetUserByEmail(String userEmail);
-    Boolean checkEmail(String userEmail);
-    void registerUser(AuhtRegisterUserDTO user);
+    bool CheckEmail(String userEmail);
+    void RegisterUser(AuhtRegisterUserDTO user);
     void Save();
 }

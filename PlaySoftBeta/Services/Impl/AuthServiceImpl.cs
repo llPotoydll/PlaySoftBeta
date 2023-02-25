@@ -6,32 +6,39 @@ namespace PlaySoftBeta.Services;
 
 public class AuthServiceImpl : IAuthService
 {
-    private readonly IAuthRepositoy authRepository;
+    private readonly IAuthRepositoy _authRepository;
 
 
     public AuthServiceImpl(IAuthRepositoy authRepository)
     {
-        this.authRepository = authRepository;
+        _authRepository = authRepository;
     }
 
-    public AuthLoginOutDTO login(AuthLoginInDTO authLoginInDTO)
+    public AuthLoginOutDTO Login(AuthLoginInDTO authLoginInDTO)
     {
-        AuthLoginOutDTO authLoginOutDTO = authRepository.GetUserByEmail(authLoginInDTO.email);
 
-        if (authLoginOutDTO.password.Equals(authLoginInDTO.password))
+        var authLoginOutDTO = _authRepository.GetUserByEmail(authLoginInDTO.email);
+        if (authLoginOutDTO != null)
         {
-            return authLoginOutDTO;
-        }
-        return null; //error
-    }
-
-    public void register(AuhtRegisterUserDTO auhtRegisterUserDTO)
-    {
-        if (!authRepository.checkEmail(auhtRegisterUserDTO.email))
-        {
-            if (auhtRegisterUserDTO.password.Equals(auhtRegisterUserDTO.verifyPassword)){
-                authRepository.registerUser(auhtRegisterUserDTO);
+            if (authLoginOutDTO.password.Equals(authLoginInDTO.password))
+            {
+                return authLoginOutDTO;
             }
         }
+        return null;
+    }
+
+    public bool Register(AuhtRegisterUserDTO auhtRegisterUserDTO)
+    {
+        if (!_authRepository.CheckEmail(auhtRegisterUserDTO.email))
+        {
+            if (auhtRegisterUserDTO.password.Equals(auhtRegisterUserDTO.verifyPassword))
+            {
+                _authRepository.RegisterUser(auhtRegisterUserDTO);
+                _authRepository.Save();
+                return true;
+            }
+        }
+        return false;
     }
 }

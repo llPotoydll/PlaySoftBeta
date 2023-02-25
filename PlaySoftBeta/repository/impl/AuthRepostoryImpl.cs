@@ -4,35 +4,34 @@ using AutoMapper;
 
 namespace PlaySoftBeta.Repository
 {
-    public class AuthRepository : IAuthRepositoy, IDisposable
+    public class AuthRepository : IAuthRepositoy
     {
-        private RepositoryContext context;
-        private readonly IMapper mapper;
+        private readonly RepositoryContext _context;
+        private readonly IMapper _mapper;
         public AuthRepository(RepositoryContext context, IMapper mapper)
         {
-            this.context = context;
-            this.mapper = mapper;
-        }
-
-        public void Dispose()
-        {
-            throw new NotImplementedException();
+            _context = context;
+            _mapper = mapper;
         }
 
         public AuthLoginOutDTO GetUserByEmail(string userEmail)
         {
-            User user = context.Users.Find(userEmail);
-            return mapper.Map<AuthLoginOutDTO>(user);
+            var user = _context.Users?.Find(userEmail);
+            if (user != null)
+            {
+                return _mapper.Map<AuthLoginOutDTO>(user);
+            }
+            return null;
         }
 
-        public void registerUser(AuhtRegisterUserDTO authDTO)
+        public void RegisterUser(AuhtRegisterUserDTO authDTO)
         {
-             context.Users.Add(mapper.Map<User>(authDTO));
+            _context.Users.Add(_mapper.Map<User>(authDTO));
         }
 
-        public Boolean checkEmail(string userEmail)
+        public Boolean CheckEmail(string userEmail)
         {
-            if (context.Users.Any(user => user.email == userEmail))
+            if (_context.Users.Any(user => user.email == userEmail))
             {
                 return true;
             }
@@ -41,7 +40,7 @@ namespace PlaySoftBeta.Repository
 
         public void Save()
         {
-            throw new NotImplementedException();
+            _context.SaveChanges();
         }
     }
 }
