@@ -20,7 +20,7 @@ public class Startup
         });
         services.AddScoped<IAuthService, AuthServiceImpl>();
         services.AddTransient<IAuthRepositoy, AuthRepository>();
-        //services.AddScoped<IAuthRepositoy, AuthRepository>();
+        
         services.AddAutoMapper(typeof(PlaysoftProfile));
         services.AddRazorPages();
         services.AddControllers();

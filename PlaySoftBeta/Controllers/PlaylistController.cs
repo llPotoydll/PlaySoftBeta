@@ -1,4 +1,5 @@
 using PlaySoftBeta.Models;
+using PlaySoftBeta.DTOs;
 using PlaySoftBeta.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,58 +9,21 @@ namespace PlaySoftBeta.Controllers;
 [Route("[controller]")]
 public class PlaylistController : ControllerBase
 {
-    public PlaylistController()
+
+    private readonly IPLaylistService _pLaylistService;
+    public PlaylistController(IPLaylistService pLaylistService)
     {
+        _pLaylistService = pLaylistService;
     }
 
-    [HttpGet]
-    public ActionResult<List<Playlist>> GetAll() =>
-    PlaylistService.GetAll();
 
-    [HttpGet("{id}")]
-    public ActionResult<Playlist> Get(int id)
-    {
-        var playlist = PlaylistService.Get(id);
 
-        if (playlist == null)
-            return NotFound();
 
-        return playlist;
-    }
-    
     [HttpPost]
-    public IActionResult Create(Playlist pLaylist)
+    public IActionResult CreatePlaylist(PlaylistDTO pLaylist)
     {
-        PlaylistService.Add(pLaylist);
-        return CreatedAtAction(nameof(Get), new { id = pLaylist.playlistID }, pLaylist);
+        _pLaylistService.CreatePlaylist(pLaylist);
+        return null;
     }
-    
 
-[HttpPut("{id}")]
-public IActionResult Update(int id, Playlist playlist)
-{
-    if (id != playlist.playlistID)
-        return BadRequest();
-           
-    var existingPlaylist = PlaylistService.Get(id);
-    if(existingPlaylist is null)
-        return NotFound();
-   
-    PlaylistService.Update(playlist);           
-   
-    return NoContent();
-}
-
-[HttpDelete("{id}")]
-public IActionResult Delete(int id)
-{
-    var playlist = PlaylistService.Get(id);
-   
-    if (playlist is null)
-        return NotFound();
-       
-    PlaylistService.Delete(id);
-   
-    return NoContent();
-}
 }
