@@ -32,12 +32,9 @@ public class AuthServiceImpl : IAuthService
     {
         if (!_authRepository.CheckEmail(auhtRegisterUserDTO.email))
         {
-            if (auhtRegisterUserDTO.password.Equals(auhtRegisterUserDTO.verifyPassword))
-            {
                 _authRepository.RegisterUser(auhtRegisterUserDTO);
                 _authRepository.Save();
-                return true;
-            }
+                return true;    
         }
         return false;
     }

@@ -4,23 +4,34 @@ using PlaySoftBeta.Repository;
 
 public class Startup
 {
-    public IConfiguration configRoot
-    {
-        get;
-    }
+    public IConfiguration configRoot { get; }
+
     public Startup(IConfiguration configuration)
     {
         configRoot = configuration;
     }
+
     public void ConfigureServices(IServiceCollection services)
     {
+        services.AddCors(options =>
+        {
+            options.AddPolicy(
+                "AllowAllHeaders",
+                builder =>
+                {
+                    builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                }
+            );
+        });
         services.AddDbContext<RepositoryContext>(options =>
         {
             options.UseInMemoryDatabase("PlaysoftDB");
         });
         services.AddScoped<IAuthService, AuthServiceImpl>();
         services.AddTransient<IAuthRepositoy, AuthRepository>();
-        
+        services.AddTransient<IUserRepository, UserRepository>();
+        services.AddTransient<IUserService, UserServiceImpl>();
+
         services.AddAutoMapper(typeof(PlaysoftProfile));
         services.AddRazorPages();
         services.AddControllers();
@@ -28,9 +39,10 @@ public class Startup
         services.AddSwaggerGen();
         services.AddMvc();
     }
+
     public void Configure(WebApplication app, IWebHostEnvironment env)
     {
-
+        app.UseCors("AllowAllHeaders");
         app.UseSwagger();
         app.UseSwaggerUI();
         app.UseHttpsRedirection();
