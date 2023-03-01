@@ -17,8 +17,13 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("{username}")]
-    public ActionResult<User> Get(string username) { 
-        _userService.getUsers(username);
-        return null;
+    public ActionResult<User> Get(string username)
+    {
+        var userList = _userService.getUsers(username);
+        if (userList.Any())
+        {
+            return Ok(userList);
+        }
+            return BadRequest("User not found");
     }
 }
