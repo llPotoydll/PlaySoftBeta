@@ -1,7 +1,9 @@
 <template>
   <v-app>
     <CabeceraPlaysoft></CabeceraPlaysoft>
-    <LoginCard></LoginCard>
+    <v-content>
+      <LoginCard></LoginCard>
+    </v-content>
   </v-app>
 </template>
 
@@ -14,7 +16,7 @@ export default {
   name: 'App',
 
   components: {
-    CabeceraPlaysoft,LoginCard
+    CabeceraPlaysoft, LoginCard
   },
 
   data: () => ({
