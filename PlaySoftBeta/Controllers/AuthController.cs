@@ -16,8 +16,7 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("login")]
-
-    public async Task<ActionResult<User>> GetUser(AuthLoginInDTO user)
+    public async Task<ActionResult<User>> GetUser([FromBody]AuthLoginInDTO user)
     {
 
         var loggedUser = _authService.Login(user);

@@ -6,21 +6,15 @@ namespace PlaySoftBeta.Services;
 
 public class UserServiceImpl : IUserService
 {
-    static List<User>? Users { get; set; }
-    static int nextId = 1;
-    private IUserRepositoy userRepositoy;
+    private readonly IUserRepository _userRepository;
 
-    //   private static readonly RepositoryContext _context;
-
-    static UserServiceImpl()
+    public UserServiceImpl(IUserRepository userRepository)
     {
-        Users = new List<User>
-        {
-            new User { UKID = 0, username = "pepe", email = "carlosgonzalez@gmail.com", password = "123" },
-            new User { UKID = 1, username = "pablo", email = "prueba@gmail.com", password = "321" }
-        };
+        _userRepository = userRepository;
     }
 
-    //public static List<User> GetAll() => Users;
-
+    public List<UserDTO> getUsers(string username)
+    {
+        return _userRepository.getUserListByUsername(username);
+    }
 }
