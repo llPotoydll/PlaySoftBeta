@@ -9,13 +9,35 @@ namespace PlaySoftBeta.Repository
 
         private readonly RepositoryContext _context;
 
-        public PlaylistRepository(RepositoryContext context)
+        private readonly IMapper _mapper;
+
+        public PlaylistRepository(RepositoryContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
-        public void NewPlaylist(PlaylistDTO playlistDTO)
+        public bool CreatePlaylist(PlaylistDTO playlist)
         {
-            //_context.Playlists.Add();
+            try
+            {
+                _context.Playlists.Add(_mapper.Map<Playlist>(playlist));
+                return true;
+            }
+            catch (Exception e)
+            {
+                //Sacar error
+                return false;
+            }
+
+        }
+
+        public bool DeletePlaylist (PlaylistDTO playlist){
+            
+            return true;
+        }
+        public void Save()
+        {
+            _context.SaveChanges();
         }
     }
 }

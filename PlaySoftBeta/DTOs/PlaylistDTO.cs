@@ -6,6 +6,7 @@ namespace PlaySoftBeta.DTOs
         public string playlistUserEmail { get; set; }
         public string? playlistDescription { get; set; }
         public Boolean privacity { get; set; }
+        public double playListDuration { get; set; }
 
     }
 }
