@@ -2,6 +2,7 @@ using PlaySoftBeta.DTOs;
 using PlaySoftBeta.Models;
 using PlaySoftBeta.Services;
 using Microsoft.AspNetCore.Mvc;
+
 namespace PlaySoftBeta.Controllers;
 
 [Route("[controller]")]
@@ -16,16 +17,15 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("login")]
-
-    public async Task<ActionResult<User>> GetUser(AuthLoginInDTO user)
+    public async Task<ActionResult<User>> GetUser([FromBody] AuthLoginInDTO user)
     {
-
+        Console.WriteLine(user);
         var loggedUser = _authService.Login(user);
         if (loggedUser != null)
         {
             return Ok(loggedUser);
         }
-        return BadRequest();
+        return BadRequest("this user doesn't exist");
     }
 
     [HttpPost("register")]
@@ -36,6 +36,5 @@ public class AuthController : ControllerBase
             return Ok("User registred");
         }
         return BadRequest("Bad register");
-        
     }
 }
