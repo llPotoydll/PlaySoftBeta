@@ -31,5 +31,10 @@ public class PlaylistController : ControllerBase
         return Ok("Deleted");
     }
     
+    public async Task<Playlist> getOwnPlaylist(int userUKID)
+    {
+        var playlists = _pLaylistService.getMyPlaylist(userUKID);
+        return Ok(playlists);
+    }
     
 }

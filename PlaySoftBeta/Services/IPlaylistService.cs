@@ -9,4 +9,6 @@ public interface IPLaylistService
 
     public bool DeletePlaylist(PlaylistDTO playlist);
 
+    public Playlist getOwnPlaylist(int userUKID);
+
 }

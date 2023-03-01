@@ -35,6 +35,10 @@ namespace PlaySoftBeta.Repository
 
             return true;
         }
+
+        public Playlist getOwnPlaylist(int userUKID){
+            _context.Playlists.
+        }
         public void Save()
         {
             _context.SaveChanges();
