@@ -1,8 +1,10 @@
 using PlaySoftBeta.Models;
+using PlaySoftBeta.DTOs;
 
 namespace PlaySoftBeta.Repository;
 
-    public interface IUserRepositoy: IDisposable
+    public interface IUserRepository
     {
+        List<UserDTO> getUserListByUsername(string username);
         void Save();
     }

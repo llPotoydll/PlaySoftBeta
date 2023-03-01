@@ -1,21 +1,23 @@
-
-
 using PlaySoftBeta.Models;
+using PlaySoftBeta.DTOs;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace PlaySoftBeta.Repository
 {
-    public class UserRepository : IUserRepositoy, IDisposable
+    public class UserRepository : IUserRepository
     {
-        private RepositoryContext context;
+        private readonly RepositoryContext _context;
 
         public UserRepository(RepositoryContext context)
         {
-            this.context = context;
+            _context = context;
         }
 
-        public void Dispose()
+        public List<UserDTO> getUserListByUsername(string username)
         {
-            throw new NotImplementedException();
+            IEnumerable<User> userDTOList = _context.Users.Where(user => user.username.Equals(username));
+            return userDTOList;
         }
 
         public void Save()
