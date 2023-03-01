@@ -25,9 +25,11 @@ public class PlaylistController : ControllerBase
         }
         return BadRequest("Create playlist error");
     }
-
+    [HttpDelete("DeletePlaylist")]
     public async Task<ActionResult> DeletePlaylist(PlaylistDTO pLaylist)
     {
+        return Ok("Deleted");
     }
-
+    
+    
 }

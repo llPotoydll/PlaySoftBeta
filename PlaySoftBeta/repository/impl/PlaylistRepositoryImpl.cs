@@ -32,7 +32,7 @@ namespace PlaySoftBeta.Repository
         }
 
         public bool DeletePlaylist (PlaylistDTO playlist){
-            
+
             return true;
         }
         public void Save()
