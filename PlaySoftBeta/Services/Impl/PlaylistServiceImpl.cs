@@ -33,7 +33,25 @@ public class PlaylistService : IPLaylistService
         }
     }
 
-    public bool DeletePlaylist(PlaylistDTO playlist){
+    public bool DeletePlaylist(PlaylistDTO playlist)
+    {
         return true;
     }
+
+    public List<PlaylistDTO> getOwnPlaylist(int userUKID){
+        try{
+            if(userUKID != null && userUKID > -1){
+                if(_pLaylistRepository.getOwnPlaylist(userUKID) != null){
+                    return _pLaylistRepository.getOwnPlaylist(userUKID);
+                }else{
+                    return null;
+                }
+            }
+            return null;
+        }catch(Exception e){
+            e.GetHashCode();
+            return null;
+        }
+    }
+
 }
