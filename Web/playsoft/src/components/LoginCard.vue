@@ -29,12 +29,8 @@
                         </v-form>
                         <h3 class="text-center mt-4">Forgot your password ?</h3>
                       </v-card-text>
-                      <div class="text-center mt-3">
-                        <v-btn
-                          rounded
-                          color="#6c176d"
-                          dark
-                          @click="getFormInfo()"
+                      <div style="margin-bottom: 30px" class="text-center mt-3">
+                        <v-btn rounded color="#6c176d" dark @click="login()"
                           >SIGN IN</v-btn
                         >
                       </div>
@@ -74,31 +70,54 @@
                     <v-col cols="12" md="8">
                       <v-card-text class="mt-12">
                         <h1>Create Account</h1>
+                        <template>
+                          <v-alert
+                            v-show="passwordsEquals"
+                            style="margin-top: 20px; color: white"
+                            color="error"
+                            icon="$error"
+                            id="alert"
+                            ></v-alert
+                          ></template
+                        >
                         <v-form>
                           <v-text-field
+                            v-model="registerUsername"
                             label="Name"
-                            name="Name"
                             type="text"
                             color="#6c176d"
                           />
                           <v-text-field
+                            v-model="registerEmail"
                             label="Email"
-                            name="Email"
                             type="text"
                             color="#6c176d"
                           />
 
                           <v-text-field
+                            v-model="registerPassword"
                             id="password"
                             label="Password"
-                            name="password"
+                            type="password"
+                            color="#6c176d"
+                          />
+                          <v-text-field
+                            v-model="repeatPassword"
+                            id="password"
+                            label="Repeat Password"
                             type="password"
                             color="#6c176d"
                           />
                         </v-form>
                       </v-card-text>
-                      <div class="text-center mt-n5">
-                        <v-btn rounded color="#6c176d" dark>SIGN UP</v-btn>
+
+                      <div
+                        style="margin-bottom: 30px"
+                        class="text-center mt-n5"
+                      >
+                        <v-btn @click="register()" color="#6c176d" dark
+                          >SIGN UP</v-btn
+                        >
                       </div>
                     </v-col>
                   </v-row>
@@ -115,22 +134,46 @@
 <script>
 import axios from "axios";
 export default {
-  data: () => ({
-    step: 1,
-  }),
+  data() {
+    return {
+      passwordsEquals: false,
+      step: 1,
+    };
+  },
   props: {
     source: String,
   },
   methods: {
-    getFormInfo() {
-      const loginUser = JSON.stringify({
-        email: this.loginEmail,
-        password: this.loginPassword,
-      });
-
+    register() {
+      const error = document.getElementById("alert");
+      console.log(error)
+      if (this.registerPassword != this.repeatPassword) {
+        error.content("Passwords don't match")
+        this.passwordsEquals = true;
+      } else {
+        this.passwordsEquals = false;
+        axios
+          .post("https://localhost:7279/Auth/register", {
+            email: this.registerEmail,
+            username: this.registerUsername,
+            password: this.registerPassword,
+          })
+          .then(function (response) {
+            if (response.status != 200) {
+              
+              error.innerText("Email already in use")
+              this.passwordsEquals = true;
+            }else{
+              this.passwordsEquals = false;
+            }
+          });
+      }
+    },
+    login() {
       axios
         .post("https://localhost:7279/Auth/login", {
-          user: loginUser,
+          email: this.loginEmail,
+          password: this.loginPassword,
         })
         .then(function (response) {
           console.log(response);
