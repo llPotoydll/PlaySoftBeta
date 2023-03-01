@@ -38,15 +38,19 @@ public class PlaylistService : IPLaylistService
         return true;
     }
 
-    public PlaylistDTO getOwnPlaylist(int userUKID){
+    public List<PlaylistDTO> getOwnPlaylist(int userUKID){
         try{
             if(userUKID != null && userUKID > -1){
                 if(_pLaylistRepository.getOwnPlaylist(userUKID) != null){
-                    
+                    return _pLaylistRepository.getOwnPlaylist(userUKID);
+                }else{
+                    return null;
                 }
             }
+            return null;
         }catch(Exception e){
             e.GetHashCode();
+            return null;
         }
     }
 

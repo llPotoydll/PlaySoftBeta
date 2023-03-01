@@ -47,6 +47,7 @@ namespace PlaySoftBeta.Repository
             catch (Exception e)
             {
                 e.GetHashCode();
+                return null;
             }
 
         }
