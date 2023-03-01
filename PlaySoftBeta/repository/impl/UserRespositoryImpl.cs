@@ -1,21 +1,24 @@
-
-
 using PlaySoftBeta.Models;
+using PlaySoftBeta.DTOs;
+using AutoMapper;
 
 namespace PlaySoftBeta.Repository
 {
-    public class UserRepository : IUserRepositoy, IDisposable
+    public class UserRepository : IUserRepository
     {
-        private RepositoryContext context;
+        private readonly RepositoryContext _context;
+        private readonly IMapper _mapper;
 
-        public UserRepository(RepositoryContext context)
+        public UserRepository(RepositoryContext context, IMapper mapper)
         {
-            this.context = context;
+            _context = context;
+            _mapper = mapper;
         }
 
-        public void Dispose()
+        public List<UserDTO> getUserListByUsername(string username)
         {
-            throw new NotImplementedException();
+            var userList = _context.Users.Where(user => user.username.Equals(username)).ToList();
+            return _mapper.Map<List<UserDTO>>(userList);
         }
 
         public void Save()
