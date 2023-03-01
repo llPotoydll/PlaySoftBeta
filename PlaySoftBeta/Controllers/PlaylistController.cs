@@ -1,4 +1,5 @@
 using PlaySoftBeta.Models;
+using PlaySoftBeta.DTOs;
 using PlaySoftBeta.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,58 +9,27 @@ namespace PlaySoftBeta.Controllers;
 [Route("[controller]")]
 public class PlaylistController : ControllerBase
 {
-    public PlaylistController()
+
+    private readonly IPLaylistService _pLaylistService;
+    public PlaylistController(IPLaylistService pLaylistService)
     {
+        _pLaylistService = pLaylistService;
     }
 
-    [HttpGet]
-    public ActionResult<List<Playlist>> GetAll() =>
-    PlaylistService.GetAll();
-
-    [HttpGet("{id}")]
-    public ActionResult<Playlist> Get(int id)
+    [HttpPost("NewPlaylist")]
+    public async Task<ActionResult> CreatePlaylist(PlaylistDTO pLaylist)
     {
-        var playlist = PlaylistService.Get(id);
-
-        if (playlist == null)
-            return NotFound();
-
-        return playlist;
+        if (_pLaylistService.CreatePlaylist(pLaylist))
+        {
+            return Ok("Playlist created");
+        }
+        return BadRequest("Create playlist error");
     }
-    
-    [HttpPost]
-    public IActionResult Create(Playlist pLaylist)
+    [HttpDelete("DeletePlaylist")]
+    public async Task<ActionResult> DeletePlaylist(PlaylistDTO pLaylist)
     {
-        PlaylistService.Add(pLaylist);
-        return CreatedAtAction(nameof(Get), new { id = pLaylist.playlistID }, pLaylist);
+        return Ok("Deleted");
     }
     
-
-[HttpPut("{id}")]
-public IActionResult Update(int id, Playlist playlist)
-{
-    if (id != playlist.playlistID)
-        return BadRequest();
-           
-    var existingPlaylist = PlaylistService.Get(id);
-    if(existingPlaylist is null)
-        return NotFound();
-   
-    PlaylistService.Update(playlist);           
-   
-    return NoContent();
-}
-
-[HttpDelete("{id}")]
-public IActionResult Delete(int id)
-{
-    var playlist = PlaylistService.Get(id);
-   
-    if (playlist is null)
-        return NotFound();
-       
-    PlaylistService.Delete(id);
-   
-    return NoContent();
-}
+    
 }
