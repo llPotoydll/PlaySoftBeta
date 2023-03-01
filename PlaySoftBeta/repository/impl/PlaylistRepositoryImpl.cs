@@ -31,13 +31,24 @@ namespace PlaySoftBeta.Repository
 
         }
 
-        public bool DeletePlaylist (PlaylistDTO playlist){
+        public bool DeletePlaylist(PlaylistDTO playlist)
+        {
 
             return true;
         }
 
-        public Playlist getOwnPlaylist(int userUKID){
-            _context.Playlists.
+        public List<PlaylistDTO> getOwnPlaylist(int userUKID)
+        {
+            try
+            {
+                var playlistlist = _context.Playlists.Where(playlist => playlist.UserID.Equals(userUKID)).ToList();
+                return _mapper.Map<List<PlaylistDTO>>(playlistlist);
+            }
+            catch (Exception e)
+            {
+                e.GetHashCode();
+            }
+
         }
         public void Save()
         {
