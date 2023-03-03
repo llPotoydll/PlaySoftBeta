@@ -27,6 +27,8 @@ public class Startup
         {
             options.UseInMemoryDatabase("PlaysoftDB");
         });
+
+        services.AddCors();
         services.AddScoped<IAuthService, AuthServiceImpl>();
         services.AddTransient<IAuthRepositoy, AuthRepository>();
         services.AddTransient<IUserRepository, UserRepository>();
@@ -48,6 +50,10 @@ public class Startup
         app.UseHttpsRedirection();
         app.UseStaticFiles();
         app.UseRouting();
+        app.UseCors(
+            options =>
+                options.WithOrigins("http://localhost:8080").AllowAnyHeader().AllowAnyMethod()
+        );
         app.UseEndpoints(endpoints =>
         {
             endpoints.MapControllers();
