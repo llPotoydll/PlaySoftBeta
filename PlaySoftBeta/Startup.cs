@@ -34,6 +34,9 @@ public class Startup
         services.AddTransient<IUserRepository, UserRepository>();
         services.AddTransient<IUserService, UserServiceImpl>();
 
+        services.AddScoped<IPLaylistService, PlaylistService>();
+        services.AddScoped<IPLaylistRepository, PlaylistRepository>();
+        
         services.AddAutoMapper(typeof(PlaysoftProfile));
         services.AddRazorPages();
         services.AddControllers();
