@@ -20,6 +20,8 @@ public class Startup
         });
         services.AddScoped<IAuthService, AuthServiceImpl>();
         services.AddTransient<IAuthRepositoy, AuthRepository>();
+        services.AddScoped<IPLaylistService, PlaylistService>();
+        services.AddScoped<IPLaylistRepository, PlaylistRepository>();
         
         services.AddAutoMapper(typeof(PlaysoftProfile));
         services.AddRazorPages();

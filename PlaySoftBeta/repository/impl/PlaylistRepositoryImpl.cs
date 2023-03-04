@@ -16,19 +16,9 @@ namespace PlaySoftBeta.Repository
             _context = context;
             _mapper = mapper;
         }
-        public bool CreatePlaylist(PlaylistDTO playlist)
+        public void CreatePlaylist(PlaylistDTO playlist)
         {
-            try
-            {
-                _context.Playlists.Add(_mapper.Map<Playlist>(playlist));
-                return true;
-            }
-            catch (Exception e)
-            {
-                //Sacar error
-                return false;
-            }
-
+            _context.Playlists.Add(_mapper.Map<Playlist>(playlist));
         }
 
         public bool DeletePlaylist(PlaylistDTO playlist)
@@ -39,17 +29,8 @@ namespace PlaySoftBeta.Repository
 
         public List<PlaylistDTO> getOwnPlaylist(int userUKID)
         {
-            try
-            {
-                var playlistlist = _context.Playlists.Where(playlist => playlist.UserID.Equals(userUKID)).ToList();
-                return _mapper.Map<List<PlaylistDTO>>(playlistlist);
-            }
-            catch (Exception e)
-            {
-                e.GetHashCode();
-                return null;
-            }
-
+            var playlistlist = _context.Playlists.Where(playlist => playlist.playlistUKID.Equals(userUKID)).ToList();
+            return _mapper.Map<List<PlaylistDTO>>(playlistlist);
         }
         public void Save()
         {
