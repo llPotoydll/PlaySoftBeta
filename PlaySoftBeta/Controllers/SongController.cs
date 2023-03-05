@@ -8,10 +8,17 @@ namespace PlaySoftBeta.Controllers;
 [Route("[controller]")]
 public class SongController : ControllerBase
 {
-    public SongController()
+    private readonly ISongService _songService;
+    public SongController(ISongService songService)
     {
+        _songService = songService;
     }
 
 
-
+    [HttpGet("{songID}")]
+    public async Task<ActionResult> GetUser(int songID)
+    {
+        _songService.getSong(songID);
+       return Ok();
+    }
 }
