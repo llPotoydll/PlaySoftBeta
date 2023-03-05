@@ -1,4 +1,4 @@
-using PlaySoftBeta.Models;
+using PlaySoftBeta.DTOs;
 using PlaySoftBeta.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,9 +16,16 @@ public class SongController : ControllerBase
 
 
     [HttpGet("{songID}")]
-    public async Task<ActionResult> GetUser(int songID)
+    public async Task<ActionResult> GetSong(int songID)
     {
-        _songService.getSong(songID);
-       return Ok();
+        _songService.GetSong(songID);
+        return Ok();
+    }
+
+    [HttpPost("addSong")]
+    public async Task<ActionResult> AddSongToPlaylist(PlaylistLinesDTO playlistLinesDTO)
+    {
+        _songService.AddSongToPlaylist(playlistLinesDTO);
+        return Ok();
     }
 }

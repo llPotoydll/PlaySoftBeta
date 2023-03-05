@@ -8,14 +8,20 @@ namespace PlaySoftBeta.Repository
     {
 
         private readonly RepositoryContext _context;
+        private readonly IMapper _mapper;
 
-        public PlaylistLinesRepositoryImpl(RepositoryContext context)
+        public PlaylistLinesRepositoryImpl(RepositoryContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
-        public void addSong(PlaylistLinesDTO playlistLinesDTO)
+        public void AddSong(PlaylistLinesDTO playlistLinesDTO)
         {
-            throw new NotImplementedException();
+            _mapper.Map<PlaylistLines>(playlistLinesDTO);
+        }
+        public void Save()
+        {
+            _context.SaveChanges();
         }
     }
 }

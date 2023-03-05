@@ -5,5 +5,6 @@ namespace PlaySoftBeta.Services;
 
 public interface ISongService
 {
-    public SongDTO getSong(int songID);
+    public SongDTO GetSong(int songID);
+    public void AddSongToPlaylist(PlaylistLinesDTO playlistLinesDTO);
 }
