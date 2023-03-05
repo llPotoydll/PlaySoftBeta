@@ -14,23 +14,17 @@ public class PlaylistService : IPLaylistService
     }
     public bool CreatePlaylist(PlaylistDTO playlist)
     {
-        if (playlist != null)
+        try
         {
-            if (_pLaylistRepository.CreatePlaylist(playlist))
-            {
-                _pLaylistRepository.Save();
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-
+            _pLaylistRepository.CreatePlaylist(playlist);
+            _pLaylistRepository.Save();
+            return true;
         }
-        else
+        catch (Exception e)
         {
             return false;
         }
+
     }
 
     public bool DeletePlaylist(PlaylistDTO playlist)
@@ -38,17 +32,18 @@ public class PlaylistService : IPLaylistService
         return true;
     }
 
-    public List<PlaylistDTO> getOwnPlaylist(int userUKID){
-        try{
-            if(userUKID != null && userUKID > -1){
-                if(_pLaylistRepository.getOwnPlaylist(userUKID) != null){
-                    return _pLaylistRepository.getOwnPlaylist(userUKID);
-                }else{
-                    return null;
-                }
+    public List<PlaylistDTO> getOwnPlaylist(int userUKID)
+    {
+        try
+        {
+            if (userUKID != null && userUKID > -1)
+            {
+                return _pLaylistRepository.getOwnPlaylist(userUKID);
             }
             return null;
-        }catch(Exception e){
+        }
+        catch (Exception e)
+        {
             e.GetHashCode();
             return null;
         }

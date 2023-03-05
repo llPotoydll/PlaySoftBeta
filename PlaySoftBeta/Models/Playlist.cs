@@ -9,9 +9,9 @@ namespace PlaySoftBeta.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int playlistID { get; set; }
         public string playListName { get; set; }
-        public string playlistDescription { get; set; }
+        public string? playlistDescription { get; set; }
         public Boolean privacity { get; set; }
-        public int UserID { get; set; }
+        public int playlistUKID { get; set; }
         public double playListDuration {get; set;}
     }
 }

@@ -25,21 +25,27 @@ public class PlaylistController : ControllerBase
         }
         return BadRequest("Create playlist error");
     }
+
     [HttpDelete("DeletePlaylist")]
     public async Task<ActionResult> DeletePlaylist(PlaylistDTO pLaylist)
     {
         return Ok("Deleted");
     }
 
+    [HttpGet("{userUKID}")]
     public async Task<ActionResult> getOwnPlaylist(int userUKID)
     {
         var playlists = _pLaylistService.getOwnPlaylist(userUKID);
-        if (playlists != null && playlists.Equals(""))
+
+        if (playlists != null && playlists.Any())
         {
-            return Ok("playlists");
-        }else{
-            return BadRequest("Error");
+            return Ok(playlists);
         }
+        else
+        {
+            return Ok("You don't have playlists yet");
+        }
+
     }
 
 }
