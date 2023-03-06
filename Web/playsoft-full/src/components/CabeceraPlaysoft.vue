@@ -10,7 +10,7 @@
 
     <v-spacer></v-spacer>
 
-    <v-btn href="Menuawd.vue" target="_blank" text >
+    <v-btn href="Menuawd.vue" target="_blank" text>
       <span class="mr-2" :class="item" >Menu</span>
     </v-btn>
     <v-btn href="" target="_blank" text>

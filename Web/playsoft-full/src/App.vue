@@ -4,9 +4,14 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </nav>
-    <router-view/>
+    <div class="target" v-motion-slide-visible-once-right>1</div>
+    <router-view />
   </div>
 </template>
+
+<script>
+
+</script>
 
 <style lang="scss">
 #app {
@@ -26,5 +31,13 @@ nav {
       color: #42b983;
     }
   }
+}
+
+.target {
+  margin: 100px;
+  width: 200px;
+  height: 200px;
+  background: green;
+  border-radius: 5px;
 }
 </style>
