@@ -1,26 +1,8 @@
 <template>
-  <v-app>
-    <CabeceraPlaysoft></CabeceraPlaysoft>
-    <v-content>
-      <LoginCard></LoginCard>
-    </v-content>
-  </v-app>
+  <div id="app">
+    <div id="nav">
+      <routerlink to="/">Home</routerlink>
+    </div>
+    <routerView/>
+  </div>
 </template>
-
-<script>
-
-import CabeceraPlaysoft from './components/CabeceraPlaysoft.vue'
-import LoginCard from './components/LoginCard.vue'
-
-export default {
-  name: 'App',
-
-  components: {
-    CabeceraPlaysoft, LoginCard
-  },
-
-  data: () => ({
-    //
-  }),
-};
-</script>
