@@ -9,16 +9,12 @@
     </div>
 
     <v-spacer></v-spacer>
-
-    <v-btn href="Menuawd.vue" target="_blank" text>
-      <span class="mr-2" :class="item" >Menu</span>
-    </v-btn>
-    <v-btn href="" target="_blank" text>
-      <span class="mr-2">Login</span>
-    </v-btn>
-    <v-btn href="" target="_blank" text>
-      <span class="mr-2">Register</span>
-    </v-btn>
+    <router-link to="/"> |
+      <span class="mr-2" :class="item">Home</span>
+    </router-link>
+    <router-link to="/about"> |
+      <span class="mr-2" :class="item">Login</span>
+    </router-link>
   </v-app-bar>
 </template>
 
@@ -35,6 +31,9 @@ export default {
 </script>
 
 <style>
+a{
+  text-decoration: none;
+}
 h1 {
   color: rgb(118, 9, 113);
 }
@@ -43,7 +42,7 @@ h1 {
   width: 3rem;
 }
 
-span{
+span {
   color: rgb(118, 9, 113);
 }
 </style>

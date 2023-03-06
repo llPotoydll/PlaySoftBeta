@@ -4,7 +4,6 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </nav>
-    <div class="target" v-motion-slide-visible-once-right>1</div>
     <router-view />
   </div>
 </template>
