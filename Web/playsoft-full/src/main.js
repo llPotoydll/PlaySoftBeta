@@ -1,17 +1,19 @@
 import Vue from 'vue'
 import App from './App.vue'
+import router from './router'
+import store from './store'
 import vuetify from './plugins/vuetify'
-import routers from './routers'
+import {MotionPlugin} from '@vueuse/motion'
 import VueCompositionAPI from '@vue/composition-api'
-import Motion from '@vueuse/motion'
 
 Vue.config.productionTip = false
-Vue.use(VueCompositionAPI)
+Vue.use(MotionPlugin);
 
 new Vue({
+  router,
+  store,
   vuetify,
-  routers,
+  MotionPlugin,
   VueCompositionAPI,
-  Motion,
   render: h => h(App)
 }).$mount('#app')

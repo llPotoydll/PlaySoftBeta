@@ -2,11 +2,11 @@
   <v-app id="inspire">
     <v-main class="pa-0">
       <section id="fondo">
-            <span v-for="(item, index) in 300" :key="index"></span>
-            {{ sspan }}
-         </section>
+        <span v-for="(obj, index) in 300" :key="index"></span>
+        {{ sspan }}
+      </section>
       <v-container class="fill-height" fluid>
-        <v-row align="center" justify="center">
+        <v-row align="center" justify="center" v-motion-roll-left>
           <v-col cols="12" sm="8" md="8">
             <v-card class="elevation-12">
               <v-window v-model="step">
@@ -173,74 +173,74 @@ export default {
 </script>
 
 <style>
-
 v-content {
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   min-height: 100vh;
-   background-color: black;
-   padding: none !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: black;
+  padding: none !important;
 }
 
 section {
-   position: absolute;
-   width: 100vw;
-   height: 100vh;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   gap: 2px;
-   flex-wrap: wrap;
-   overflow: hidden;
-   z-index: 0;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2px;
+  flex-wrap: wrap;
+  overflow: hidden;
+  z-index: 0;
+  background: gray;
 }
 
 section::before {
-   content: '';
-   position: absolute;
-   width: 100%;
-   height: 100%;
-   background: linear-gradient(black, purple, black);
-   animation: animate 5s linear infinite;
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(black, purple, black);
+  animation: animate 5s linear infinite;
 }
 
 @keyframes animate {
-   0% {
-      transform: translateY(-100%);
-   }
+  0% {
+    transform: translateY(-100%);
+  }
 
-   100% {
-      transform: translateY(100%);
-   }
+  100% {
+    transform: translateY(100%);
+  }
 }
 
 section span {
-   position: relative;
-   display: block;
-   width: calc(6.25vw - 2px);
-   height: calc(6.25vw - 2px);
-   background-color: rgb(15, 15, 15);
-   z-index: 2;
-   transition: 1.5s;
+  position: relative;
+  display: block;
+  width: calc(6.25vw - 2px);
+  height: calc(6.25vw - 2px);
+  background-color: rgb(15, 15, 15);
+  z-index: 2;
+  transition: 1.5s;
 }
 
 section span:hover {
-   background: rgb(128, 0, 128);
-   transition: 0s;
+  background: rgb(128, 0, 128);
+  transition: 0s;
 }
 
 @media(max-width: 900px) {
-   section span {
-      width: calc(10vw- 2px);
-      height: calc(10vw - 2px);
-   }
+  section span {
+    width: calc(10vw- 2px);
+    height: calc(10vw - 2px);
+  }
 }
 
 @media(max-width: 600px) {
-   section span {
-      width: calc(20vw- 2px);
-      height: calc(20vw - 2px);
-   }
+  section span {
+    width: calc(20vw- 2px);
+    height: calc(20vw - 2px);
+  }
 }
 </style>
