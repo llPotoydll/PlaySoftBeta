@@ -5,5 +5,8 @@ namespace PlaySoftBeta.Repository;
 
 public interface IPLaylistRepository
 {
-    void NewPlaylist(PlaylistDTO playlistDTO);
+    void CreatePlaylist (PlaylistDTO playlist);
+    bool DeletePlaylist (PlaylistDTO playlist);
+    List<PlaylistDTO> getOwnPlaylist(int userUKID);
+    void Save();
 }

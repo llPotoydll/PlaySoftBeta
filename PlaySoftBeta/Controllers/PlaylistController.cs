@@ -16,14 +16,37 @@ public class PlaylistController : ControllerBase
         _pLaylistService = pLaylistService;
     }
 
-
-
-
-    [HttpPost]
-    public IActionResult CreatePlaylist(PlaylistDTO pLaylist)
+    [HttpPost("NewPlaylist")]
+    public async Task<ActionResult> CreatePlaylist(PlaylistDTO pLaylist)
     {
-        _pLaylistService.CreatePlaylist(pLaylist);
-        return null;
+        if (_pLaylistService.CreatePlaylist(pLaylist))
+        {
+            return Ok("Playlist created");
+        }
+        return BadRequest("Create playlist error");
+    }
+    
+
+    [HttpDelete("DeletePlaylist")]
+    public async Task<ActionResult> DeletePlaylist(PlaylistDTO pLaylist)
+    {
+        return Ok("Deleted");
+    }
+
+    [HttpGet("{userUKID}")]
+    public async Task<ActionResult> getOwnPlaylist(int userUKID)
+    {
+        var playlists = _pLaylistService.getOwnPlaylist(userUKID);
+
+        if (playlists != null && playlists.Any())
+        {
+            return Ok(playlists);
+        }
+        else
+        {
+            return Ok("You don't have playlists yet");
+        }
+
     }
 
 }

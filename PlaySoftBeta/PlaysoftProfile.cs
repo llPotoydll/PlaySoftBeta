@@ -7,8 +7,12 @@ public class PlaysoftProfile : Profile
     {
         CreateMap<AuhtRegisterUserDTO, User>();
         CreateMap<User, AuthLoginOutDTO>();
-        CreateMap<PlaylistDTO, Playlist>();
+
         CreateMap<User, UserDTO>();
+        CreateMap<Playlist, PlaylistDTO>();
+        CreateMap<PlaylistDTO, Playlist>();
+        CreateMap<Song, SongDTO>();
+        CreateMap<PlaylistLinesDTO, PlaylistLines>();
         // Use CreateMap... Etc.. here (Profile methods are the same as configuration methods)
     }
 }

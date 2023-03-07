@@ -5,6 +5,10 @@ namespace PlaySoftBeta.Services;
 
 public interface IPLaylistService
 {
-    public void CreatePlaylist(PlaylistDTO playlist);
+    public bool CreatePlaylist(PlaylistDTO playlist);
+
+    public bool DeletePlaylist(PlaylistDTO playlist);
+
+    public List<PlaylistDTO> getOwnPlaylist(int userUKID);
 
 }
