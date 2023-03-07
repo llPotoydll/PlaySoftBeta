@@ -6,5 +6,6 @@ namespace PlaySoftBeta.Repository;
 public interface IPlaylistLinesRepository
 {
     void AddSong(PlaylistLinesDTO playlistLinesDTO);
+    List<int> GetSongsId(int playlistID);
     void Save();
 }

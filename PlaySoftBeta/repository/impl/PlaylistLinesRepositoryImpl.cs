@@ -6,7 +6,6 @@ namespace PlaySoftBeta.Repository
 {
     public class PlaylistLinesRepositoryImpl : IPlaylistLinesRepository
     {
-
         private readonly RepositoryContext _context;
         private readonly IMapper _mapper;
 
@@ -15,10 +14,21 @@ namespace PlaySoftBeta.Repository
             _context = context;
             _mapper = mapper;
         }
+
         public void AddSong(PlaylistLinesDTO playlistLinesDTO)
         {
-            _mapper.Map<PlaylistLines>(playlistLinesDTO);
+            _context.PlaylistLines.Add(_mapper.Map<PlaylistLines>(playlistLinesDTO));
         }
+
+        public List<int> GetSongsId(int ID)
+        {
+            var playlistLines = _context.PlaylistLines
+                .Where(playlistLine => playlistLine.playlistID.Equals(ID))
+                .ToList();
+            return _mapper.Map<List<int>>(playlistLines);
+            
+        }
+
         public void Save()
         {
             _context.SaveChanges();

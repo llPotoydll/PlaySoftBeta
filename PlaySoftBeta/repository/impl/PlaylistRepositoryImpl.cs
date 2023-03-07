@@ -21,15 +21,15 @@ namespace PlaySoftBeta.Repository
             _context.Playlists.Add(_mapper.Map<Playlist>(playlist));
         }
 
-        public bool DeletePlaylist(PlaylistDTO playlist)
+        public void DeletePlaylist(int playlistID)
         {
-
-            return true;
+            _context.Playlists.Remove(_context.Playlists.SingleOrDefault(playlist => playlist.playlistID.Equals(playlistID)));
+  
         }
 
         public List<PlaylistDTO> getOwnPlaylist(int userUKID)
         {
-            var playlistlist = _context.Playlists.Where(playlist => playlist.playlistUKID.Equals(userUKID)).ToList();
+            var playlistlist = _context.Playlists.Where(playlist => playlist.userID.Equals(userUKID)).ToList();
             return _mapper.Map<List<PlaylistDTO>>(playlistlist);
         }
         public void Save()

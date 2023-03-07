@@ -11,7 +11,7 @@ namespace PlaySoftBeta.Models
         public string playListName { get; set; }
         public string? playlistDescription { get; set; }
         public Boolean privacity { get; set; }
-        public int playlistUKID { get; set; }
+        public int userID { get; set; }
         public double playListDuration {get; set;}
     }
 }

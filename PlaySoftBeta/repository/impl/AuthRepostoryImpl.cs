@@ -8,6 +8,7 @@ namespace PlaySoftBeta.Repository
     {
         private readonly RepositoryContext _context;
         private readonly IMapper _mapper;
+
         public AuthRepository(RepositoryContext context, IMapper mapper)
         {
             _context = context;
@@ -16,7 +17,7 @@ namespace PlaySoftBeta.Repository
 
         public AuthLoginOutDTO GetUserByEmail(string userEmail)
         {
-            var user = _context.Users?.Find(userEmail);
+            var user = _context.Users?.SingleOrDefault(user => user.email.Equals(userEmail));
             if (user != null)
             {
                 return _mapper.Map<AuthLoginOutDTO>(user);

@@ -7,8 +7,9 @@ public interface IPLaylistService
 {
     public bool CreatePlaylist(PlaylistDTO playlist);
 
-    public bool DeletePlaylist(PlaylistDTO playlist);
+    public bool DeletePlaylist(int playlistID);
 
-    public List<PlaylistDTO> getOwnPlaylist(int userUKID);
+    public List<PlaylistDTO> GetOwnPlaylist(int userUKID);
 
+    public List<int> GetSongsId(int playlistID);
 }

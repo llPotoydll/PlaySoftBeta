@@ -9,8 +9,8 @@ namespace PlaySoftBeta.Controllers;
 [Route("[controller]")]
 public class PlaylistController : ControllerBase
 {
-
     private readonly IPLaylistService _pLaylistService;
+
     public PlaylistController(IPLaylistService pLaylistService)
     {
         _pLaylistService = pLaylistService;
@@ -25,18 +25,21 @@ public class PlaylistController : ControllerBase
         }
         return BadRequest("Create playlist error");
     }
-    
 
-    [HttpDelete("DeletePlaylist")]
-    public async Task<ActionResult> DeletePlaylist(PlaylistDTO pLaylist)
+    [HttpDelete("delete")]
+    public async Task<ActionResult> DeletePlaylist(int pLaylistID)
     {
-        return Ok("Deleted");
+        if (_pLaylistService.DeletePlaylist(pLaylistID))
+        {
+            return Ok("Deleted");
+        }
+        return Ok("Playlist not found");
     }
 
     [HttpGet("{userUKID}")]
-    public async Task<ActionResult> getOwnPlaylist(int userUKID)
+    public async Task<ActionResult> GetOwnPlaylist(int userUKID)
     {
-        var playlists = _pLaylistService.getOwnPlaylist(userUKID);
+        var playlists = _pLaylistService.GetOwnPlaylist(userUKID);
 
         if (playlists != null && playlists.Any())
         {
@@ -46,7 +49,20 @@ public class PlaylistController : ControllerBase
         {
             return Ok("You don't have playlists yet");
         }
-
     }
 
+    [HttpGet("songs/{playlistID}")]
+    public async Task<ActionResult> GetSongsId(int playlistID)
+    {
+        var songsID = _pLaylistService.GetSongsId(playlistID);
+
+        if (songsID != null && songsID.Any())
+        {
+            return Ok(songsID);
+        }
+        else
+        {
+            return Ok("You don't have songs yet");
+        }
+    }
 }
