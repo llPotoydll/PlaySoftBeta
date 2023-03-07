@@ -33,10 +33,11 @@ public class Startup
         services.AddTransient<IAuthRepositoy, AuthRepository>();
         services.AddTransient<IUserRepository, UserRepository>();
         services.AddTransient<IUserService, UserServiceImpl>();
-
         services.AddScoped<IPLaylistService, PlaylistService>();
         services.AddScoped<IPLaylistRepository, PlaylistRepository>();
-        
+        services.AddScoped<ISongRepository, SongRepository>();
+        services.AddScoped<ISongService, SongServiceImpl>();
+
         services.AddAutoMapper(typeof(PlaysoftProfile));
         services.AddRazorPages();
         services.AddControllers();
