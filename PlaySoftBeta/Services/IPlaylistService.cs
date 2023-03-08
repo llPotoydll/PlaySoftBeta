@@ -12,5 +12,5 @@ public interface IPLaylistService
 
     public List<PlaylistDTO> GetOwnPlaylist(int userUKID);
 
-    public List<int> GetSongsId(int playlistID);
+    public List<SongIdListDTO> GetSongsId(int playlistID);
 }

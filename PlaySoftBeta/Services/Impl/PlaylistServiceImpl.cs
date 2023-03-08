@@ -77,7 +77,7 @@ public class PlaylistService : IPLaylistService
         }
     }
 
-    public List<int> GetSongsId(int playlistID)
+    public List<SongIdListDTO> GetSongsId(int playlistID)
     {
         try
         {

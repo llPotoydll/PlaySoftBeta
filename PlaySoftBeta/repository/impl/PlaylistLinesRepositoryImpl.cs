@@ -20,13 +20,12 @@ namespace PlaySoftBeta.Repository
             _context.PlaylistLines.Add(_mapper.Map<PlaylistLines>(playlistLinesDTO));
         }
 
-        public List<int> GetSongsId(int ID)
+        public List<SongIdListDTO> GetSongsId(int ID)
         {
             var playlistLines = _context.PlaylistLines
                 .Where(playlistLine => playlistLine.playlistID.Equals(ID))
                 .ToList();
-            return _mapper.Map<List<int>>(playlistLines);
-
+            return _mapper.Map<List<SongIdListDTO>>(playlistLines);
         }
 
         public void Save()
