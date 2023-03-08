@@ -1,9 +1,9 @@
 <template>
     <v-app id="inspire">
         <v-main class="pa-0">
-            <section id="fondo">
-                <span v-for="(obj, index) in 900" :key="index"></span>
-                {{ sspan }}
+            <section id="fondo" class="fondo1">
+                <span v-for="(obj, index) in 900" :key="index">
+                </span>
             </section>
             <v-container class="fill-height secciones" fluid style="justify-content: center;">
                 <h1 class="text">Welcome to PlaySoft</h1>
@@ -18,15 +18,16 @@
                     <h2 class="text" v-motion-slide-visible-once-left :enter="{
                         scale: 2,
                     }">A new proyect from <em>NullSoft</em></h2>
-                    <h2 class="text" v-motion-slide-visible-once-right>By Hugo Lahoz and Ricardo Ros</h2>
+                    <!-- <h2 class="text" v-motion-slide-visible-once-right>By Hugo Lahoz and Ricardo Ros</h2> -->
+                    <img :src="imagen" width="300" style="z-index: 1;" v-motion-slide-visible-once-right>
                 </v-container>
             </v-container>
             <v-container class="fill-height" fluid style="justify-content: space-around;">
                 <v-card class="elevation-12" v-motion-roll-visible-once-bottom>
                     <v-card-text class="mt-12">
                         <h1 style="color: #6c176d">Register to start hearing now</h1>
-                        <router-link to="/about"> |
-                            <h2>Go to login</h2>
+                        <router-link to="/about">
+                            <h2 style="padding-top: 5REM;">Go to login</h2>
                         </router-link>
                     </v-card-text>
                 </v-card>
@@ -38,16 +39,25 @@
 <script>
 export default {
     name: 'HomePageNotLogin',
-    data: function () {
+    data() {
         return {
-            imagen: require('../assets/images/placeholder-1.png'),
+            imagen: require('../assets/images/Logo.png'),
             menu: ('../Menu.vue')
-        }
+        };
     }
+
 }
 </script>
 
 <style>
+v-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 350vh;
+  background-color: black;
+  padding: none !important;
+}
 .secciones {
     flex-direction: column;
 }
@@ -58,10 +68,10 @@ export default {
     text-align: center;
 }
 
-section {
+.fondo1{
     position: absolute;
     width: 100vw;
-    height: 300vh;
+    height: 350vh;
     display: flex;
     justify-content: center;
     align-items: center;

@@ -1,8 +1,8 @@
 <template>
   <v-app id="inspire">
     <v-main class="pa-0">
-      <section id="fondo">
-        <span v-for="(obj, index) in 300" :key="index"></span>
+      <section id="fondo" class="fondo2">
+        <span v-for="(obj, index) in 900" :key="index"></span>
         {{ sspan }}
       </section>
       <v-container class="fill-height" fluid>
@@ -182,7 +182,7 @@ v-content {
   padding: none !important;
 }
 
-section {
+.fondo2{
   position: absolute;
   width: 100vw;
   height: 100vh;
