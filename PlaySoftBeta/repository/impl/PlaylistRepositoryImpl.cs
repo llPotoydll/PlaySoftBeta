@@ -21,10 +21,23 @@ namespace PlaySoftBeta.Repository
             _context.Playlists.Add(_mapper.Map<Playlist>(playlist));
         }
 
+        public void EditPLaylist(EditPLaylistDTO editPLaylistDTO)
+        {
+            var playlist = _context.Playlists.SingleOrDefault(playlist => playlist.playlistID == editPLaylistDTO.playlistID);
+            if (playlist != null)
+            {
+                playlist.playListName = editPLaylistDTO.playListName;
+                playlist.playlistDescription = editPLaylistDTO.playlistDescription;
+                playlist.privacity = editPLaylistDTO.privacity;
+            }
+            //playlist = _mapper.Map<Playlist>(editPLaylistDTO);
+            Save();
+        }
+
         public void DeletePlaylist(int playlistID)
         {
             _context.Playlists.Remove(_context.Playlists.SingleOrDefault(playlist => playlist.playlistID.Equals(playlistID)));
-  
+
         }
 
         public List<PlaylistDTO> getOwnPlaylist(int userUKID)

@@ -33,7 +33,17 @@ public class PlaylistController : ControllerBase
         {
             return Ok("Deleted");
         }
-        return Ok("Playlist not found");
+        return BadRequest("Playlist not found");
+    }
+
+    [HttpPut("EditPlaylist")]
+    public async Task<ActionResult> EditPLaylist(EditPLaylistDTO editPLaylistDTO)
+    {
+      if (_pLaylistService.EditPLaylist(editPLaylistDTO))
+        {
+            return Ok("Playlist Updated");
+        }
+        return BadRequest("Error updating playlist");
     }
 
     [HttpGet("{userUKID}")]

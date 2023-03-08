@@ -40,9 +40,24 @@ public class PlaylistService : IPLaylistService
             _pLaylistRepository.Save();
             return true;
         }
-        catch (Exception e) {
+        catch (Exception e)
+        {
             return false;
-         }
+        }
+    }
+
+    public bool EditPLaylist(EditPLaylistDTO editPLaylistDTO)
+    {
+        try
+        {
+            _pLaylistRepository.EditPLaylist(editPLaylistDTO);
+            return true;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return false;
+        }
     }
 
     public List<PlaylistDTO> GetOwnPlaylist(int userUKID)

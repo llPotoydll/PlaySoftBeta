@@ -15,7 +15,7 @@ public class AuthController : ControllerBase
     {
         _authService = authService;
     }
-
+    
     [HttpPost("login")]
     public async Task<ActionResult<User>> GetUser(AuthLoginInDTO user)
     {
