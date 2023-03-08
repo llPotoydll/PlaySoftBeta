@@ -18,8 +18,8 @@ public class SongController : ControllerBase
     [HttpGet("{songID}")]
     public async Task<ActionResult> GetSong(int songID)
     {
-        _songService.GetSong(songID);
-        return Ok();
+        var a = _songService.GetSong(songID);
+        return Ok(a);
     }
 
     [HttpPost("addSong")]
