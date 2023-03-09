@@ -5,10 +5,11 @@ namespace PlaySoftBeta.Models
 {
     public class PlaylistLines
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int UKID { get; set; }
+
         public int playlistID { get; set; }
+        public Playlist Playlist { get; set; }
+
         public int songID { get; set; }
+        public Song Song { get; set; }
     }
 }

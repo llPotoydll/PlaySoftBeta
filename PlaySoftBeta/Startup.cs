@@ -52,7 +52,6 @@ public class Startup
         services.AddSwaggerGen();
         services.AddMvc();
     }
-
     public void Configure(WebApplication app, IWebHostEnvironment env)
     {
         app.UseCors("AllowAllHeaders");
