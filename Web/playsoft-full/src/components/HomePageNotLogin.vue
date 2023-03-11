@@ -44,20 +44,29 @@ export default {
             imagen: require('../assets/images/Logo.png'),
             menu: ('../Menu.vue')
         };
+    },
+    mounted: function () {
+        const usuario = sessionStorage.getItem("userid");
+        console.log(usuario)
+        if (usuario != null) {
+            window.location.href = "http://localhost:8080/playlists"
+        } else {
+            sessionStorage.clear();
+        }
     }
-
 }
 </script>
 
 <style>
 v-content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 350vh;
-  background-color: black;
-  padding: none !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 350vh;
+    background-color: black;
+    padding: none !important;
 }
+
 .secciones {
     flex-direction: column;
 }
@@ -68,7 +77,7 @@ v-content {
     text-align: center;
 }
 
-.fondo1{
+.fondo1 {
     position: absolute;
     width: 100vw;
     height: 350vh;

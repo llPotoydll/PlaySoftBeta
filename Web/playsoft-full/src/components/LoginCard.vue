@@ -3,7 +3,6 @@
     <v-main class="pa-0">
       <section id="fondo" class="fondo2">
         <span v-for="(obj, index) in 900" :key="index"></span>
-        {{ sspan }}
       </section>
       <v-container class="fill-height" fluid>
         <v-row align="center" justify="center" v-motion-roll-left>
@@ -158,6 +157,8 @@ export default {
           })
           .then(function (response) {
             console.log(response);
+            sessionStorage.setItem("userid", response.data.ukid);
+            window.location.href = "http://localhost:8080/playlists"
           })
           .catch(e => {
             this.loginError = true;

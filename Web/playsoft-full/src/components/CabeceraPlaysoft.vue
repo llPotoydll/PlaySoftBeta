@@ -12,9 +12,13 @@
     <router-link to="/">
       <span class="mr-2" :class="item">Home</span>
     </router-link>
-    <router-link to="/about">
+    <router-link to="/about" v-if="!comprobarUsuario">
       <span class="mr-2" :class="item">Login</span>
     </router-link>
+    <router-link to="/playlists" v-else-if="comprobarUsuario">
+      <span class="mr-2" :class="item">hola</span>
+    </router-link>
+
   </v-app-bar>
 </template>
 
@@ -24,7 +28,18 @@ export default {
   data: function () {
     return {
       logo: require('../assets/images/Logo.png'),
-      menu: ('../Menu.vue')
+      menu: ('../Menu.vue'),
+      comprobarUsuario: false,
+    }
+  },
+  mounted: function comprobarUsuario() {
+    //Comprobar si hay usuario
+    const usuario = sessionStorage.getItem("userid");
+    console.log(usuario)
+    if (usuario != null) {
+      this.comprobarUsuario = true;
+    } else {
+      this.comprobarUsuario = false;
     }
   }
 }
