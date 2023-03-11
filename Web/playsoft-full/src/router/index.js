@@ -7,18 +7,22 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: () => import( '../views/HomeView.vue')
+    component: () => import('../views/HomeView.vue')
   },
   {
     path: '/about',
     name: 'about',
-    component: () => import( '../views/LoginView.vue')
+    component: () => import('../views/LoginView.vue')
+  },
+  {
+    path: '/playlists',
+    name: 'playlists',
+    component: () => import('../views/PlaylistsView.vue')
   }
 ]
 
 const router = new VueRouter({
   mode: 'history',
-  base: process.env.BASE_URL,
   routes
 })
 
