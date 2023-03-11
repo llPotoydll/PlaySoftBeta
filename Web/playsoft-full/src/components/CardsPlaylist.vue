@@ -10,6 +10,23 @@
 </template>
 
 <script>
+import axios from 'axios';
+
+export default{
+    name: 'playlist',
+    data(){
+        return{
+            playlists: []
+        }
+    },
+    methods: {
+        async getOwnPlaylist(){
+            const response = await axios.get(`https://localhost:7279/Playlist/`);
+            this.playlists = response.data
+            console.log(this.placeholder)
+        }
+    }
+}
 
 </script>
 
