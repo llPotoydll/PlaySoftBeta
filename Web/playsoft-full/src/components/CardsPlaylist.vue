@@ -9,8 +9,8 @@
                 <v-card flat class="ma-3 text-xs-center justify-center carta" v-for="playlist in PlayLists" :key="playlist">
                     <v-card-title primary-title>
                         <div>
-                            <h3 class="headline pink--text text--accent-2">
-                                {{ playlist.playListName }}</h3>
+                            <button class="headline pink--text text--accent-2" @click="redirigir( playlist.playListName )">
+                                {{ playlist.playListName }}</button>
                             <div>{{ playlist.playlistDescription }}</div>
                         </div>
                     </v-card-title>
@@ -21,13 +21,14 @@
                 <v-card flat class="ma-3 text-xs-center justify-center carta">
                     <v-card-title primary-title>
                         <div>
-                            <v-btn rounded color="#6c176d" dark @click.prevent="ventana=true">NEW</v-btn>
+                            <v-btn rounded color="#6c176d" dark @click.prevent="ventana = true">NEW</v-btn>
                             <div v-bind="ventana" v-if="ventana">
                                 <form action="">
-                                    PlaylistName:<v-text-field type="text" v-model="playListName"/>
-                                    Description:<v-text-field type="text" v-model="playlistDescription"/>
-                                    private?<input type="checkbox" v-model="privacity"/>
-                                    <input type="button" @click.prevent="ventana=false" value="Create" style="background-color: blueviolet; border-radius: 10px;" @click="nuevaPl()">
+                                    PlaylistName:<v-text-field type="text" v-model="playListName" />
+                                    Description:<v-text-field type="text" v-model="playlistDescription" />
+                                    private?<input type="checkbox" v-model="privacity" />
+                                    <input type="button" @click.prevent="ventana = false" value="Create"
+                                        style="background-color: blueviolet; border-radius: 10px;" @click="nuevaPl()">
                                 </form>
                             </div>
                         </div>
@@ -95,6 +96,16 @@ export default {
                     this.alertMessage = "Error create playlist";
                     console.log(e);
                 });
+        },
+        redirigir(nombrepl) {
+            let vue = this;
+            console.log(nombrepl)
+            for (let index = 0; index < vue.PlayLists.length; index++) {
+                if(vue.PlayLists[index].playListName == nombrepl){
+                    sessionStorage.setItem("playlistid", vue.PlayLists[index].playlistID);
+                    location.href = "http://localhost:8080/Songs"
+                }
+            }
         }
     }
 
