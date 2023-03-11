@@ -63,7 +63,7 @@ export default {
             .then(function (response) {
                 vue.PlayLists = response.data
                 console.log(vue.PlayLists);
-                console.log(response.data[0].playListName)
+                console.log(response.data)
             })
             .catch(e => {
                 this.loginError = true;
