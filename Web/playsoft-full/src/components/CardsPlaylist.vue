@@ -103,7 +103,7 @@ export default {
             for (let index = 0; index < vue.PlayLists.length; index++) {
                 if(vue.PlayLists[index].playListName == nombrepl){
                     sessionStorage.setItem("playlistid", vue.PlayLists[index].playlistID);
-                    location.href = "http://localhost:8080/Songs"
+                    location.href = "http://localhost:8080/songs"
                 }
             }
         }
