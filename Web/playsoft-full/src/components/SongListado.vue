@@ -5,7 +5,7 @@
                 <span v-for="(obj, index) in 900" :key="index">
                 </span>
             </section>
-            
+            <AddSongForm></AddSongForm>
             <v-container class="fill-height secciones canciones" fluid style="justify-content: center;">
                 <input type="text" v-model="input" placeholder="Search song in your playlist..." class="searchbar"/>
                 <div class="text" v-for="song in Songs2" :key="song" >
@@ -23,6 +23,7 @@
 
 <script>
 import axios from 'axios';
+import AddSongForm from './AddSongForm.vue';
 
 export default {
     name: 'SongsPage',
@@ -31,6 +32,9 @@ export default {
             Songs: [],
             Songs2: []
         };
+    },
+    components:{
+        AddSongForm
     },
     mounted: function () {
         console.log(sessionStorage.getItem("userid"))
