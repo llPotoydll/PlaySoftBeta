@@ -1,5 +1,174 @@
 <template>
-    <div>
-        const eso = sessionStorage.getItem("playlistid")
-    </div>
+    <v-app id="inspire">
+        <v-main class="pa-0">
+            <section id="fondo" class="fondo1">
+                <span v-for="(obj, index) in 900" :key="index">
+                </span>
+            </section>
+            <AddSongForm></AddSongForm>
+            <v-container class="fill-height secciones canciones" fluid style="justify-content: center;">
+                <input type="text" v-model="input" placeholder="Search song in your playlist..." class="searchbar"/>
+                <div class="text" v-for="song in Songs2" :key="song" >
+                    <v-divider :thickness="8" class="border-opacity-100" color="white"></v-divider>
+                    <h2 id="cancion">{{ song.songName }}</h2>
+                    <v-divider :thickness="8" class="border-opacity-100" color="white"></v-divider>
+                </div>
+                <div>
+                    <button class="addSong">Add Song</button>
+                </div>
+            </v-container>
+        </v-main>
+    </v-app>
 </template>
+
+<script>
+import axios from 'axios';
+import AddSongForm from './AddSongForm.vue';
+
+export default {
+    name: 'SongsPage',
+    data() {
+        return {
+            Songs: [],
+            Songs2: []
+        };
+    },
+    components:{
+        AddSongForm
+    },
+    mounted: function () {
+        console.log(sessionStorage.getItem("userid"))
+        let vue = this;
+        const playid = sessionStorage.getItem("playlistid")
+
+        axios.get(`https://localhost:7279/Playlist/songs/${playid}`)
+            .then(function (response) {
+                console.log(response);
+                vue.Songs = response.data
+                for (let index = 0; index < vue.Songs.length; index++) {
+                    axios.get(`https://localhost:7279/Song/${vue.Songs[index].songID}`)
+                        .then(function (respuesta) {
+                            console.log(respuesta)
+                            vue.Songs2.push(respuesta.data)
+                            console.log(vue.Songs2)
+                        })
+                }
+            })
+    }
+}
+</script>
+
+<style>
+.searchbar{
+    z-index: 1;
+    width: 25%;
+    background: white;
+    border-radius: 5px;
+}
+.addSong{
+    z-index: 2;
+    position: relative;
+    background: blue;
+    border-radius: 10px;
+    color: white;
+}
+.addSong:hover{
+    width: 5rem;
+    height: 2rem;
+}
+.canciones{
+    align-items: stretch !important;
+    align-content: center;
+}
+v-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 350vh;
+    background-color: black;
+    padding: none !important;
+}
+
+.secciones {
+    flex-direction: column;
+}
+
+.text {
+    z-index: 2;
+    color: white;
+    text-align: center;
+}
+
+.fondo1 {
+    position: absolute;
+    width: 100vw;
+    height: 350vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2px;
+    flex-wrap: wrap;
+    overflow: hidden;
+    z-index: 0;
+    background: gray;
+}
+
+section::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(black, purple, black);
+    animation: animate 15s linear infinite;
+}
+
+@keyframes animate {
+    0% {
+        transform: translateY(-100%);
+    }
+
+    100% {
+        transform: translateY(100%);
+    }
+}
+
+section span {
+    position: relative;
+    display: block;
+    width: calc(6.25vw - 2px);
+    height: calc(6.25vw - 2px);
+    background-color: rgb(15, 15, 15);
+    z-index: 2;
+    transition: 1.5s;
+}
+
+#cancion:hover{
+    cursor: pointer;
+    height: 100px;
+    display: inline-flex;
+    align-items: center;
+}
+
+h2{
+    display: inline-flex;
+}
+
+section span:hover {
+    background: rgb(128, 0, 128);
+    transition: 0s;
+}
+
+@media(max-width: 900px) {
+    section span {
+        width: calc(10vw- 2px);
+        height: calc(10vw - 2px);
+    }
+}
+
+@media(max-width: 600px) {
+    section span {
+        width: calc(20vw- 2px);
+        height: calc(20vw - 2px);
+    }
+}
+</style>

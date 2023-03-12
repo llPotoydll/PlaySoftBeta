@@ -1,8 +1,8 @@
 <template>
   <v-app-bar app>
-    <router-link to="/playlists">
+    <div>
       <img :src="logo" class="logo">
-    </router-link>
+    </div>
 
     <div class="d-flex align-center">
       <h1 class="title"> PLAYSOFT </h1>
@@ -16,7 +16,9 @@
       <span class="mr-2" :class="item">Login</span>
     </router-link>
     <router-link to="/playlists" v-else-if="comprobarUsuario">
-      <span class="mr-2" :class="item">hola</span>
+      <div @click="cerrarSesion()">
+        <span class="mr-2" :class="item">LogOut</span>
+      </div>
     </router-link>
 
   </v-app-bar>
@@ -40,6 +42,12 @@ export default {
       this.comprobarUsuario = true;
     } else {
       this.comprobarUsuario = false;
+    }
+  },
+  methods: {
+    cerrarSesion() {
+      sessionStorage.clear();
+      window.location.href = "http://localhost:8080/"
     }
   }
 }
