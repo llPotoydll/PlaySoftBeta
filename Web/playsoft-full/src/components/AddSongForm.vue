@@ -11,8 +11,8 @@
                     <v-card-title class="headline purple" primary-title>
                         Add Song
                     </v-card-title>
-                    <v-alert v-show="error" style="margin: 20px; color: white" color="error" icon="$error"
-                        id="alert">Playlist must have a name</v-alert>
+                    <v-alert v-show="error" style="margin: 20px; color: white" color="error" icon="$error" id="alert">{{
+                        alertMessage }}</v-alert>
                     <v-card-text class="pa-5">
 
                         <v-form ref="sendForm" v-model="valid" lazy-validation>
@@ -40,10 +40,11 @@ export default {
     data() {
         return {
             songName: "",
-            
+
             error: false,
             messages: [],
             drafts: [],
+            alertMessage: "",
             sent: [],
             dialogCompose: false,
             activeMessage: {},
@@ -63,46 +64,44 @@ export default {
         },
         saveDraft() {
             this.dialogCompose = false
+            this.error = false
         },
-        nuevaPl() {
-            const usuario = sessionStorage.getItem("userid");
-            this.ukid = usuario;
-            let vue = this
-            console.log(vue.privacity)
-            console.log(this.playListName)
-            console.log(this.playlistDescription)
-            console.log(this.privacity)
-            console.log(this.ukid)
-            if (this.playListName != "") {
-                axios.post("https://localhost:7279/Playlist/NewPlaylist", {
-                    playListName: this.playListName,
-                    ukid: this.ukid,
-                    playlistDescription: this.playlistDescription,
-                    privacity: this.privacity
-                })
-                    .then(function (response) {
-                        response.data
-                        location.reload();
+
+        async addSong() {
+            if (this.songName != "") {
+
+
+                const playid = sessionStorage.getItem("playlistid");
+                console.log(playid);
+                let song = await axios.get(`https://localhost:7279/Song/search/${this.songName}`).catch(e => {
+                    this.alertMessage = "This song doesn't exist";
+                    this.error = true;
+                    console.log(e);
+                });
+
+                if (song != null) {
+
+                    console.log(song.data.songID);
+                    axios.post('https://localhost:7279/Song/addSong', {
+                        playlistID: playid,
+                        songID: song.data.songID,
+
                     })
-                    .catch(e => {
-                        this.loginError = true;
-                        this.alertMessage = "Error create playlist";
-                        console.log(e);
-                    });
+                        .then(function (response) {
+                            response.data
+                            location.reload();
+                        })
+                        .catch(e => {
+                            this.alertMessage = "Playlist already have this song"
+                            this.error = true;
+                            console.log(e);
+                        });
+                    this.error = false
+                }
             } else {
                 this.error = true
+                this.alertMessage = "Name field is required"
             }
-        },
-        addSong() {
-            const usuario = sessionStorage.getItem("userid")
-            console.log(usuario)
-            //let vue = this;
-            const playid = sessionStorage.getItem("playlistid")
-            console.log(playid)
-            axios.post('https://localhost:7279/Song/addSong', {
-                playlistID: playid,
-            })
-
         }
     },
     mounted: function () {

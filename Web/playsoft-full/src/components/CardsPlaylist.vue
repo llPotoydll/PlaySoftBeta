@@ -7,7 +7,7 @@
             </section>
             <CreatePlaylistForm></CreatePlaylistForm>
             <v-container style="flex-direction: column;" class="fill-height secciones pl-cont">
-                <p id="animated" class="playlists wavy" v-for="playlist in this.PlayLists" :key="playlist.playlistID">{{ playlist.playListName }}</p>
+                <p @click="redirigir(playlist.playListName)" id="animated" class="playlists wavy" v-for="playlist in this.PlayLists" :key="playlist.playlistID">{{ playlist.playListName }}</p>
             </v-container>
 
         </v-main>
@@ -27,7 +27,7 @@ export default {
         }
     },
     components: { CreatePlaylistForm },
-    mounted: async function () {
+    mounted:  function () {
         const usuario = sessionStorage.getItem("userid");
         let vue = this;
         parseInt(usuario)

@@ -7,15 +7,8 @@
             </section>
             <AddSongForm></AddSongForm>
             <v-container class="fill-height secciones canciones" fluid style="justify-content: center;">
-                <input type="text" v-model="input" placeholder="Search song in your playlist..." class="searchbar"/>
-                <div class="text" v-for="song in Songs2" :key="song" >
-                    <v-divider :thickness="8" class="border-opacity-100" color="white"></v-divider>
-                    <h2 id="cancion">{{ song.songName }}</h2>
-                    <v-divider :thickness="8" class="border-opacity-100" color="white"></v-divider>
-                </div>
-                <div>
-                    <button class="addSong">Add Song</button>
-                </div>
+                <p id="animated" class="playlists wavy songs" v-for="song in this.Songs2" :key="song.songID">{{ song.songName }}
+                </p>
             </v-container>
         </v-main>
     </v-app>
@@ -33,10 +26,11 @@ export default {
             Songs2: []
         };
     },
-    components:{
+    components: {
         AddSongForm
     },
-    mounted: function () {
+    mounted: async function () {
+
         console.log(sessionStorage.getItem("userid"))
         let vue = this;
         const playid = sessionStorage.getItem("playlistid")
@@ -59,27 +53,66 @@ export default {
 </script>
 
 <style>
-.searchbar{
+.songs {
+    font-size: xx-large;
+    color: white;
+    z-index: 10;
+    padding: 0px;
+    color: white;
+    text-shadow: 1px 1px 5px #e69cf8;
+    letter-spacing: .3rem;
+    cursor: pointer;
+}
+
+.wavy {
+    animation-name: wavy;
+    animation-duration: 2.3s;
+    animation-timing-function: ease;
+    animation-iteration-count: infinite;
+    position: relative;
+    top: 0;
+    left: 0;
+}
+
+@keyframes wavy {
+    0% {
+        top: 0px;
+    }
+
+    50% {
+        top: -15px;
+    }
+
+    100% {
+        top: 0px;
+    }
+}
+
+.searchbar {
     z-index: 1;
     width: 25%;
     background: white;
     border-radius: 5px;
 }
-.addSong{
+
+.addSong {
     z-index: 2;
     position: relative;
     background: blue;
     border-radius: 10px;
-    color: white;
+    color: white
 }
-.addSong:hover{
+
+.addSong:hover {
     width: 5rem;
     height: 2rem;
 }
-.canciones{
+
+.canciones {
     align-items: stretch !important;
     align-content: center;
 }
+
 v-content {
     display: flex;
     justify-content: center;
@@ -142,14 +175,14 @@ section span {
     transition: 1.5s;
 }
 
-#cancion:hover{
+#cancion:hover {
     cursor: pointer;
     height: 100px;
     display: inline-flex;
     align-items: center;
 }
 
-h2{
+h2 {
     display: inline-flex;
 }
 
