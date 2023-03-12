@@ -26,7 +26,7 @@ public class Startup
         });
         services.AddDbContext<RepositoryContext>(options =>
         {
-            options.UseInMemoryDatabase("PlaysoftDB");
+            options.UseSqlServer(("RepositoryContext"));
         });
 
         services.AddCors();
@@ -70,35 +70,8 @@ public class Startup
         });
         app.UseAuthorization();
         app.MapControllers();
-        AddCustomerData(app);
+        //AddCustomerData(app);
         app.MapRazorPages();
         app.Run();
-    }
-    static void AddCustomerData(WebApplication app)
-    {
-        var scope = app.Services.CreateScope();
-        var context = scope.ServiceProvider.GetService<RepositoryContext>();
-
-        context.Songs.Add(new Song
-        {
-            songID = 1,
-            songName = "Nocturne Op.9 No.2",
-            duration = 4.30M,
-            publicationDate = DateTime.ParseExact("15/06/2015", "dd/MM/yyyy", null)
-        });
-        context.Songs.Add(new Song
-        {
-            songID = 2,
-            songName = "Invierno",
-            duration = 9.25M,
-            publicationDate = DateTime.ParseExact("15/06/2015", "dd/MM/yyyy", null)
-        });
-        context.Users.Add(new User
-        {
-            email = "string",
-            username = "string",
-            password = "string",
-        });
-        context.SaveChanges();
     }
 }
