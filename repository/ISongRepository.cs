@@ -6,5 +6,5 @@ namespace PlaySoftBeta.Repository;
 public interface ISongRepository
 {
     SongDTO getSong(int songID);
-    List<SongDTO> getSongByName(string songName);
+    SongDTO getSongByName(string songName);
  }

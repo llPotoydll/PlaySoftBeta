@@ -19,12 +19,12 @@ namespace PlaySoftBeta.Repository
             return _mapper.Map<SongDTO>(_context.Songs?.Find(songID));
         }
 
-        public List<SongDTO> getSongByName(string songName)
+        public SongDTO getSongByName(string songName)
         {
             var songs = _context.Songs
-                .Where(song => song.songName.Equals(songName))
-                .ToList();
-            return _mapper.Map<List<SongDTO>>(songs);
+                .FirstOrDefault(song => song.songName.Equals(songName));
+
+            return _mapper.Map<SongDTO>(songs);
         }
     }
 }
