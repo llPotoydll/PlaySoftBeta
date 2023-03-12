@@ -5,10 +5,17 @@
                 <span v-for="(obj, index) in 900" :key="index">
                 </span>
             </section>
-            <v-container class="fill-height secciones" fluid style="justify-content: center;">
-                <v-list>
-                    <v-list-item v-for="item in items" :key="item.titles" :title="HOLA" subtitle="..."></v-list-item>
-                </v-list>
+            
+            <v-container class="fill-height secciones canciones" fluid style="justify-content: center;">
+                <input type="text" v-model="input" placeholder="Search song in your playlist..." class="searchbar"/>
+                <div class="text" v-for="song in Songs2" :key="song" >
+                    <v-divider :thickness="8" class="border-opacity-100" color="white"></v-divider>
+                    <h2 id="cancion">{{ song.songName }}</h2>
+                    <v-divider :thickness="8" class="border-opacity-100" color="white"></v-divider>
+                </div>
+                <div>
+                    <button class="addSong">Add Song</button>
+                </div>
             </v-container>
         </v-main>
     </v-app>
@@ -21,26 +28,54 @@ export default {
     name: 'SongsPage',
     data() {
         return {
-            Songs:[]
+            Songs: [],
+            Songs2: []
         };
     },
     mounted: function () {
-        console.log()
         console.log(sessionStorage.getItem("userid"))
         let vue = this;
         const playid = sessionStorage.getItem("playlistid")
-        console.log(playid)
 
         axios.get(`https://localhost:7279/Playlist/songs/${playid}`)
             .then(function (response) {
                 console.log(response);
                 vue.Songs = response.data
+                for (let index = 0; index < vue.Songs.length; index++) {
+                    axios.get(`https://localhost:7279/Song/${vue.Songs[index].songID}`)
+                        .then(function (respuesta) {
+                            console.log(respuesta)
+                            vue.Songs2.push(respuesta.data)
+                            console.log(vue.Songs2)
+                        })
+                }
             })
     }
 }
 </script>
 
 <style>
+.searchbar{
+    z-index: 1;
+    width: 25%;
+    background: white;
+    border-radius: 5px;
+}
+.addSong{
+    z-index: 2;
+    position: relative;
+    background: blue;
+    border-radius: 10px;
+    color: white;
+}
+.addSong:hover{
+    width: 5rem;
+    height: 2rem;
+}
+.canciones{
+    align-items: stretch !important;
+    align-content: center;
+}
 v-content {
     display: flex;
     justify-content: center;
@@ -101,6 +136,17 @@ section span {
     background-color: rgb(15, 15, 15);
     z-index: 2;
     transition: 1.5s;
+}
+
+#cancion:hover{
+    cursor: pointer;
+    height: 100px;
+    display: inline-flex;
+    align-items: center;
+}
+
+h2{
+    display: inline-flex;
 }
 
 section span:hover {
