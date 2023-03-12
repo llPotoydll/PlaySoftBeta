@@ -1,19 +1,17 @@
-version: '3.9'
+version: '3'
 services:
   api:
-    build: 
-      context: . 
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "5945:80"
-    environment:
-      ASPNETCORE_ENVIROMENT: Development
-      ConnectionStrings_DefaultConnection: "Server=db;Database=MyDatabase;User Id=sa;Password=MyPassword123;"
     depends_on:
-      - db
-    volumes:
-      - .:/app
-  db:
+      - dataBase
+  dataBase:
     image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+      - "5495:1433"
     environment:
-      SA_PASSWORD: MyPassword123
-      ACCEPT_EULA: Y
+       SA_PASSWORD: "Hugo_Ricardo"
+       ACCEPT_EULA: "Y"
