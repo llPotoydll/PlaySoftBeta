@@ -33,10 +33,10 @@ public class SongController : ControllerBase
     [HttpGet("search/{songName}")]
     public async Task<ActionResult> GetSongByName(string songName)
     {
-        var songList = _songService.GetSongByName(songName);
-        if (songList != null)
+        var song = _songService.GetSongByName(songName);
+        if (song != null)
         {
-            return Ok(songList);
+            return Ok(song);
         }
         else
         {

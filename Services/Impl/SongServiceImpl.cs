@@ -38,7 +38,7 @@ public class SongServiceImpl : ISongService
         }
     }
 
-    public List<SongDTO> GetSongByName(string songName)
+    public SongDTO GetSongByName(string songName)
     {
         try
         {
