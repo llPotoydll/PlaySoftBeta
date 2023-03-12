@@ -1,6 +1,7 @@
 using PlaySoftBeta.DTOs;
 using PlaySoftBeta.Models;
 using PlaySoftBeta.Repository;
+using PlaySoftBeta.Log;
 
 namespace PlaySoftBeta.Services;
 
@@ -42,6 +43,7 @@ public class PlaylistService : IPLaylistService
         }
         catch (Exception e)
         {
+            LogErrors.Log(e);
             return false;
         }
     }
@@ -55,7 +57,7 @@ public class PlaylistService : IPLaylistService
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
+            LogErrors.Log(e);
             return false;
         }
     }
@@ -72,7 +74,7 @@ public class PlaylistService : IPLaylistService
         }
         catch (Exception e)
         {
-            e.GetHashCode();
+            LogErrors.Log(e);
             return null;
         }
     }
@@ -89,6 +91,7 @@ public class PlaylistService : IPLaylistService
         }
         catch (Exception e)
         {
+            LogErrors.Log(e);
             return null;
         }
     }

@@ -1,6 +1,7 @@
 using PlaySoftBeta.Models;
 using PlaySoftBeta.DTOs;
 using PlaySoftBeta.Repository;
+using PlaySoftBeta.Log;
 
 namespace PlaySoftBeta.Services;
 
@@ -32,7 +33,22 @@ public class SongServiceImpl : ISongService
         }
         catch (Exception e)
         {
+            LogErrors.Log(e);
             return null;
         }
     }
+
+    public List<SongDTO> GetSongByName(string songName)
+    {
+        try
+        {
+            return _songRepository.getSongByName(songName);
+        }
+        catch (Exception e)
+        {
+            LogErrors.Log(e);
+            return null;
+        }
+    }
+
 }

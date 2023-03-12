@@ -18,8 +18,30 @@ public class SongController : ControllerBase
     [HttpGet("{songID}")]
     public async Task<ActionResult> GetSong(int songID)
     {
-        var a = _songService.GetSong(songID);
-        return Ok(a);
+        var song = _songService.GetSong(songID);
+        if (song != null)
+        {
+            return Ok(song);
+        }
+        else
+        {
+            return BadRequest("Not found");
+        }
+
+    }
+
+    [HttpGet("search/{songName}")]
+    public async Task<ActionResult> GetSongByName(string songName)
+    {
+        var songList = _songService.GetSongByName(songName);
+        if (songList != null)
+        {
+            return Ok(songList);
+        }
+        else
+        {
+            return BadRequest("Not found");
+        }
     }
 
     [HttpPost("addSong")]
