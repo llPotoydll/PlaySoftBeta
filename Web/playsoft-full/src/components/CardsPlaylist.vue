@@ -1,60 +1,33 @@
 <template>
     <v-app id="inspire">
-        <v-main class="pa-0" style="z-index: 0;">
+        <v-main class="pa-0" style="z-index: 0; ">
             <section id="fondo" class="fondo1">
                 <span v-for="(obj, index) in 900" :key="index">
                 </span>
             </section>
-            <v-container class="fill-height secciones" fluid style="justify-content: center;">
-                <v-card flat class="ma-3 text-xs-center justify-center carta" v-for="playlist in PlayLists" :key="playlist">
-                    <v-card-title primary-title>
-                        <div>
-                            <button class="headline pink--text text--accent-2" @click="redirigir( playlist.playListName )">
-                                {{ playlist.playListName }}</button>
-                            <div>{{ playlist.playlistDescription }}</div>
-                        </div>
-                    </v-card-title>
-                    <v-card-actions>
-                        <v-btn flat color="purple">See songs</v-btn>
-                    </v-card-actions>
-                </v-card>
-                <v-card flat class="ma-3 text-xs-center justify-center carta">
-                    <v-card-title primary-title>
-                        <div>
-                            <v-btn rounded color="#6c176d" dark @click.prevent="ventana = true">NEW</v-btn>
-                            <div v-bind="ventana" v-if="ventana">
-                                <form action="">
-                                    PlaylistName:<v-text-field type="text" v-model="playListName" />
-                                    Description:<v-text-field type="text" v-model="playlistDescription" />
-                                    private?<input type="checkbox" v-model="privacity" />
-                                    <input type="button" @click.prevent="ventana = false" value="Create"
-                                        style="background-color: blueviolet; border-radius: 10px;" @click="nuevaPl()">
-                                </form>
-                            </div>
-                        </div>
-                    </v-card-title>
-                </v-card>
+            <CreatePlaylistForm></CreatePlaylistForm>
+            <v-container style="flex-direction: column;" class="fill-height secciones pl-cont">
+                <p id="animated" class="playlists" v-for="playlist in this.PlayLists" :key="playlist.playlistID"> <span
+                        class="char-spans wavy" v-for="char in playlist.playListName" :key="char"> {{ char }}</span></p>
             </v-container>
+
         </v-main>
     </v-app>
 </template>
 
 <script>
 import axios from 'axios';
-
+import CreatePlaylistForm from './CreatePlaylistForm.vue';
 export default {
     name: 'PlayList',
     props: ["productItem"],
     data() {
         return {
             PlayLists: [],
-            playListName: "",
-            playlistDescription: "",
-            privacity: false,
-            ukid: "",
             ventana: false
         }
     },
+    components: { CreatePlaylistForm },
     mounted: async function () {
         const usuario = sessionStorage.getItem("userid");
         let vue = this;
@@ -73,35 +46,11 @@ export default {
 
     },
     methods: {
-        async nuevaPl() {
-            const usuario = sessionStorage.getItem("userid");
-            console.log(this.playListName)
-            console.log(this.playlistDescription)
-            console.log(this.privacity)
-            this.ukid = usuario;
-            console.log(this.ukid)
-
-            axios.post("https://localhost:7279/Playlist/NewPlaylist", {
-                playListName: this.playListName,
-                ukid: this.ukid,
-                playlistDescription: this.playlistDescription,
-                privacity: this.privacity
-            })
-                .then(function (response) {
-                    response.data
-                    location.reload();
-                })
-                .catch(e => {
-                    this.loginError = true;
-                    this.alertMessage = "Error create playlist";
-                    console.log(e);
-                });
-        },
         redirigir(nombrepl) {
             let vue = this;
             console.log(nombrepl)
             for (let index = 0; index < vue.PlayLists.length; index++) {
-                if(vue.PlayLists[index].playListName == nombrepl){
+                if (vue.PlayLists[index].playListName == nombrepl) {
                     sessionStorage.setItem("playlistid", vue.PlayLists[index].playlistID);
                     location.href = "http://localhost:8080/songs"
                 }
@@ -114,6 +63,49 @@ export default {
 </script>
 
 <style>
+.char-spans {
+    padding: 0px;
+    color: white;
+    text-shadow: 1px 1px 5px #e69cf8;
+}
+
+.wavy {
+    animation-name: wavy;
+    animation-duration: 2.3s;
+    animation-timing-function: ease;
+    animation-iteration-count: infinite;
+    position: relative;
+    top: 0;
+    left: 0;
+}
+
+@keyframes wavy {
+    0% {
+        top: 0px;
+    }
+
+    50% {
+        top: -15px;
+    }
+
+    100% {
+        top: 0px;
+    }
+}
+
+.pl-cont {
+    margin: 0;
+    padding: 0;
+
+    justify-content: center;
+}
+
+.playlists {
+    font-size: xx-large;
+    color: white;
+    z-index: 10;
+}
+
 .carta {
     display: flex;
     flex-direction: column;
