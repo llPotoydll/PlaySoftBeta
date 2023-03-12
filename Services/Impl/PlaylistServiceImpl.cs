@@ -29,6 +29,7 @@ public class PlaylistService : IPLaylistService
         }
         catch (Exception e)
         {
+            LogErrors.Log(e);
             return false;
         }
     }
