@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace PlaySoftBeta.Migrations
 {
     /// <inheritdoc />
-    public partial class DB : Migration
+    public partial class PlaySoftDB : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,7 +20,6 @@ namespace PlaySoftBeta.Migrations
                     songID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     songName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    duration = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     publicationDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -51,15 +52,14 @@ namespace PlaySoftBeta.Migrations
                     playlistDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     privacity = table.Column<bool>(type: "bit", nullable: false),
                     playListDuration = table.Column<double>(type: "float", nullable: false),
-                    UKID = table.Column<int>(type: "int", nullable: false),
-                    UserUKID = table.Column<int>(type: "int", nullable: false)
+                    userUKID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Playlist", x => x.playlistID);
                     table.ForeignKey(
-                        name: "FK_Playlist_Users_UserUKID",
-                        column: x => x.UserUKID,
+                        name: "FK_Playlist_Users_userUKID",
+                        column: x => x.userUKID,
                         principalTable: "Users",
                         principalColumn: "UKID",
                         onDelete: ReferentialAction.Cascade);
@@ -89,10 +89,20 @@ namespace PlaySoftBeta.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "Songs",
+                columns: new[] { "songID", "publicationDate", "songName" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2015, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "pumbaPumba" },
+                    { 2, new DateTime(2021, 12, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Temardo bien de guapo" },
+                    { 3, new DateTime(1015, 2, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "AngryBirdsSongTheme" }
+                });
+
             migrationBuilder.CreateIndex(
-                name: "IX_Playlist_UserUKID",
+                name: "IX_Playlist_userUKID",
                 table: "Playlist",
-                column: "UserUKID");
+                column: "userUKID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PlaylistLines_songID",

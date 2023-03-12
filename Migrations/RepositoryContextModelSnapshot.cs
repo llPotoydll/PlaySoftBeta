@@ -29,12 +29,6 @@ namespace PlaySoftBeta.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("playlistID"));
 
-                    b.Property<int>("UKID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserUKID")
-                        .HasColumnType("int");
-
                     b.Property<double>("playListDuration")
                         .HasColumnType("float");
 
@@ -48,9 +42,12 @@ namespace PlaySoftBeta.Migrations
                     b.Property<bool>("privacity")
                         .HasColumnType("bit");
 
+                    b.Property<int>("userUKID")
+                        .HasColumnType("int");
+
                     b.HasKey("playlistID");
 
-                    b.HasIndex("UserUKID");
+                    b.HasIndex("userUKID");
 
                     b.ToTable("Playlist");
                 });
@@ -139,7 +136,7 @@ namespace PlaySoftBeta.Migrations
                 {
                     b.HasOne("PlaySoftBeta.Models.User", "User")
                         .WithMany("Playlists")
-                        .HasForeignKey("UserUKID")
+                        .HasForeignKey("userUKID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

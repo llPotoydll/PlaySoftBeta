@@ -82,9 +82,9 @@ export default {
             console.log(this.privacity)
             console.log(this.ukid)
             if (this.playListName != "") {
-                axios.post("https://playsoft-api.azurewebsites.net/Playlist/NewPlaylist", {
+                axios.post("https://playsoft-api.azurewebsites.net/Playlist/NewPlaylist/", {
                     playListName: this.playListName,
-                    ukid: this.ukid,
+                    userUKID: this.ukid,
                     playlistDescription: this.playlistDescription,
                     privacity: this.privacity
                 })

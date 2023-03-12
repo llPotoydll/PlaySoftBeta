@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace PlaySoftBeta.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20230312154124_DB4")]
-    partial class DB4
+    [Migration("20230312185149_PlaySoftDB")]
+    partial class PlaySoftDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,12 +32,6 @@ namespace PlaySoftBeta.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("playlistID"));
 
-                    b.Property<int>("UKID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserUKID")
-                        .HasColumnType("int");
-
                     b.Property<double>("playListDuration")
                         .HasColumnType("float");
 
@@ -51,9 +45,12 @@ namespace PlaySoftBeta.Migrations
                     b.Property<bool>("privacity")
                         .HasColumnType("bit");
 
+                    b.Property<int>("userUKID")
+                        .HasColumnType("int");
+
                     b.HasKey("playlistID");
 
-                    b.HasIndex("UserUKID");
+                    b.HasIndex("userUKID");
 
                     b.ToTable("Playlist");
                 });
@@ -91,6 +88,26 @@ namespace PlaySoftBeta.Migrations
                     b.HasKey("songID");
 
                     b.ToTable("Songs");
+
+                    b.HasData(
+                        new
+                        {
+                            songID = 1,
+                            publicationDate = new DateTime(2015, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            songName = "pumbaPumba"
+                        },
+                        new
+                        {
+                            songID = 2,
+                            publicationDate = new DateTime(2021, 12, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            songName = "Temardo bien de guapo"
+                        },
+                        new
+                        {
+                            songID = 3,
+                            publicationDate = new DateTime(1015, 2, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            songName = "AngryBirdsSongTheme"
+                        });
                 });
 
             modelBuilder.Entity("PlaySoftBeta.Models.User", b =>
@@ -122,7 +139,7 @@ namespace PlaySoftBeta.Migrations
                 {
                     b.HasOne("PlaySoftBeta.Models.User", "User")
                         .WithMany("Playlists")
-                        .HasForeignKey("UserUKID")
+                        .HasForeignKey("userUKID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
