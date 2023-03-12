@@ -7,8 +7,7 @@
             </section>
             <CreatePlaylistForm></CreatePlaylistForm>
             <v-container style="flex-direction: column;" class="fill-height secciones pl-cont">
-                <p id="animated" class="playlists" v-for="playlist in this.PlayLists" :key="playlist.playlistID"> <span
-                        class="char-spans wavy" v-for="char in playlist.playListName" :key="char"> {{ char }}</span></p>
+                <p id="animated" class="playlists wavy" v-for="playlist in this.PlayLists" :key="playlist.playlistID">{{ playlist.playListName }}</p>
             </v-container>
 
         </v-main>
@@ -63,12 +62,6 @@ export default {
 </script>
 
 <style>
-.char-spans {
-    padding: 0px;
-    color: white;
-    text-shadow: 1px 1px 5px #e69cf8;
-}
-
 .wavy {
     animation-name: wavy;
     animation-duration: 2.3s;
@@ -104,6 +97,11 @@ export default {
     font-size: xx-large;
     color: white;
     z-index: 10;
+    padding: 0px;
+    color: white;
+    text-shadow: 1px 1px 5px #e69cf8;
+    letter-spacing: .3rem;
+    cursor: pointer;
 }
 
 .carta {
