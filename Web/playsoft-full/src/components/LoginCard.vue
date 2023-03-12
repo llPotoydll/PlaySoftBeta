@@ -124,7 +124,7 @@ export default {
         }
 
         axios
-          .post("https://localhost:7279/Auth/register", {
+          .post("https://playsoft-api.azurewebsites.net/Auth/register", {
             email: this.registerEmail,
             username: this.registerUsername,
             password: this.registerPassword,
@@ -151,7 +151,7 @@ export default {
         this.alertMessage = "All fields are required";
       } else {
         axios
-          .post("https://localhost:7279/Auth/login", {
+          .post("https://playsoft-api.azurewebsites.net/Auth/login", {
             email: this.loginEmail,
             password: this.loginPassword,
           })

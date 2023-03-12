@@ -31,7 +31,7 @@ export default {
         const usuario = sessionStorage.getItem("userid");
         let vue = this;
         parseInt(usuario)
-        axios.get(`https://localhost:7279/Playlist/${usuario}`)
+        axios.get(`https://playsoft-api.azurewebsites.net/Playlist/${usuario}`)
             .then(function (response) {
                 vue.PlayLists = response.data
                 console.log(vue.PlayLists);

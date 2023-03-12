@@ -73,7 +73,7 @@ export default {
 
                 const playid = sessionStorage.getItem("playlistid");
                 console.log(playid);
-                let song = await axios.get(`https://localhost:7279/Song/search/${this.songName}`).catch(e => {
+                let song = await axios.get(`https://playsoft-api.azurewebsites.net/Song/search/${this.songName}`).catch(e => {
                     this.alertMessage = "This song doesn't exist";
                     this.error = true;
                     console.log(e);
@@ -82,7 +82,7 @@ export default {
                 if (song != null) {
 
                     console.log(song.data.songID);
-                    axios.post('https://localhost:7279/Song/addSong', {
+                    axios.post('https://playsoft-api.azurewebsites.net/Song/addSong', {
                         playlistID: playid,
                         songID: song.data.songID,
 

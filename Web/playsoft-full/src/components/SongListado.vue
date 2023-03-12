@@ -35,12 +35,12 @@ export default {
         let vue = this;
         const playid = sessionStorage.getItem("playlistid")
 
-        axios.get(`https://localhost:7279/Playlist/songs/${playid}`)
+        axios.get(`https://playsoft-api.azurewebsites.net/Playlist/songs/${playid}`)
             .then(function (response) {
                 console.log(response);
                 vue.Songs = response.data
                 for (let index = 0; index < vue.Songs.length; index++) {
-                    axios.get(`https://localhost:7279/Song/${vue.Songs[index].songID}`)
+                    axios.get(`https://playsoft-api.azurewebsites.net/Song/${vue.Songs[index].songID}`)
                         .then(function (respuesta) {
                             console.log(respuesta)
                             vue.Songs2.push(respuesta.data)
