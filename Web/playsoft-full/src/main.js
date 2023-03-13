@@ -11,7 +11,7 @@ Vue.use(MotionPlugin);
 
 new Vue({
   router,
-  store,
+  store, 
   vuetify,
   MotionPlugin,
   VueCompositionAPI,
