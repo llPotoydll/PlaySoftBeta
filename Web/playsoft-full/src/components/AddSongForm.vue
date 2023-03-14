@@ -11,12 +11,14 @@
                     <v-card-title class="headline purple" primary-title>
                         Add Song
                     </v-card-title>
-                    <v-alert v-show="$store.state.errorSong" style="margin: 20px; color: white" color="error" icon="$error" id="alert">{{
-                        alertMessage }}</v-alert>
+                    <v-alert v-show="$store.state.errorSong" style="margin: 20px; color: white" color="error" icon="$error"
+                        id="alert">{{
+                            alertMessage }}</v-alert>
                     <v-card-text class="pa-5">
 
                         <v-form ref="sendForm" v-model="$store.state.validSong" lazy-validation>
-                            <v-text-field v-model="$store.state.songNameSong" label="Song name" :rules="[rules.required]"></v-text-field>
+                            <v-text-field v-model="$store.state.songNameSong" label="Song name"
+                                :rules="[rules.required]"></v-text-field>
                             <div v-html="composeMessage.originalBody"></div>
                             <div class="switch">
                             </div>
@@ -49,22 +51,21 @@ export default {
     },
     methods: {
         compose() {
-            this.dialogCompose = true
+            this.$store.state.dialogComposeSong = true
         },
         saveDraft() {
-            this.dialogCompose = false
-            this.error = false
+            this.$store.state.dialogComposeSong = false
+            this.$store.state.errorSong = false
         },
 
         async addSong() {
-            if (this.songName != "") {
-
+            if (this.$store.state.songName != "") {
 
                 const playid = sessionStorage.getItem("playlistid");
                 console.log(playid);
-                let song = await axios.get(`https://playsoft-api.azurewebsites.net/Song/search/${this.songName}`).catch(e => {
-                    this.alertMessage = "This song doesn't exist";
-                    this.error = true;
+                let song = await axios.get(`https://playsoft-api.azurewebsites.net/Song/search/${this.$store.state.songName}`).catch(e => {
+                    this.$store.state.alertMessageSong = "This song doesn't exist";
+                    this.$store.state.errorSong = true;
                     console.log(e);
                 });
 
@@ -81,15 +82,15 @@ export default {
                             location.reload();
                         })
                         .catch(e => {
-                            this.alertMessage = "Playlist already have this song"
-                            this.error = true;
+                            this.$store.state.alertMessageSong = "Playlist already have this song"
+                            this.$store.state.errorSong = true;
                             console.log(e);
                         });
-                    this.error = false
+                    this.$store.state.errorSong = false
                 }
             } else {
-                this.error = true
-                this.alertMessage = "Name field is required"
+                this.$store.state.errorSong = true
+                this.$store.state.alertMessageSong = "Name field is required"
             }
         }
     },
