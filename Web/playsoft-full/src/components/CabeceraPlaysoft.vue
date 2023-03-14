@@ -1,7 +1,7 @@
 <template>
   <v-app-bar app>
     <div>
-      <img :src="logo" class="logo">
+      <img :src="$store.state.logo" class="logo">
     </div>
 
     <div class="d-flex align-center">
@@ -12,10 +12,10 @@
     <router-link to="/">
       <span class="mr-2" :class="item">Home</span>
     </router-link>
-    <router-link to="/about" v-if="!comprobarUsuario">
+    <router-link to="/about" v-if="!$store.state.comprobarUsuario">
       <span class="mr-2" :class="item">Login</span>
     </router-link>
-    <router-link to="/playlists" v-else-if="comprobarUsuario">
+    <router-link to="/playlists" v-else-if="$store.state.comprobarUsuario">
       <div @click="cerrarSesion()">
         <span class="mr-2" :class="item">LogOut</span>
       </div>
@@ -29,19 +29,15 @@ export default {
   name: 'CabeceraPlaysoft',
   data: function () {
     return {
-      logo: require('../assets/images/Logo.png'),
-      menu: ('../Menu.vue'),
-      comprobarUsuario: false,
     }
   },
   mounted: function comprobarUsuario() {
     //Comprobar si hay usuario
     const usuario = sessionStorage.getItem("userid");
-    console.log(usuario)
     if (usuario != null) {
-      this.comprobarUsuario = true;
+      this.$store.state.comprobarUsuario = true
     } else {
-      this.comprobarUsuario = false;
+      this.$store.state.comprobarUsuario = false
     }
   },
   methods: {

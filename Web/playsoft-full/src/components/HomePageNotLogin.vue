@@ -19,7 +19,7 @@
                         scale: 2,
                     }">A new proyect from <em>NullSoft</em></h2>
                     <!-- <h2 class="text" v-motion-slide-visible-once-right>By Hugo Lahoz and Ricardo Ros</h2> -->
-                    <img :src="imagen" width="300" style="z-index: 1;" v-motion-slide-visible-once-right>
+                    <img :src="$store.state.logo" width="300" style="z-index: 1;" v-motion-slide-visible-once-right>
                 </v-container>
             </v-container>
             <v-container class="fill-height" fluid style="justify-content: space-around;">
@@ -41,8 +41,7 @@ export default {
     name: 'HomePageNotLogin',
     data() {
         return {
-            imagen: require('../assets/images/Logo.png'),
-            menu: ('../Menu.vue')
+            
         };
     },
     mounted: function () {

@@ -7,7 +7,7 @@
             </section>
             <CreatePlaylistForm></CreatePlaylistForm>
             <v-container style="flex-direction: column;" class="fill-height secciones pl-cont">
-                <p @click="redirigir(playlist.playListName)" id="animated" class="playlists wavy" v-for="playlist in this.PlayLists" :key="playlist.playlistID">{{ playlist.playListName }}</p>
+                <p @click="redirigir(playlist.playListName)" id="animated" class="playlists wavy" v-for="playlist in $store.state.PlayLists" :key="playlist.playlistID">{{ playlist.playListName }}</p>
             </v-container>
 
         </v-main>
@@ -22,23 +22,21 @@ export default {
     props: ["productItem"],
     data() {
         return {
-            PlayLists: [],
-            ventana: false
+            
         }
     },
     components: { CreatePlaylistForm },
     mounted:  function () {
         const usuario = sessionStorage.getItem("userid");
-        let vue = this;
         parseInt(usuario)
         axios.get(`https://playsoft-api.azurewebsites.net/Playlist/${usuario}`)
             .then(function (response) {
-                vue.PlayLists = response.data
-                console.log(vue.PlayLists);
+                this.$store.state.PlayLists = response.data
+                console.log(this.$store.state.PlayLists);
                 console.log(response.data)
             })
             .catch(e => {
-                this.loginError = true;
+                this.$store.state.loginError = true;
                 this.alertMessage = "No playlists";
                 console.log(e);
             });
@@ -46,11 +44,10 @@ export default {
     },
     methods: {
         redirigir(nombrepl) {
-            let vue = this;
             console.log(nombrepl)
-            for (let index = 0; index < vue.PlayLists.length; index++) {
-                if (vue.PlayLists[index].playListName == nombrepl) {
-                    sessionStorage.setItem("playlistid", vue.PlayLists[index].playlistID);
+            for (let index = 0; index < this.$store.state.PlayLists.length; index++) {
+                if (this.$store.state.PlayLists[index].playListName == nombrepl) {
+                    sessionStorage.setItem("playlistid", this.$store.state.PlayLists[index].playlistID);
                     location.href = "http://localhost:8080/songs"
                 }
             }

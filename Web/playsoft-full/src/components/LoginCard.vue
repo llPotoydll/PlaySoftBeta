@@ -8,7 +8,7 @@
         <v-row align="center" justify="center" v-motion-roll-left>
           <v-col cols="12" sm="8" md="8">
             <v-card class="elevation-12">
-              <v-window v-model="step">
+              <v-window v-model="$store.state.step">
                 <v-window-item :value="1">
                   <v-row>
                     <v-col cols="12" md="8">
@@ -19,9 +19,9 @@
                             id="alert">{{ alertMessage }}</v-alert></template>
                         <v-form @submit.prevent="onSubmit">
 
-                          <v-text-field v-model="loginEmail" label="Email" type="text" color="#6c176d" />
+                          <v-text-field v-model="$store.state.loginEmail" label="Email" type="text" color="#6c176d" />
 
-                          <v-text-field v-model="loginPassword" id="password" label="Password" type="password"
+                          <v-text-field v-model="$store.state.loginPassword" id="password" label="Password" type="password"
                             color="#6c176d" />
                         </v-form>
                         <h3 class="text-center mt-4">Forgot your password ?</h3>
@@ -65,12 +65,12 @@
                           <v-alert v-show="registerError" style="margin-top: 20px; color: white" color="error"
                             icon="$error" id="alert">{{ alertMessage }}</v-alert></template>
                         <v-form>
-                          <v-text-field v-model="registerUsername" label="Name" type="text" color="#6c176d" />
-                          <v-text-field v-model="registerEmail" label="Email" type="text" color="#6c176d" />
+                          <v-text-field v-model="$store.state.registerUsername" label="Name" type="text" color="#6c176d" />
+                          <v-text-field v-model="$store.state.registerEmail" label="Email" type="text" color="#6c176d" />
 
-                          <v-text-field v-model="registerPassword" id="password" label="Password" type="password"
+                          <v-text-field v-model="$store.state.registerPassword" id="password" label="Password" type="password"
                             color="#6c176d" />
-                          <v-text-field v-model="repeatPassword" id="password" label="Repeat Password" type="password"
+                          <v-text-field v-model="$store.state.repeatPassword" id="password" label="Repeat Password" type="password"
                             color="#6c176d" />
                         </v-form>
                       </v-card-text>
@@ -95,16 +95,6 @@ import axios from "axios";
 export default {
   data() {
     return {
-      registerUsername: "",
-      registerEmail: "",
-      registerPassword: "",
-      repeatPassword: "",
-      loginEmail: "",
-      loginPassword: "",
-      alertMessage: "",
-      registerError: false,
-      loginError: false,
-      step: 1,
     };
   },
   props: {
@@ -112,22 +102,22 @@ export default {
   },
   methods: {
     register() {
-      if (this.registerEmail == "" || this.registerPassword == "" || this.registerUsername == "" || this.repeatPassword == "") {
-        this.registerError = true;
-        this.alertMessage = "All fields are required";
-      } else if (this.registerPassword != this.repeatPassword) {
-        this.alertMessage = "Passwords don't match";
-        this.registerError = true;
+      if (this.$store.state.registerEmail == "" || this.$store.state.registerPassword == "" || this.$store.state.registerUsername == "" || this.$store.state.repeatPassword == "") {
+        this.$store.state.registerError = true;
+        this.$store.state.alertMessage = "All fields are required";
+      } else if (this.$store.state.registerPassword != this.$store.state.repeatPassword) {
+        this.$store.state.alertMessage = "Passwords don't match";
+        this.$store.state.registerError = true;
       } else {
-        if (this.registerError) {
-          this.registerError = false;
+        if (this.$store.state.registerError) {
+          this.$store.state.registerError = false;
         }
 
         axios
           .post("https://playsoft-api.azurewebsites.net/Auth/register", {
-            email: this.registerEmail,
-            username: this.registerUsername,
-            password: this.registerPassword,
+            email: this.$store.state.registerEmail,
+            username: this.$store.state.registerUsername,
+            password: this.$store.state.registerPassword,
           })
           .then(function (response) {
             console.log(response);
@@ -136,24 +126,24 @@ export default {
           })
           .catch(e => {
             this.alertMessage = "Email already in use";
-            this.registerError = true;
+            this.$store.state.xºregisterError = true;
             console.log(e);
           });
       }
     },
 
     login() {
-      if (this.loginError) {
-        this.loginError = false;
+      if (this.$store.state.loginError) {
+        this.$store.state.loginError = false;
       }
-      if (this.loginEmail == "" || this.loginPassword == "") {
-        this.loginError = true;
-        this.alertMessage = "All fields are required";
+      if (this.$store.state.loginEmail == "" || this.$store.state.loginPassword == "") {
+        this.$store.state.loginError = true;
+        this.$store.state.alertMessage = "All fields are required";
       } else {
         axios
           .post("https://playsoft-api.azurewebsites.net/Auth/login", {
-            email: this.loginEmail,
-            password: this.loginPassword,
+            email: this.$store.state.loginEmail,
+            password: this.$store.state.loginPassword,
           })
           .then(function (response) {
             console.log(response);
