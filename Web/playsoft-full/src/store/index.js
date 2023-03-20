@@ -50,6 +50,20 @@ export default new Vuex.Store({
   mutations: {
   },
   actions: {
+    getPlaylists() {
+      let IdUser = parseInt(state.usuario)
+      axios.get(`https://playsoft-api.azurewebsites.net/Playlist/${IdUser}`)
+        .then(function (response) {
+          state.PlayLists = response.data
+          console.log(state.PlayLists);
+          console.log(response.data)
+        })
+        .catch(e => {
+          state.loginError = true;
+          this.alertMessage = "No playlists";
+          console.log(e);
+        });
+    }
   },
   modules: {
   }

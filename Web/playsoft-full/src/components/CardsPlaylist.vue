@@ -27,20 +27,7 @@ export default {
     },
     components: { CreatePlaylistForm },
     mounted:  function () {
-        const usuario = sessionStorage.getItem("userid");
-        parseInt(usuario)
-        axios.get(`https://playsoft-api.azurewebsites.net/Playlist/${usuario}`)
-            .then(function (response) {
-                this.$store.state.PlayLists = response.data
-                console.log(this.$store.state.PlayLists);
-                console.log(response.data)
-            })
-            .catch(e => {
-                this.$store.state.loginError = true;
-                this.alertMessage = "No playlists";
-                console.log(e);
-            });
-
+        this.$store.actions.getPlaylists();
     },
     methods: {
         redirigir(nombrepl) {
