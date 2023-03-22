@@ -15,7 +15,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 import CreatePlaylistForm from './CreatePlaylistForm.vue';
 export default {
     name: 'PlayList',
@@ -27,7 +26,7 @@ export default {
     },
     components: { CreatePlaylistForm },
     mounted:  function () {
-        this.$store.actions.getPlaylists();
+        this.$store.dispatch('getPlaylists')
     },
     methods: {
         redirigir(nombrepl) {

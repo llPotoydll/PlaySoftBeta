@@ -40,7 +40,7 @@
                         </h5>
                       </v-card-text>
                       <div class="text-center">
-                        <v-btn rounded outlined dark @click="step++">SIGN UP</v-btn>
+                        <v-btn rounded outlined dark @click="$store.state.step++">SIGN UP</v-btn>
                       </div>
                     </v-col>
                   </v-row>
@@ -54,7 +54,7 @@
                         </h5>
                       </v-card-text>
                       <div class="text-center">
-                        <v-btn rounded outlined dark @click="step--">Sign in</v-btn>
+                        <v-btn rounded outlined dark @click="$store.state.step--">Sign in</v-btn>
                       </div>
                     </v-col>
 
@@ -126,7 +126,7 @@ export default {
           })
           .catch(e => {
             this.alertMessage = "Email already in use";
-            this.$store.state.xºregisterError = true;
+            this.$store.state.registerError = true;
             console.log(e);
           });
       }
@@ -139,7 +139,9 @@ export default {
       if (this.$store.state.loginEmail == "" || this.$store.state.loginPassword == "") {
         this.$store.state.loginError = true;
         this.$store.state.alertMessage = "All fields are required";
+        this.$store.state.usuario 
       } else {
+        let vue = this;
         axios
           .post("https://playsoft-api.azurewebsites.net/Auth/login", {
             email: this.$store.state.loginEmail,
@@ -147,7 +149,8 @@ export default {
           })
           .then(function (response) {
             console.log(response);
-            sessionStorage.setItem("userid", response.data.ukid);
+            vue.$store.state.usuario = response.data.ukid;
+            console.log(parseInt(vue.$store.state.usuario))
             window.location.href = "http://localhost:8080/playlists"
           })
           .catch(e => {

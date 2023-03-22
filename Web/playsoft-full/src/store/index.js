@@ -1,5 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import VuexPersistence from 'vuex-persistedstate'
+import axios from 'axios';
+
 
 Vue.use(Vuex)
 
@@ -43,6 +46,7 @@ export default new Vuex.Store({
     activeMessageSong: {},
     composeMessageSong: {},
     validSong: true,
+    usuario: ""
 
   },
   getters: {
@@ -51,20 +55,26 @@ export default new Vuex.Store({
   },
   actions: {
     getPlaylists() {
-      let IdUser = parseInt(state.usuario)
+      let IdUser = parseInt(this.state.usuario)
+      console.log(IdUser)
       axios.get(`https://playsoft-api.azurewebsites.net/Playlist/${IdUser}`)
         .then(function (response) {
-          state.PlayLists = response.data
-          console.log(state.PlayLists);
+          this.state.PlayLists = response.data
+          console.log(this.state.PlayLists);
           console.log(response.data)
         })
         .catch(e => {
-          state.loginError = true;
+          this.state.loginError = true;
           this.alertMessage = "No playlists";
           console.log(e);
         });
     }
   },
   modules: {
-  }
+  }, 
+  plugins: [
+    new VuexPersistence({
+      storage: window.localStorage
+    }).plugin
+  ]
 })

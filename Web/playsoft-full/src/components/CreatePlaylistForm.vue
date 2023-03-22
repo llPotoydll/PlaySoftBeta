@@ -63,7 +63,7 @@ export default {
         },
         nuevaPl() {
             const usuario = sessionStorage.getItem("userid");
-            this.ukid = usuario;
+            this.$store.state.ukid = usuario;
             let vue = this
             console.log(vue.$store.state.privacity)
             console.log(this.$store.state.playListName)
