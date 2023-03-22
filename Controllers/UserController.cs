@@ -24,6 +24,17 @@ public class UserController : ControllerBase
         {
             return Ok(userList);
         }
-            return BadRequest("User not found");
+        return BadRequest("User not found");
+    }
+
+    [HttpGet("playlist/{ukid}")]
+    public ActionResult<User> getUserPlaylists(int ukid)
+    {
+        var playlistList = _userService.getPlaylists(ukid);
+        if (playlistList.Any())
+        {
+            return Ok(playlistList);
+        }
+        return BadRequest("User not found");
     }
 }

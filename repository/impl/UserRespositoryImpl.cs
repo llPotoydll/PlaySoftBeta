@@ -21,6 +21,15 @@ namespace PlaySoftBeta.Repository
             return _mapper.Map<List<UserDTO>>(userList);
         }
 
+        public List<PlaylistDTO> getUserPlaylists(int ukid)
+        {
+            var playlistList = _context.Playlists
+                .Where(playlist => playlist.userUKID.Equals(ukid) && playlist.privacity == true)
+                .OrderBy(playlist => playlist.playListName)
+                .ToList();
+            return _mapper.Map<List<PlaylistDTO>>(playlistList);
+        }
+
         public void Save()
         {
             throw new NotImplementedException();

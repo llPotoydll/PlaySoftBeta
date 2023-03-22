@@ -13,7 +13,6 @@ namespace PlaySoftBeta.Models
         public Boolean privacity { get; set; }
         public double playListDuration { get; set; }
         public IList<PlaylistLines> PlaylistLines { get; set; }
-
         public int userUKID { get; set; }
         public User User { get; set; }
     }
