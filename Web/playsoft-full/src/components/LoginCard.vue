@@ -126,7 +126,7 @@ export default {
           })
           .catch(e => {
             this.alertMessage = "Email already in use";
-            this.$store.state.registerError = true;
+            this.$store.state.xºregisterError = true;
             console.log(e);
           });
       }
@@ -139,9 +139,7 @@ export default {
       if (this.$store.state.loginEmail == "" || this.$store.state.loginPassword == "") {
         this.$store.state.loginError = true;
         this.$store.state.alertMessage = "All fields are required";
-        this.$store.state.usuario 
       } else {
-        let vue = this;
         axios
           .post("https://playsoft-api.azurewebsites.net/Auth/login", {
             email: this.$store.state.loginEmail,
@@ -149,8 +147,7 @@ export default {
           })
           .then(function (response) {
             console.log(response);
-            vue.$store.state.usuario = response.data.ukid;
-            console.log(parseInt(vue.$store.state.usuario))
+            sessionStorage.setItem("userid", response.data.ukid);
             window.location.href = "http://localhost:8080/playlists"
           })
           .catch(e => {

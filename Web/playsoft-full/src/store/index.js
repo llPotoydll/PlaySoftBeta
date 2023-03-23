@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import VuexPersistence from 'vuex-persistedstate'
 import axios from 'axios';
 
 
@@ -55,7 +54,7 @@ export default new Vuex.Store({
   },
   actions: {
     getPlaylists() {
-      let IdUser = parseInt(this.state.usuario)
+      let IdUser = sessionStorage.getItem("userid")
       console.log(IdUser)
       axios.get(`https://playsoft-api.azurewebsites.net/Playlist/${IdUser}`)
         .then(function (response) {
@@ -71,10 +70,8 @@ export default new Vuex.Store({
     }
   },
   modules: {
-  }, 
+  },
   plugins: [
-    new VuexPersistence({
-      storage: window.localStorage
-    }).plugin
+
   ]
 })
