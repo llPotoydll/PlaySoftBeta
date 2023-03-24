@@ -32,9 +32,6 @@ namespace PlaySoftBeta.Migrations
                     b.Property<int>("UKID")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserUKID")
-                        .HasColumnType("int");
-
                     b.Property<double>("playListDuration")
                         .HasColumnType("float");
 
@@ -51,8 +48,6 @@ namespace PlaySoftBeta.Migrations
                     b.HasKey("playlistID");
 
                     b.HasIndex("UKID");
-
-                    b.HasIndex("UserUKID");
 
                     b.ToTable("Playlists");
                 });
@@ -147,7 +142,7 @@ namespace PlaySoftBeta.Migrations
 
                     b.HasOne("PlaySoftBeta.Models.User", "User")
                         .WithMany("Playlists")
-                        .HasForeignKey("UserUKID")
+                        .HasForeignKey("UKID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
