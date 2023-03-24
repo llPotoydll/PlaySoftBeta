@@ -32,9 +32,6 @@ namespace PlaySoftBeta.Migrations
                     b.Property<int>("UKID")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserUKID")
-                        .HasColumnType("int");
-
                     b.Property<string>("playListName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -48,8 +45,6 @@ namespace PlaySoftBeta.Migrations
                     b.HasKey("playlistID");
 
                     b.HasIndex("UKID");
-
-                    b.HasIndex("UserUKID");
 
                     b.ToTable("Playlists");
                 });
