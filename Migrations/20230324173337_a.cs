@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace PlaySoftBeta.Migrations
 {
     /// <inheritdoc />
-    public partial class PlaySoftDB : Migration
+    public partial class a : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -51,14 +51,14 @@ namespace PlaySoftBeta.Migrations
                     playListName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     playlistDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     privacity = table.Column<bool>(type: "bit", nullable: false),
-                    UKID = table.Column<int>(type: "int", nullable: false),
+                    userUKID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Playlists", x => x.playlistID);
                     table.ForeignKey(
-                        name: "FK_Playlists_Users_UKID",
-                        column: x => x.UKID,
+                        name: "FK_Playlists_Users_userUKID",
+                        column: x => x.userUKID,
                         principalTable: "Users",
                         principalColumn: "UKID",
                         onDelete: ReferentialAction.Cascade);
@@ -104,9 +104,9 @@ namespace PlaySoftBeta.Migrations
                 column: "songID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Playlists_UKID",
+                name: "IX_Playlists_userUKID",
                 table: "Playlists",
-                column: "UKID");
+                column: "userUKID");
         }
 
         /// <inheritdoc />

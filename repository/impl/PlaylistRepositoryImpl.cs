@@ -42,7 +42,7 @@ namespace PlaySoftBeta.Repository
 
         public List<PlaylistDTO> getOwnPlaylist(int userUKID)
         {
-            var playlistlist = _context.Playlists.Where(playlist => playlist.UKID.Equals(userUKID)).ToList();
+            var playlistlist = _context.Playlists.Where(playlist => playlist.userUKID.Equals(userUKID)).ToList();
             return _mapper.Map<List<PlaylistDTO>>(playlistlist);
         }
         public void Save()

@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace PlaySoftBeta.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20230324171103_PlaySoftDB")]
-    partial class PlaySoftDB
+    [Migration("20230324173337_a")]
+    partial class a
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,9 +32,6 @@ namespace PlaySoftBeta.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("playlistID"));
 
-                    b.Property<int>("UKID")
-                        .HasColumnType("int");
-
                     b.Property<string>("playListName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -45,9 +42,12 @@ namespace PlaySoftBeta.Migrations
                     b.Property<bool>("privacity")
                         .HasColumnType("bit");
 
+                    b.Property<int>("userUKID")
+                        .HasColumnType("int");
+
                     b.HasKey("playlistID");
 
-                    b.HasIndex("UKID");
+                    b.HasIndex("userUKID");
 
                     b.ToTable("Playlists");
                 });
@@ -134,14 +134,9 @@ namespace PlaySoftBeta.Migrations
 
             modelBuilder.Entity("PlaySoftBeta.Models.Playlist", b =>
                 {
-                    b.HasOne("PlaySoftBeta.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("UKID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("PlaySoftBeta.Models.User", "User")
                         .WithMany("Playlists")
+                        .HasForeignKey("userUKID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
