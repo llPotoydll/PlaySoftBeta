@@ -7,7 +7,7 @@
             </section>
             <AddSongForm></AddSongForm>
             <v-container class="fill-height secciones canciones" fluid style="justify-content: center;">
-                <p id="animated" class="playlists wavy songs" v-for="song in this.Songs2" :key="song.songID">{{ song.songName }}
+                <p id="animated" class="playlists wavy songs" v-for="song in $store.state.Songs2" :key="song.songID">{{ song.songName }}
                 </p>
             </v-container>
         </v-main>
@@ -22,8 +22,7 @@ export default {
     name: 'SongsPage',
     data() {
         return {
-            Songs: [],
-            Songs2: []
+            
         };
     },
     components: {
@@ -32,19 +31,18 @@ export default {
     mounted: async function () {
 
         console.log(sessionStorage.getItem("userid"))
-        let vue = this;
         const playid = sessionStorage.getItem("playlistid")
 
         axios.get(`https://playsoft-api.azurewebsites.net/Playlist/songs/${playid}`)
             .then(function (response) {
                 console.log(response);
-                vue.Songs = response.data
-                for (let index = 0; index < vue.Songs.length; index++) {
-                    axios.get(`https://playsoft-api.azurewebsites.net/Song/${vue.Songs[index].songID}`)
+                this.$store.state.Songs = response.data
+                for (let index = 0; index < this.$store.state.Songs.length; index++) {
+                    axios.get(`https://playsoft-api.azurewebsites.net/Song/${this.$store.state.Songs[index].songID}`)
                         .then(function (respuesta) {
                             console.log(respuesta)
-                            vue.Songs2.push(respuesta.data)
-                            console.log(vue.Songs2)
+                            this.$store.state.Songs2.push(respuesta.data)
+                            console.log(this.$store.state.Songs2)
                         })
                 }
             })

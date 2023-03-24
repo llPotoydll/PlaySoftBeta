@@ -6,7 +6,7 @@
                 <v-btn class="btn" @click="compose({})">New Playlist</v-btn>
             </v-layout>
 
-            <v-dialog v-model="dialogCompose" width="500">
+            <v-dialog v-model="$store.state.dialogCompose" width="500">
                 <v-card>
                     <v-card-title class="headline purple" primary-title>
                         New PLaylist
@@ -14,14 +14,14 @@
                     <v-alert v-show="error" style="margin: 20px; color: white" color="error" icon="$error"
                         id="alert">Playlist must have a name</v-alert>
                     <v-card-text class="pa-5">
-                        <v-form ref="sendForm" v-model="valid" lazy-validation>
-                            <v-text-field v-model="playListName" label="Playlist name"
+                        <v-form ref="sendForm" v-model="$store.state.valid" lazy-validation>
+                            <v-text-field v-model="$store.state.playListName" label="Playlist name"
                                 :rules="[rules.required]"></v-text-field>
-                            <div v-html="composeMessage.originalBody"></div>
-                            <v-textarea v-model="playlistDescription" label="Description"></v-textarea>
+                            <div v-html="$store.state.composeMessage.originalBody"></div>
+                            <v-textarea v-model="$store.state.playlistDescription" label="Description"></v-textarea>
                             <div class="switch">
                                 <div>
-                                    <input v-model="privacity" type="checkbox" class="switch-input" name="view">
+                                    <input v-model="$store.state.privacity" type="checkbox" class="switch-input" name="view">
                                     <label class="switch-label switch-label-off">Private</label>
                                 </div>
                                 <!-- <div> <input v-model="privacity" type="radio" class="switch-input" name="view" value=true>
@@ -45,18 +45,7 @@ import axios from 'axios';
 export default {
     data() {
         return {
-            playListName: "",
-            playlistDescription: "",
-            privacity: true,
-            ukid: "",
-            error: false,
-            messages: [],
-            drafts: [],
-            sent: [],
-            dialogCompose: false,
-            activeMessage: {},
-            composeMessage: {},
-            valid: true,
+
             rules: {
                 required: value => !!value || "This field is required",
                 email: v => /.+@.+\..+/.test(v) || "Must be a valid email"
@@ -67,38 +56,39 @@ export default {
     },
     methods: {
         compose() {
-            this.dialogCompose = true
+            this.$store.state.dialogCompose = true
         },
         saveDraft() {
-            this.dialogCompose = false
+            this.$store.state.dialogCompose = false
         },
         nuevaPl() {
             const usuario = sessionStorage.getItem("userid");
-            this.ukid = usuario;
+            this.$store.state.ukid = usuario;
             let vue = this
-            console.log(vue.privacity)
-            console.log(this.playListName)
-            console.log(this.playlistDescription)
-            console.log(this.privacity)
-            console.log(this.ukid)
-            if (this.playListName != "") {
+            console.log(vue.$store.state.privacity)
+            console.log(this.$store.state.playListName)
+            console.log(this.$store.state.playlistDescription)
+            console.log(this.$store.state.privacity)
+            console.log(this.$store.state.ukid)
+            if (this.$store.state.playListName != "") {
                 axios.post("https://playsoft-api.azurewebsites.net/Playlist/NewPlaylist/", {
-                    playListName: this.playListName,
-                    userUKID: this.ukid,
-                    playlistDescription: this.playlistDescription,
-                    privacity: this.privacity
+                    playListName: this.$store.state.playListName,
+                    userUKID: this.$store.state.ukid,
+                    playlistDescription: this.$store.state.playlistDescription,
+                    privacity: this.$store.state.privacity,
+                    
                 })
                     .then(function (response) {
                         response.data
                         location.reload();
                     })
                     .catch(e => {
-                        this.loginError = true;
+                        this.$store.state.loginError = true;
                         this.alertMessage = "Error create playlist";
                         console.log(e);
                     });
             } else {
-                this.error = true
+                this.$store.state.error = true
             }
         },
     }
