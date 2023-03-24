@@ -75,7 +75,8 @@ export default {
                     playListName: this.$store.state.playListName,
                     userUKID: this.$store.state.ukid,
                     playlistDescription: this.$store.state.playlistDescription,
-                    privacity: this.$store.state.privacity
+                    privacity: this.$store.state.privacity,
+                    
                 })
                     .then(function (response) {
                         response.data
