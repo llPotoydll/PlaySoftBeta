@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace PlaySoftBeta.Migrations
 {
     /// <inheritdoc />
-    public partial class db : Migration
+    public partial class PlaySoftDB : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -51,7 +51,6 @@ namespace PlaySoftBeta.Migrations
                     playListName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     playlistDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     privacity = table.Column<bool>(type: "bit", nullable: false),
-                    playListDuration = table.Column<double>(type: "float", nullable: false),
                     UKID = table.Column<int>(type: "int", nullable: false),
                 },
                 constraints: table =>

@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace PlaySoftBeta.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20230324164540_db")]
-    partial class db
+    [Migration("20230324171103_PlaySoftDB")]
+    partial class PlaySoftDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -35,12 +35,6 @@ namespace PlaySoftBeta.Migrations
                     b.Property<int>("UKID")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserUKID")
-                        .HasColumnType("int");
-
-                    b.Property<double>("playListDuration")
-                        .HasColumnType("float");
-
                     b.Property<string>("playListName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -54,8 +48,6 @@ namespace PlaySoftBeta.Migrations
                     b.HasKey("playlistID");
 
                     b.HasIndex("UKID");
-
-                    b.HasIndex("UserUKID");
 
                     b.ToTable("Playlists");
                 });
@@ -150,7 +142,6 @@ namespace PlaySoftBeta.Migrations
 
                     b.HasOne("PlaySoftBeta.Models.User", "User")
                         .WithMany("Playlists")
-                        .HasForeignKey("UserUKID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
