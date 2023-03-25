@@ -72,7 +72,7 @@ export default {
             console.log(this.$store.state.privacity)
             console.log(this.$store.state.ukid)
             if (this.$store.state.playListName != "") {
-                axios.post("https://playsoft-api.azurewebsites.net/Playlist/NewPlaylist/", { 
+                axios.post("https://playsoft-api.azurewebsites.net/Playlist/NewPlaylist/", {
                     playListName: this.$store.state.playListName,
                     userUKID: this.$store.state.ukid,
                     playlistDescription: this.$store.state.playlistDescription,
@@ -81,6 +81,7 @@ export default {
                 })
                     .then(function (response) {
                         response.data
+                        vue.$store.dispatch('getPlaylists')
                         location.reload();
                     })
                     .catch(e => {
