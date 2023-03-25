@@ -7,7 +7,7 @@
             </section>
             <AddSongForm></AddSongForm>
             <v-container class="fill-height secciones canciones" fluid style="justify-content: center;">
-                <p id="animated" class="playlists wavy songs" v-for="song in $store.state.Songs2" :key="song.songID">{{
+                <p id="animated" class="playlists wavy songs" v-for="song in SongsLines" :key="song.songID">{{
                     song.songName }}
                 </p>
             </v-container>
@@ -32,12 +32,6 @@ export default {
     },
     mounted: async function () {
         let vue = this;
-        this.$store.dispatch('getSongs')
-            .then(function () {
-                console.log(`Las Songs son: ${sessionStorage.getItem("Song")}`)
-                var Songs = JSON.parse(sessionStorage.getItem("Song"));
-                vue.Songs = Songs
-            })
         console.log(sessionStorage.getItem("userid"))
         const playid = sessionStorage.getItem("playlistid")
 
