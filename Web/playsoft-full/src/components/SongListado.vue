@@ -7,7 +7,8 @@
             </section>
             <AddSongForm></AddSongForm>
             <v-container class="fill-height secciones canciones" fluid style="justify-content: center;">
-                <p id="animated" class="playlists wavy songs" v-for="song in $store.state.Songs2" :key="song.songID">{{ song.songName }}
+                <p id="animated" class="playlists wavy songs" v-for="song in $store.state.Songs2" :key="song.songID">{{
+                    song.songName }}
                 </p>
             </v-container>
         </v-main>
@@ -22,27 +23,34 @@ export default {
     name: 'SongsPage',
     data() {
         return {
-            
+            Songs: [],
+            SongsLines: []
         };
     },
     components: {
         AddSongForm
     },
     mounted: async function () {
-
+        let vue = this;
+        this.$store.dispatch('getSongs')
+            .then(function () {
+                console.log(`Las Songs son: ${sessionStorage.getItem("Song")}`)
+                var Songs = JSON.parse(sessionStorage.getItem("Song"));
+                vue.Songs = Songs
+            })
         console.log(sessionStorage.getItem("userid"))
         const playid = sessionStorage.getItem("playlistid")
 
         axios.get(`https://playsoft-api.azurewebsites.net/Playlist/songs/${playid}`)
             .then(function (response) {
                 console.log(response);
-                this.$store.state.Songs = response.data
-                for (let index = 0; index < this.$store.state.Songs.length; index++) {
-                    axios.get(`https://playsoft-api.azurewebsites.net/Song/${this.$store.state.Songs[index].songID}`)
+                vue.Songs = response.data
+                for (let index = 0; index < vue.Songs.length; index++) {
+                    axios.get(`https://playsoft-api.azurewebsites.net/Song/${vue.Songs[index].songID}`)
                         .then(function (respuesta) {
                             console.log(respuesta)
-                            this.$store.state.Songs2.push(respuesta.data)
-                            console.log(this.$store.state.Songs2)
+                            vue.SongsLines.push(respuesta.data)
+                            console.log(vue.Songs2)
                         })
                 }
             })

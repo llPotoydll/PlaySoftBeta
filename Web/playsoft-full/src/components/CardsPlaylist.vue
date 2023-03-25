@@ -7,7 +7,8 @@
             </section>
             <CreatePlaylistForm></CreatePlaylistForm>
             <v-container style="flex-direction: column;" class="fill-height secciones pl-cont">
-                <p @click="redirigir(playlist.playListName)" id="animated" class="playlists wavy" v-for="playlist in $store.state.PlayLists" :key="playlist.playlistID">{{ playlist.playListName }}</p>
+                <p @click="redirigir(playlist.playListName)" id="animated" class="playlists wavy"
+                    v-for="playlist in PlayListsList" :key="playlist.playlistID">{{ playlist.playListName }}</p>
             </v-container>
 
         </v-main>
@@ -21,19 +22,26 @@ export default {
     props: ["productItem"],
     data() {
         return {
-            
+            PlayListsList: []
         }
     },
     components: { CreatePlaylistForm },
-    mounted:  function () {
+    mounted: function () {
+        let vue = this;
         this.$store.dispatch('getPlaylists')
+            .then(function () {
+                console.log(`Las playlists son: ${sessionStorage.getItem("Playlist")}`)
+                var PlayLists = JSON.parse(sessionStorage.getItem("Playlist"));
+                vue.PlayListsList = PlayLists
+            })
     },
     methods: {
         redirigir(nombrepl) {
             console.log(nombrepl)
-            for (let index = 0; index < this.$store.state.PlayLists.length; index++) {
-                if (this.$store.state.PlayLists[index].playListName == nombrepl) {
-                    sessionStorage.setItem("playlistid", this.$store.state.PlayLists[index].playlistID);
+            let vue = this;
+            for (let index = 0; index < vue.PlayListsList.length; index++) {
+                if (vue.PlayListsList[index].playListName == nombrepl) {
+                    sessionStorage.setItem("playlistid", vue.PlayListsList[index].playlistID);
                     location.href = "http://localhost:8080/songs"
                 }
             }

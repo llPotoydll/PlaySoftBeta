@@ -58,9 +58,7 @@ export default new Vuex.Store({
       console.log(IdUser)
       axios.get(`https://playsoft-api.azurewebsites.net/Playlist/${IdUser}`)
         .then(function (response) {
-          this.state.PlayLists = response.data
-          console.log(this.state.PlayLists);
-          console.log(response.data)
+          sessionStorage.setItem("Playlist", JSON.stringify(response.data));
         })
         .catch(e => {
           this.state.loginError = true;

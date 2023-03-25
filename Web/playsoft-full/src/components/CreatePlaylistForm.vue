@@ -2,7 +2,7 @@
     <div id="app" v-cloak style="min-height: 0px;">
         <v-app style="max-height: 0px;">
 
-            <v-layout>
+            <v-layout style="align-items: center; justify-content: flex-end; margin: 10rem;">
                 <v-btn class="btn" @click="compose({})">New Playlist</v-btn>
             </v-layout>
 
@@ -21,7 +21,8 @@
                             <v-textarea v-model="$store.state.playlistDescription" label="Description"></v-textarea>
                             <div class="switch">
                                 <div>
-                                    <input v-model="$store.state.privacity" type="checkbox" class="switch-input" name="view">
+                                    <input v-model="$store.state.privacity" type="checkbox" class="switch-input"
+                                        name="view">
                                     <label class="switch-label switch-label-off">Private</label>
                                 </div>
                                 <!-- <div> <input v-model="privacity" type="radio" class="switch-input" name="view" value=true>
@@ -71,12 +72,12 @@ export default {
             console.log(this.$store.state.privacity)
             console.log(this.$store.state.ukid)
             if (this.$store.state.playListName != "") {
-                axios.post("https://playsoft-api.azurewebsites.net/Playlist/NewPlaylist/", {
+                axios.post("https://playsoft-api.azurewebsites.net/Playlist/NewPlaylist/", { 
                     playListName: this.$store.state.playListName,
                     userUKID: this.$store.state.ukid,
                     playlistDescription: this.$store.state.playlistDescription,
                     privacity: this.$store.state.privacity,
-                    
+
                 })
                     .then(function (response) {
                         response.data
