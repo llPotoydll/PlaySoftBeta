@@ -21,8 +21,8 @@
 
                           <v-text-field v-model="$store.state.loginEmail" label="Email" type="text" color="#6c176d" />
 
-                          <v-text-field v-model="$store.state.loginPassword" id="password" label="Password" type="password"
-                            color="#6c176d" />
+                          <v-text-field v-model="$store.state.loginPassword" id="password" label="Password"
+                            type="password" color="#6c176d" />
                         </v-form>
                         <h3 class="text-center mt-4">Forgot your password ?</h3>
                       </v-card-text>
@@ -65,13 +65,14 @@
                           <v-alert v-show="registerError" style="margin-top: 20px; color: white" color="error"
                             icon="$error" id="alert">{{ alertMessage }}</v-alert></template>
                         <v-form>
-                          <v-text-field v-model="$store.state.registerUsername" label="Name" type="text" color="#6c176d" />
+                          <v-text-field v-model="$store.state.registerUsername" label="Name" type="text"
+                            color="#6c176d" />
                           <v-text-field v-model="$store.state.registerEmail" label="Email" type="text" color="#6c176d" />
 
-                          <v-text-field v-model="$store.state.registerPassword" id="password" label="Password" type="password"
-                            color="#6c176d" />
-                          <v-text-field v-model="$store.state.repeatPassword" id="password" label="Repeat Password" type="password"
-                            color="#6c176d" />
+                          <v-text-field v-model="$store.state.registerPassword" id="password" label="Password"
+                            type="password" color="#6c176d" />
+                          <v-text-field v-model="$store.state.repeatPassword" id="password" label="Repeat Password"
+                            type="password" color="#6c176d" />
                         </v-form>
                       </v-card-text>
 
@@ -95,6 +96,9 @@ import axios from "axios";
 export default {
   data() {
     return {
+      alertMessage: "",
+      registerError: false,
+      loginError: false,
     };
   },
   props: {
@@ -103,14 +107,14 @@ export default {
   methods: {
     register() {
       if (this.$store.state.registerEmail == "" || this.$store.state.registerPassword == "" || this.$store.state.registerUsername == "" || this.$store.state.repeatPassword == "") {
-        this.$store.state.registerError = true;
-        this.$store.state.alertMessage = "All fields are required";
+        this.registerError = true;
+        this.alertMessage = "All fields are required";
       } else if (this.$store.state.registerPassword != this.$store.state.repeatPassword) {
-        this.$store.state.alertMessage = "Passwords don't match";
-        this.$store.state.registerError = true;
+        this.alertMessage = "Passwords don't match";
+        this.registerError = true;
       } else {
         if (this.$store.state.registerError) {
-          this.$store.state.registerError = false;
+          this.registerError = false;
         }
 
         axios
@@ -126,7 +130,7 @@ export default {
           })
           .catch(e => {
             this.alertMessage = "Email already in use";
-            this.$store.state.xºregisterError = true;
+            this.registerError = true;
             console.log(e);
           });
       }
@@ -134,11 +138,11 @@ export default {
 
     login() {
       if (this.$store.state.loginError) {
-        this.$store.state.loginError = false;
+        this.loginError = false;
       }
       if (this.$store.state.loginEmail == "" || this.$store.state.loginPassword == "") {
-        this.$store.state.loginError = true;
-        this.$store.state.alertMessage = "All fields are required";
+        this.loginError = true;
+        this.alertMessage = "All fields are required";
       } else {
         axios
           .post("https://playsoft-api.azurewebsites.net/Auth/login", {
@@ -173,7 +177,7 @@ v-content {
   padding: none !important;
 }
 
-.fondo2{
+.fondo2 {
   position: absolute;
   width: 100vw;
   height: 100vh;

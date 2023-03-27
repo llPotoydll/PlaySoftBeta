@@ -46,7 +46,7 @@ import axios from 'axios';
 export default {
     data() {
         return {
-
+            error: false,
             rules: {
                 required: value => !!value || "This field is required",
                 email: v => /.+@.+\..+/.test(v) || "Must be a valid email"
@@ -82,7 +82,10 @@ export default {
                     .then(function (response) {
                         response.data
                         vue.$store.dispatch('getPlaylists')
-                        location.reload();
+                        setTimeout(function () {
+                            location.reload();
+                        }, 1000);
+
                     })
                     .catch(e => {
                         this.$store.state.loginError = true;

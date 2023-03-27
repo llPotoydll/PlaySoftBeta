@@ -29,11 +29,11 @@ export default {
     mounted: function () {
         let vue = this;
         this.$store.dispatch('getPlaylists')
-            .then(function () {
+            .then(setTimeout(function () {
                 console.log(`Las playlists son: ${sessionStorage.getItem("Playlist")}`)
                 var PlayLists = JSON.parse(sessionStorage.getItem("Playlist"));
                 vue.PlayListsList = PlayLists
-            })
+            }), 2000)
     },
     methods: {
         redirigir(nombrepl) {
