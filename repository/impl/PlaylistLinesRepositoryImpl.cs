@@ -1,6 +1,9 @@
 using PlaySoftBeta.Models;
 using PlaySoftBeta.DTOs;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+
 
 namespace PlaySoftBeta.Repository
 {
@@ -23,6 +26,7 @@ namespace PlaySoftBeta.Repository
         public List<SongIdListDTO> GetSongsId(int ID)
         {
             var playlistLines = _context.PlaylistLines
+                .Include(playlistLine => playlistLine.Song)
                 .Where(playlistLine => playlistLine.playlistID.Equals(ID))
                 .ToList();
             return _mapper.Map<List<SongIdListDTO>>(playlistLines);
