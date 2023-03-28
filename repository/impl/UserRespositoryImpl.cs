@@ -23,10 +23,12 @@ namespace PlaySoftBeta.Repository
 
         public List<PlaylistDTO> getUserPlaylists(int ukid)
         {
-            var playlistList = _context.Playlists
+            List<Playlist> playlistList = _context.Playlists
                 .Where(playlist => playlist.userUKID.Equals(ukid) && playlist.privacity == true)
-                .OrderByDescending(playlist => playlist.playListName)
+                .OrderBy(playlist => playlist.playListName)
                 .ToList();
+
+            playlistList = (List<Playlist>)(from s  in playlistList orderby s.playListName select s);
             return _mapper.Map<List<PlaylistDTO>>(playlistList);    
         }
 
