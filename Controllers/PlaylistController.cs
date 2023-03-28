@@ -16,7 +16,7 @@ public class PlaylistController : ControllerBase
         _pLaylistService = pLaylistService;
     }
 
-    [HttpPost("NewPlaylist")]
+    [HttpPost()]
     public async Task<ActionResult> CreatePlaylist(PlaylistDTO pLaylist)
     {
         if (_pLaylistService.CreatePlaylist(pLaylist))
@@ -26,7 +26,7 @@ public class PlaylistController : ControllerBase
         return BadRequest("Create playlist error");
     }
 
-    [HttpDelete("delete")]
+    [HttpDelete()]
     public async Task<ActionResult> DeletePlaylist(int pLaylistID)
     {
         if (_pLaylistService.DeletePlaylist(pLaylistID))
@@ -36,7 +36,7 @@ public class PlaylistController : ControllerBase
         return BadRequest("Playlist not found");
     }
 
-    [HttpPut("EditPlaylist")]
+    [HttpPut()]
     public async Task<ActionResult> EditPLaylist(EditPLaylistDTO editPLaylistDTO)
     {
       if (_pLaylistService.EditPLaylist(editPLaylistDTO))
@@ -61,7 +61,7 @@ public class PlaylistController : ControllerBase
         }
     }
 
-    [HttpGet("songs/{playlistID}")]
+    [HttpGet("{playlistID}/songs")]
     public async Task<ActionResult> GetSongsId(int playlistID)
     {
         var songsID = _pLaylistService.GetSongsId(playlistID);

@@ -25,7 +25,7 @@ public class SongServiceImpl : ISongService
         _playlistLinesRepository.AddSong(playlistLinesDTO);
         _playlistLinesRepository.Save();
     }
-    public SongDTO GetSong(int songID)
+   /* public SongDTO GetSong(int songID)
     {
         try
         {
@@ -36,7 +36,7 @@ public class SongServiceImpl : ISongService
             LogErrors.Log(e);
             return null;
         }
-    }
+    }*/
 
     public SongDTO GetSongByName(string songName)
     {

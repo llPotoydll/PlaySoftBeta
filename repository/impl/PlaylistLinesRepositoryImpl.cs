@@ -25,9 +25,10 @@ namespace PlaySoftBeta.Repository
 
         public List<SongIdListDTO> GetSongsId(int ID)
         {
+            //Hacer dinamica la consulta
             var playlistLines = _context.PlaylistLines
-                .Include(playlistLine => playlistLine.Song)
-                .Where(playlistLine => playlistLine.playlistID.Equals(ID))
+                .FromSql($"SELECT s.songID, p.playlistID FROM PlaylistLines p INNER JOIN Songs s ON s.songID = p.songID WHERE playlistID = {ID} ORDER BY s.songName OFFSET 0 ROWS")
+                .Include(playlistLines => playlistLines.Song)
                 .ToList();
             return _mapper.Map<List<SongIdListDTO>>(playlistLines);
         }

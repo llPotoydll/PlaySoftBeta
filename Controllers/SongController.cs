@@ -14,7 +14,7 @@ public class SongController : ControllerBase
         _songService = songService;
     }
 
-
+/*
     [HttpGet("{songID}")]
     public async Task<ActionResult> GetSong(int songID)
     {
@@ -29,8 +29,8 @@ public class SongController : ControllerBase
         }
 
     }
-
-    [HttpGet("search/{songName}")]
+*/
+    [HttpGet("{songName}")]
     public async Task<ActionResult> GetSongByName(string songName)
     {
         var song = _songService.GetSongByName(songName);
@@ -44,7 +44,7 @@ public class SongController : ControllerBase
         }
     }
 
-    [HttpPost("addSong")]
+    [HttpPost()]
     public async Task<ActionResult> AddSongToPlaylist(PlaylistLinesDTO playlistLinesDTO)
     {
         _songService.AddSongToPlaylist(playlistLinesDTO);

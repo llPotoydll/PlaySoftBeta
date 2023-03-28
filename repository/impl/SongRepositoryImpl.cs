@@ -14,10 +14,10 @@ namespace PlaySoftBeta.Repository
             _context = context;
             _mapper = mapper;
         }
-        public SongDTO getSong(int songID)
+       /* public SongDTO getSong(int songID)
         {
             return _mapper.Map<SongDTO>(_context.Songs?.Find(songID));
-        }
+        }*/
 
         public SongDTO getSongByName(string songName)
         {
