@@ -1,4 +1,4 @@
-using PlaySoftBeta.Models;
+
 using PlaySoftBeta.DTOs;
 using PlaySoftBeta.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -46,10 +46,10 @@ public class PlaylistController : ControllerBase
         return BadRequest("Error updating playlist");
     }
 
-    [HttpGet("{userUKID}")]
-    public async Task<ActionResult> GetOwnPlaylist(int userUKID)
+   /* [HttpGet("{userUKID}")]
+    public async Task<ActionResult> GetOwnPlaylist(PlaylistLinesOrderDTO playlistLinesOrderDTO)
     {
-        var playlists = _pLaylistService.GetOwnPlaylist(userUKID);
+        var playlists = _pLaylistService.GetOwnPlaylist(playlistLinesOrderDTO);
 
         if (playlists != null && playlists.Any())
         {
@@ -60,11 +60,11 @@ public class PlaylistController : ControllerBase
             return Ok("You don't have playlists yet");
         }
     }
-
-    [HttpGet("{playlistID}/songs")]
-    public async Task<ActionResult> GetSongsId(int playlistID)
+*/
+    [HttpGet("{playlistID}/{orderKey}")]
+    public async Task<ActionResult> GetSongsId(int playlistID, string? orderKey)
     {
-        var songsID = _pLaylistService.GetSongsId(playlistID);
+        var songsID = _pLaylistService.GetSongsId(playlistID, orderKey);
 
         if (songsID != null && songsID.Any())
         {

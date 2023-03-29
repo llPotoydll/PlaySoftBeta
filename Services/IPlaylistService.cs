@@ -10,7 +10,7 @@ public interface IPLaylistService
     public bool DeletePlaylist(int playlistID);
     public bool EditPLaylist(EditPLaylistDTO editPLaylistDTO);
 
-    public List<PlaylistDTO> GetOwnPlaylist(int userUKID);
+   // public List<PlaylistDTO> GetOwnPlaylist(PlaylistLinesOrderDTO playlistLinesOrderDTO);
 
-    public List<SongIdListDTO> GetSongsId(int playlistID);
+    public List<SongIDSongOutDTO> GetSongsId(int playlistID, string orderKey);
 }

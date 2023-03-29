@@ -63,7 +63,7 @@ public class PlaylistService : IPLaylistService
         }
     }
 
-    public List<PlaylistDTO> GetOwnPlaylist(int userUKID)
+   /* public List<PlaylistDTO> GetOwnPlaylist(int userUKID)
     {
         try
         {
@@ -79,14 +79,14 @@ public class PlaylistService : IPLaylistService
             return null;
         }
     }
-
-    public List<SongIdListDTO> GetSongsId(int playlistID)
+    */
+    public List<SongIDSongOutDTO> GetSongsId(int playlistID, string orderKey)
     {
         try
         {
             if (playlistID != null)
             {
-                return _playlistLinesRepository.GetSongsId(playlistID);
+                return _playlistLinesRepository.GetSongsId(playlistID, orderKey);
             }
             return null;
         }
