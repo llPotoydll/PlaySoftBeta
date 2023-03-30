@@ -12,5 +12,5 @@ public interface IPLaylistService
 
    // public List<PlaylistDTO> GetOwnPlaylist(PlaylistLinesOrderDTO playlistLinesOrderDTO);
 
-    public List<SongIDSongOutDTO> GetSongsId(int playlistID, string orderKey);
+    public List<SongIDSongOutDTO> GetSongsId(int playlistID, string orderKey, string order);
 }

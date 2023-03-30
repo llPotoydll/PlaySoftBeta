@@ -63,30 +63,30 @@ public class PlaylistService : IPLaylistService
         }
     }
 
-   /* public List<PlaylistDTO> GetOwnPlaylist(int userUKID)
+    /* public List<PlaylistDTO> GetOwnPlaylist(int userUKID)
+     {
+         try
+         {
+             if (userUKID != null && userUKID > -1)
+             {
+                 return _pLaylistRepository.getOwnPlaylist(userUKID);
+             }
+             return null;
+         }
+         catch (Exception e)
+         {
+             LogErrors.Log(e);
+             return null;
+         }
+     }
+     */
+    public List<SongIDSongOutDTO> GetSongsId(int playlistID, string orderKey, string order)
     {
         try
         {
-            if (userUKID != null && userUKID > -1)
+            if (orderKey.Equals("songName") || orderKey.Equals("songID") || orderKey.Equals("duration"))
             {
-                return _pLaylistRepository.getOwnPlaylist(userUKID);
-            }
-            return null;
-        }
-        catch (Exception e)
-        {
-            LogErrors.Log(e);
-            return null;
-        }
-    }
-    */
-    public List<SongIDSongOutDTO> GetSongsId(int playlistID, string orderKey)
-    {
-        try
-        {
-            if (playlistID != null)
-            {
-                return _playlistLinesRepository.GetSongsId(playlistID, orderKey);
+                return _playlistLinesRepository.GetSongsId(playlistID, orderKey, order);
             }
             return null;
         }

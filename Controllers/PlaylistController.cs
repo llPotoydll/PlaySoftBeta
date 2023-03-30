@@ -39,32 +39,32 @@ public class PlaylistController : ControllerBase
     [HttpPut()]
     public async Task<ActionResult> EditPLaylist(EditPLaylistDTO editPLaylistDTO)
     {
-      if (_pLaylistService.EditPLaylist(editPLaylistDTO))
+        if (_pLaylistService.EditPLaylist(editPLaylistDTO))
         {
             return Ok("Playlist Updated");
         }
         return BadRequest("Error updating playlist");
     }
 
-   /* [HttpGet("{userUKID}")]
-    public async Task<ActionResult> GetOwnPlaylist(PlaylistLinesOrderDTO playlistLinesOrderDTO)
-    {
-        var playlists = _pLaylistService.GetOwnPlaylist(playlistLinesOrderDTO);
+    /* [HttpGet("{userUKID}")]
+     public async Task<ActionResult> GetOwnPlaylist(PlaylistLinesOrderDTO playlistLinesOrderDTO)
+     {
+         var playlists = _pLaylistService.GetOwnPlaylist(playlistLinesOrderDTO);
 
-        if (playlists != null && playlists.Any())
-        {
-            return Ok(playlists);
-        }
-        else
-        {
-            return Ok("You don't have playlists yet");
-        }
-    }
-*/
-    [HttpGet("{playlistID}/{orderKey}")]
-    public async Task<ActionResult> GetSongsId(int playlistID, string? orderKey)
+         if (playlists != null && playlists.Any())
+         {
+             return Ok(playlists);
+         }
+         else
+         {
+             return Ok("You don't have playlists yet");
+         }
+     }
+ */
+    [HttpGet("{playlistID}")]
+    public async Task<ActionResult> GetSongsId(int playlistID, string orderKey, string order)
     {
-        var songsID = _pLaylistService.GetSongsId(playlistID, orderKey);
+        var songsID = _pLaylistService.GetSongsId(playlistID, orderKey, order);
 
         if (songsID != null && songsID.Any())
         {
