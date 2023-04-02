@@ -14,17 +14,16 @@ namespace PlaySoftBeta.Repository
             _context = context;
             _mapper = mapper;
         }
-       /* public SongDTO getSong(int songID)
-        {
-            return _mapper.Map<SongDTO>(_context.Songs?.Find(songID));
-        }*/
+         public SongDTO GetSong(int songID)
+         {
+             return _mapper.Map<SongDTO>(_context.Songs?.Find(songID));
+         }
 
-        public SongDTO getSongByName(string songName)
-        {
-            var songs = _context.Songs
-                .FirstOrDefault(song => song.songName.Equals(songName));
 
-            return _mapper.Map<SongDTO>(songs);
+        public List<SearchSongDTO> GetSongListByName(string songName)
+        {
+            var songList = _context.Songs.Where(song => song.songName.Contains(songName)).ToList();
+            return _mapper.Map<List<SearchSongDTO>>(songList);
         }
     }
 }

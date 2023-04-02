@@ -1,6 +1,7 @@
 using PlaySoftBeta.Models;
 using PlaySoftBeta.DTOs;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 
 namespace PlaySoftBeta.Repository
 {
@@ -15,22 +16,18 @@ namespace PlaySoftBeta.Repository
             _mapper = mapper;
         }
 
-        public List<UserDTO> getUserListByUsername(string username)
+        public List<SearchUserDTO> GetUserListByUsername(string username)
         {
-            var userList = _context.Users.Where(user => user.username.Equals(username)).ToList();
-            return _mapper.Map<List<UserDTO>>(userList);
+            var userList = _context.Users.Where(user => user.username.Contains(username)).ToList();
+            return _mapper.Map<List<SearchUserDTO>>(userList);
         }
 
-        public List<PlaylistDTO> getUserPlaylists(int ukid)
+        public UserDTO GetUser(int ukid)
         {
-            var playlistList = _context.Playlists
-                .Where(playlist => playlist.userUKID.Equals(ukid))
-                .Where(playlist => playlist.privacity)
-                .OrderBy(playlist => playlist.playListName)
-                .ToList();
-
-
-            return _mapper.Map<List<PlaylistDTO>>(playlistList);
+            var user = _context.Users
+                .Include(user => user.Playlists)
+                .FirstOrDefault(user => user.UKID.Equals(ukid));
+            return _mapper.Map<UserDTO>(user);
         }
 
         public void Save()

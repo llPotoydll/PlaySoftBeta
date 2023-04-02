@@ -14,7 +14,7 @@ public class SongController : ControllerBase
         _songService = songService;
     }
 
-/*
+
     [HttpGet("{songID}")]
     public async Task<ActionResult> GetSong(int songID)
     {
@@ -29,20 +29,7 @@ public class SongController : ControllerBase
         }
 
     }
-*/
-    [HttpGet("{songName}")]
-    public async Task<ActionResult> GetSongByName(string songName)
-    {
-        var song = _songService.GetSongByName(songName);
-        if (song != null)
-        {
-            return Ok(song);
-        }
-        else
-        {
-            return BadRequest("Not found");
-        }
-    }
+
 
     [HttpPost()]
     public async Task<ActionResult> AddSongToPlaylist(PlaylistLinesDTO playlistLinesDTO)

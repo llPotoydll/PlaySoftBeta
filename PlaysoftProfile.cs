@@ -9,12 +9,20 @@ public class PlaysoftProfile : Profile
         CreateMap<User, AuthLoginOutDTO>();
 
         CreateMap<User, UserDTO>();
+
         CreateMap<Playlist, PlaylistDTO>();
         CreateMap<PlaylistDTO, Playlist>();
+        CreateMap<EditPLaylistDTO, Playlist>();
+
         CreateMap<Song, SongDTO>();
+
         CreateMap<PlaylistLinesDTO, PlaylistLines>();
         CreateMap<PlaylistLines, SongIDSongOutDTO>();
-        CreateMap<EditPLaylistDTO, Playlist>();
+
+        CreateMap<PlaylistLines, SongIDSongOutDTO>();
+
+        CreateMap<User, SearchUserDTO>();
+        CreateMap<Song, SearchSongDTO>();
         // Use CreateMap... Etc.. here (Profile methods are the same as configuration methods)
     }
 }

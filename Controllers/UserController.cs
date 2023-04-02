@@ -16,17 +16,17 @@ public class UserController : ControllerBase
         _userService = userService;
     }
 
-    [HttpGet("{username}")]
-    public ActionResult<User> Get(string username)
+    [HttpGet("{ukid}")]
+    public ActionResult<User> Get(int ukid)
     {
-        var userList = _userService.getUsers(username);
-        if (userList.Any())
+        var user = _userService.GetUser(ukid);
+        if (user != null)
         {
-            return Ok(userList);
+            return Ok(user);
         }
         return BadRequest("User not found");
     }
-
+/*
     [HttpGet("playlist/{ukid}")]
     public ActionResult<User> getUserPlaylists(int ukid)
     {
@@ -36,5 +36,5 @@ public class UserController : ControllerBase
             return Ok(playlistList);
         }
         return BadRequest("User not found");
-    }
+    }*/
 }

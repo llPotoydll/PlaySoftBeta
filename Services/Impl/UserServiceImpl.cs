@@ -14,24 +14,11 @@ public class UserServiceImpl : IUserService
         _userRepository = userRepository;
     }
 
-    public List<UserDTO> getUsers(string username)
+    public UserDTO GetUser(int ukid)
     {
         try
         {
-            return _userRepository.getUserListByUsername(username);
-        }
-        catch (Exception e)
-        {
-            LogErrors.Log(e);
-            return null;
-        }
-    }
-
-    public List<PlaylistDTO> getPlaylists(int ukid)
-    {
-        try
-        {
-            return _userRepository.getUserPlaylists(ukid);
+            return _userRepository.GetUser(ukid);
         }
         catch (Exception e)
         {

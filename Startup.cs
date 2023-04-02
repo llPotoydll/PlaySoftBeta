@@ -44,6 +44,8 @@ public class Startup
 
         services.AddScoped<IPlaylistLinesRepository, PlaylistLinesRepositoryImpl>();
 
+        services.AddScoped<ISearchService, SearchService>();
+
 
         services.AddAutoMapper(typeof(PlaysoftProfile));
         services.AddRazorPages();

@@ -5,7 +5,7 @@ namespace PlaySoftBeta.Repository;
 
     public interface IUserRepository
     {
-        List<UserDTO> getUserListByUsername(string username);
-        List<PlaylistDTO> getUserPlaylists(int ukid);
+        List<SearchUserDTO> GetUserListByUsername(string username);
+        UserDTO GetUser(int ukid);
         void Save();
     }
