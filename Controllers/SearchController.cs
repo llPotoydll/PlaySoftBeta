@@ -19,12 +19,12 @@ public class SearchController : ControllerBase
 
 
     [HttpGet("{name}")]
-    public async Task<ActionResult> GetSongByName(string name)
+    public async Task<ActionResult> SearchSongsAndUsers(string name)
     {
-        var song = _searchService.SearchByName(name);
-        if (song != null)
+        var songsAndUsers = _searchService.SearchByName(name);
+        if (songsAndUsers != null)
         {
-            return Ok(song);
+            return Ok(songsAndUsers);
         }
         else
         {

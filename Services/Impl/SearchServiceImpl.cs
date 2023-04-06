@@ -21,6 +21,13 @@ public class SearchService : ISearchService
     {
         var users = _userRepository.GetUserListByUsername(name);
         var songs = _songRpository.GetSongListByName(name);
-        return null;
+
+        var searchDTO = new SearchDTO
+        {
+            songs = songs,
+            users = users,
+        };
+
+        return searchDTO;
     }
 }
