@@ -8,10 +8,12 @@ using PlaySoftBeta.Log;
 public class UserServiceImpl : IUserService
 {
     private readonly IUserRepository _userRepository;
+    private readonly ILogger<UserServiceImpl> _logger;
 
-    public UserServiceImpl(IUserRepository userRepository)
+    public UserServiceImpl(IUserRepository userRepository, ILogger<UserServiceImpl> logger)
     {
         _userRepository = userRepository;
+        _logger = logger;
     }
 
     public UserDTO GetUser(int ukid)
@@ -22,8 +24,8 @@ public class UserServiceImpl : IUserService
         }
         catch (Exception e)
         {
-            LogErrors.Log(e);
-            return null;
+            _logger.LogError(e, "Error get user");
+            throw;
         }
     }
 }

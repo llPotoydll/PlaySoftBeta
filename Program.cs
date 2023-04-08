@@ -28,7 +28,7 @@ builder.Services.AddTransient<IAuthRepositoy, AuthRepository>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<IUserService, UserServiceImpl>();
 
-builder.Services.AddScoped<IPLaylistService, PlaylistService>();
+builder.Services.AddScoped<IPLaylistService, PlaylistServiceImpl>();
 builder.Services.AddScoped<IPLaylistRepository, PlaylistRepository>();
 
 builder.Services.AddScoped<ISongRepository, SongRepository>();
@@ -36,7 +36,7 @@ builder.Services.AddScoped<ISongService, SongServiceImpl>();
 
 builder.Services.AddScoped<IPlaylistLinesRepository, PlaylistLinesRepositoryImpl>();
 
-builder.Services.AddScoped<ISearchService, SearchService>();
+builder.Services.AddScoped<ISearchService, SearchServiceImpl>();
 
 
 builder.Services.AddAutoMapper(typeof(PlaysoftProfile));

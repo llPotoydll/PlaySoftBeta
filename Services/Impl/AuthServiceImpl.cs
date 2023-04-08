@@ -7,35 +7,53 @@ namespace PlaySoftBeta.Services;
 public class AuthServiceImpl : IAuthService
 {
     private readonly IAuthRepositoy _authRepository;
+    private readonly ILogger<AuthServiceImpl> _logger;
 
-
-    public AuthServiceImpl(IAuthRepositoy authRepository)
+    public AuthServiceImpl(IAuthRepositoy authRepository, ILogger<AuthServiceImpl> logger)
     {
         _authRepository = authRepository;
+        _logger = logger;
     }
 
     public AuthLoginOutDTO Login(AuthLoginInDTO authLoginInDTO)
     {
-
-        var authLoginOutDTO = _authRepository.GetUserByEmail(authLoginInDTO.email);
-        if (authLoginOutDTO != null)
+        try
         {
-            if (authLoginOutDTO.password.Equals(authLoginInDTO.password))
+            var authLoginOutDTO = _authRepository.GetUserByEmail(authLoginInDTO.email);
+            if (authLoginOutDTO != null)
             {
-                return authLoginOutDTO;
+                if (authLoginOutDTO.password.Equals(authLoginInDTO.password))
+                {
+                    return authLoginOutDTO;
+                }
             }
+            return null;
         }
-        return null;
+        catch (Exception e)
+        {
+            _logger.LogError(e, "Error login");
+            throw;
+        }
+
     }
 
     public bool Register(AuhtRegisterUserDTO auhtRegisterUserDTO)
     {
-        if (!_authRepository.CheckEmail(auhtRegisterUserDTO.email))
+        try
         {
+            if (!_authRepository.CheckEmail(auhtRegisterUserDTO.email))
+            {
                 _authRepository.RegisterUser(auhtRegisterUserDTO);
                 _authRepository.Save();
-                return true;    
+                return true;
+            }
+            return false;
         }
-        return false;
+        catch (Exception e)
+        {
+            _logger.LogError(e, "Error register");
+            throw;
+        }
+
     }
 }

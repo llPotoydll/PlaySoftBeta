@@ -5,18 +5,18 @@ using PlaySoftBeta.Log;
 
 namespace PlaySoftBeta.Services;
 
-public class PlaylistService : IPLaylistService
+public class PlaylistServiceImpl : IPLaylistService
 {
     private readonly IPlaylistLinesRepository _playlistLinesRepository;
     private readonly IPLaylistRepository _pLaylistRepository;
 
-    public PlaylistService(
-        IPLaylistRepository pLaylistRepository,
-        IPlaylistLinesRepository playlistLinesRepository
-    )
+    private readonly ILogger<PlaylistServiceImpl> _logger;
+
+    public PlaylistServiceImpl(IPLaylistRepository pLaylistRepository, IPlaylistLinesRepository playlistLinesRepository, ILogger<PlaylistServiceImpl> logger)
     {
         _playlistLinesRepository = playlistLinesRepository;
         _pLaylistRepository = pLaylistRepository;
+        _logger = logger;
     }
 
     public bool CreatePlaylist(PlaylistDTO playlist)
@@ -29,8 +29,8 @@ public class PlaylistService : IPLaylistService
         }
         catch (Exception e)
         {
-            LogErrors.Log(e);
-            return false;
+            _logger.LogError(e, "Error creating playlist");
+            throw;
         }
     }
 
@@ -44,8 +44,8 @@ public class PlaylistService : IPLaylistService
         }
         catch (Exception e)
         {
-            LogErrors.Log(e);
-            return false;
+            _logger.LogError(e, "Error deleting playlist");
+            throw;
         }
     }
 
@@ -58,28 +58,11 @@ public class PlaylistService : IPLaylistService
         }
         catch (Exception e)
         {
-            LogErrors.Log(e);
-            return false;
+            _logger.LogError(e, "Error editing playlist");
+            throw;
         }
     }
 
-    /* public List<PlaylistDTO> GetOwnPlaylist(int userUKID)
-     {
-         try
-         {
-             if (userUKID != null && userUKID > -1)
-             {
-                 return _pLaylistRepository.getOwnPlaylist(userUKID);
-             }
-             return null;
-         }
-         catch (Exception e)
-         {
-             LogErrors.Log(e);
-             return null;
-         }
-     }
-     */
     public List<SongIDSongOutDTO> GetSongsId(int playlistID, string orderKey, string order)
     {
         try
@@ -92,8 +75,8 @@ public class PlaylistService : IPLaylistService
         }
         catch (Exception e)
         {
-            LogErrors.Log(e);
-            return null;
+            _logger.LogError(e, "Error get playlist songs");
+            throw;
         }
     }
 }

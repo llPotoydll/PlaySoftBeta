@@ -5,29 +5,40 @@ using PlaySoftBeta.Log;
 
 namespace PlaySoftBeta.Services;
 
-public class SearchService : ISearchService
+public class SearchServiceImpl : ISearchService
 {
     private readonly IUserRepository _userRepository;
     private readonly ISongRepository _songRpository;
+    private readonly ILogger<SearchServiceImpl> _logger;
 
 
-    public SearchService(IUserRepository userRepository, ISongRepository songRepository)
+    public SearchServiceImpl(IUserRepository userRepository, ISongRepository songRepository, ILogger<SearchServiceImpl> logger)
     {
         _userRepository = userRepository;
         _songRpository = songRepository;
+        _logger = logger;
     }
 
     public SearchDTO SearchByName(string name)
     {
-        var users = _userRepository.GetUserListByUsername(name);
-        var songs = _songRpository.GetSongListByName(name);
-
-        var searchDTO = new SearchDTO
+        try
         {
-            songs = songs,
-            users = users,
-        };
+            var users = _userRepository.GetUserListByUsername(name);
+            var songs = _songRpository.GetSongListByName(name);
 
-        return searchDTO;
+            var searchDTO = new SearchDTO
+            {
+                songs = songs,
+                users = users,
+            };
+
+            return searchDTO;
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, "Error search");
+            throw;
+        }
+
     }
 }
