@@ -41,16 +41,14 @@ export default {
     name: 'HomePageNotLogin',
     data() {
         return {
-            
+
         };
     },
     mounted: function () {
-        const usuario = sessionStorage.getItem("userid");
-        console.log(usuario)
-        if (usuario != null) {
-            window.location.href = "http://localhost:8080/playlists"
-        } else {
-            sessionStorage.clear();
+        if (this.$store.state.logged) {
+            this.$router.push({ path: '/playlists' })
+        } else if (!this.$store.state.logged) {
+            this.$router.push({ path: '/' })
         }
     }
 }

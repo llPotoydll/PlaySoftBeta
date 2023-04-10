@@ -7,8 +7,9 @@
             </section>
             <AddSongForm></AddSongForm>
             <v-container class="fill-height secciones canciones" fluid style="justify-content: center;">
-                <p id="animated" class="playlists wavy songs" v-for="song in SongsLines" :key="song.songID">{{
-                    song.songName }}
+                <p id="animated" class="playlists wavy songs" v-for="song in this.$store.state.SongsLines"
+                    :key="song.songID">{{
+                        song.songName }}
                 </p>
             </v-container>
         </v-main>
@@ -16,38 +17,21 @@
 </template>
 
 <script>
-import axios from 'axios';
 import AddSongForm from './AddSongForm.vue';
 
 export default {
     name: 'SongsPage',
     data() {
         return {
-            Songs: [],
-            SongsLines: []
         };
     },
     components: {
         AddSongForm
     },
     mounted: async function () {
-        let vue = this;
-        console.log(sessionStorage.getItem("userid"))
-        const playid = sessionStorage.getItem("playlistid")
-
-        axios.get(`https://playsoft-api.azurewebsites.net/Playlist/songs/${playid}`)
-            .then(function (response) {
-                console.log(response);
-                vue.Songs = response.data
-                for (let index = 0; index < vue.Songs.length; index++) {
-                    axios.get(`https://playsoft-api.azurewebsites.net/Song/${vue.Songs[index].songID}`)
-                        .then(function (respuesta) {
-                            console.log(respuesta)
-                            vue.SongsLines.push(respuesta.data)
-                            console.log(vue.Songs2)
-                        })
-                }
-            })
+        this.$store.dispatch('getSongs')
+        var songs = JSON.parse(this.$store.state.SongsLines)
+        alert('Cosas ' + songs)
     }
 }
 </script>

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios';
+import createPersistedState from 'vuex-persistedstate'
 
 
 Vue.use(Vuex)
@@ -33,8 +34,6 @@ export default new Vuex.Store({
     activeMessage: {},
     composeMessage: {},
     valid: true,
-    Songs: [],
-    Songs2: [],
     songName: "",
     errorSong: false,
     messagesSong: [],
@@ -45,31 +44,135 @@ export default new Vuex.Store({
     activeMessageSong: {},
     composeMessageSong: {},
     validSong: true,
-    usuario: ""
+    usuario: "",
+    Songs: [],
+    SongsLines: [],
+    PlayListsID: 0,
+    addSong: null,
+    logged: false
 
   },
   getters: {
+    getUsuario(state) {
+      return state.usuario;
+    }
   },
   mutations: {
+    setPlaylists(state, playlists) {
+      state.PlayListsJSON = playlists
+    },
+    setUser(state, user) {
+      state.usuario = user;
+    },
+    setSongs(state, Songs) {
+      state.Songs = Songs;
+    },
+    setClickPlID(state, Id) {
+      state.PlayListsID = Id
+    },
+    setSongsLines(state, songs) {
+      state.SongsLines.push(JSON.parse(songs))
+    },
+    setAddSong(state, song) {
+      state.addSong = song;
+    },
+    setLogged(state) {
+      state.logged = true
+    }
   },
   actions: {
-    getPlaylists() {
-      let IdUser = sessionStorage.getItem("userid")
-      console.log(IdUser)
-      axios.get(`https://playsoft-api.azurewebsites.net/Playlist/${IdUser}`)
+    getPlaylistsAction({ commit, state }) {
+      let IdUser = state.usuario
+      axios.get(`https://playsoft-api.azurewebsites.net/User/${IdUser}`)
         .then(function (response) {
-          sessionStorage.setItem("Playlist", JSON.stringify(response.data));
+          state.PlayListsJSON = JSON.stringify(response.data.playlists);
+          commit('setPlaylists', state.PlayListsJSON)
         })
         .catch(e => {
-          this.state.loginError = true;
-          this.alertMessage = "No playlists";
+          state.loginError = true;
+          state.alertMessage = "No playlists";
+          console.log(e);
+        });
+    },
+
+    doLogin({ commit, state }) {
+      axios.post("https://playsoft-api.azurewebsites.net/Auth/login", {
+        email: state.loginEmail,
+        password: state.loginPassword,
+      })
+        .then(function (response) {
+          console.log(response);
+          commit("setUser", response.data.ukid)
+          commit("setLogged")
+          alert(state.logged)
+          return true;
+        })
+        .catch(e => {
+          state.loginError = true;
+          state.alertMessage = "This account doesn't exist";
+          console.log(e);
+          return false
+        })
+      return false;
+    },
+
+    getSongs({ commit, state }) {
+      state.Songs = []
+      state.SongsLines = []
+      axios.get(`https://playsoft-api.azurewebsites.net/Playlist/${state.PlayListsID}?orderKey=songName&order=asc`)
+        .then(function (response) {
+          commit('setSongs', JSON.stringify(response.data))
+          var songs = []
+          songs = JSON.parse(state.Songs);
+          for (let index = 0; index < songs.length; index++) {
+            var SongsLines = []
+            axios.get(`https://playsoft-api.azurewebsites.net/Song/${songs[index].song.songID}`)
+              .then(function (respuesta) {
+                SongsLines = JSON.stringify(respuesta.data)
+                commit('setSongsLines', SongsLines)
+              })
+          }
+        })
+    },
+    getPlaylistID({ commit }, id) {
+      commit('setClickPlID', id)
+    },
+
+    checkSong({ commit }, name) {
+      axios.get(`https://playsoft-api.azurewebsites.net/Search/${name}`)
+        .then(function (respuesta) {
+          if (respuesta.data.songs.length > 0) {
+            let song = respuesta.data
+            console.log(song)
+            alert(song)
+            commit('setAddSong', song)
+          } else {
+            alert('Esta cancion no existe')
+            this.alertMessage = "This song doesn't exist";
+          }
+        })
+        .catch(e => {
+          alert('error pa ti')
+          this.alertMessage = "This song doesn't exist";
+          this.error = true;
+          console.log(e);
+        });
+    },
+    postSong(playID, songID) {
+      axios.post('https://playsoft-api.azurewebsites.net/Song/addSong', {
+        playlistID: playID,
+        songID: songID,
+      })
+        .then(function (response) {
+          response.data
+          location.reload();
+        })
+        .catch(e => {
+          this.alertMessage = "Playlist already have this song"
+          this.error = true;
           console.log(e);
         });
     }
   },
-  modules: {
-  },
-  plugins: [
-
-  ]
+  plugins: [createPersistedState()]
 })

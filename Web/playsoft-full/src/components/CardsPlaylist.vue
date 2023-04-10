@@ -28,12 +28,10 @@ export default {
     components: { CreatePlaylistForm },
     mounted: function () {
         let vue = this;
-        this.$store.dispatch('getPlaylists')
-            .then(setTimeout(function () {
-                console.log(`Las playlists son: ${sessionStorage.getItem("Playlist")}`)
-                var PlayLists = JSON.parse(sessionStorage.getItem("Playlist"));
-                vue.PlayListsList = PlayLists
-            }), 2000)
+        this.$store.dispatch('getPlaylistsAction')
+        var PlayLists = JSON.parse(this.$store.state.PlayListsJSON);
+        vue.PlayListsList = PlayLists
+
     },
     methods: {
         redirigir(nombrepl) {
@@ -41,8 +39,8 @@ export default {
             let vue = this;
             for (let index = 0; index < vue.PlayListsList.length; index++) {
                 if (vue.PlayListsList[index].playListName == nombrepl) {
-                    sessionStorage.setItem("playlistid", vue.PlayListsList[index].playlistID);
-                    location.href = "http://localhost:8080/songs"
+                    this.$store.dispatch('getPlaylistID', vue.PlayListsList[index].playlistID)
+                    this.$router.push({ path: '/songs' })
                 }
             }
         }

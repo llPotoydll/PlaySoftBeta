@@ -16,7 +16,7 @@
                         <h1 style="color: #6c176d">Sign in to PlaySoft</h1>
                         <template>
                           <v-alert v-show="loginError" style="margin-top: 20px; color: white" color="error" icon="$error"
-                            id="alert">{{ alertMessage }}</v-alert></template>
+                            id="alert">{{ $store.state.alertMessage }}</v-alert></template>
                         <v-form @submit.prevent="onSubmit">
 
                           <v-text-field v-model="$store.state.loginEmail" label="Email" type="text" color="#6c176d" />
@@ -144,21 +144,10 @@ export default {
         this.loginError = true;
         this.alertMessage = "All fields are required";
       } else {
-        axios
-          .post("https://playsoft-api.azurewebsites.net/Auth/login", {
-            email: this.$store.state.loginEmail,
-            password: this.$store.state.loginPassword,
-          })
-          .then(function (response) {
-            console.log(response);
-            sessionStorage.setItem("userid", response.data.ukid);
-            window.location.href = "http://localhost:8080/playlists"
-          })
-          .catch(e => {
-            this.loginError = true;
-            this.alertMessage = "This account doesn't exist";
-            console.log(e);
-          });
+        this.$store.dispatch('doLogin')
+        if (this.$store.state.logged) {
+          this.$router.push({ path: '/playlists' })
+        }
       }
     }
 
