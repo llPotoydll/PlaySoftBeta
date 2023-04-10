@@ -35,12 +35,10 @@
     </div>
 </template>
 <script>
-import axios from 'axios';
 export default {
     data() {
         return {
             songName: "",
-
             error: false,
             messages: [],
             drafts: [],
@@ -68,35 +66,12 @@ export default {
         },
 
         async addSong() {
+            alert(this.songName)
             if (this.songName != "") {
-
-
-                const playid = sessionStorage.getItem("playlistid");
-                console.log('playID: ' + playid);
-                let song = await axios.get(`https://playsoft-api.azurewebsites.net/Song/search/${this.songName}`)
-                    .catch(e => {
-                        this.alertMessage = "This song doesn't exist";
-                        this.error = true;
-                        console.log(e);
-                    });
-
-                if (song != null) {
-
-                    console.log(song.data.songID);
-                    axios.post('https://playsoft-api.azurewebsites.net/Song/addSong', {
-                        playlistID: playid,
-                        songID: song.data.songID,
-
-                    })
-                        .then(function (response) {
-                            response.data
-                            location.reload();
-                        })
-                        .catch(e => {
-                            this.alertMessage = "Playlist already have this song"
-                            this.error = true;
-                            console.log(e);
-                        });
+                this.$store.dispatch('checkSong', this.songName)
+                if (this.$store.state.addSong != null) {
+                    console.log(this.$store.state.addSong.songID);
+                    this.$store.dispatch('postSong', this.$store.state.PlayListsID, this.$store.state.addSong.songID)
                     this.error = false
                 }
             } else {
