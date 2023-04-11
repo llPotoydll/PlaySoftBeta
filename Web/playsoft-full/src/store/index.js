@@ -205,6 +205,24 @@ export default new Vuex.Store({
         this.$store.state.error = true
       }
 
+    },
+    doRegister({ state }) {
+      axios
+        .post("https://playsoft-api.azurewebsites.net/Auth/register", {
+          email: state.registerEmail,
+          username: state.registerUsername,
+          password: state.registerPassword,
+        })
+        .then(function (response) {
+          console.log(response);
+          location.reload();
+
+        })
+        .catch(e => {
+          this.alertMessage = "Email already in use";
+          this.registerError = true;
+          console.log(e);
+        });
     }
   },
   plugins: [createPersistedState()]

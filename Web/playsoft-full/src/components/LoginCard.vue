@@ -16,7 +16,7 @@
                         <h1 style="color: #6c176d">Sign in to PlaySoft</h1>
                         <template>
                           <v-alert v-show="loginError" style="margin-top: 20px; color: white" color="error" icon="$error"
-                            id="alert">{{ $store.state.alertMessage }}</v-alert></template>
+                            id="alert">{{ alertMessage }}</v-alert></template>
                         <v-form @submit.prevent="onSubmit">
 
                           <v-text-field v-model="$store.state.loginEmail" label="Email" type="text" color="#6c176d" />
@@ -92,7 +92,6 @@
 </template>
 
 <script>
-import axios from "axios";
 export default {
   data() {
     return {
@@ -116,23 +115,7 @@ export default {
         if (this.$store.state.registerError) {
           this.registerError = false;
         }
-
-        axios
-          .post("https://playsoft-api.azurewebsites.net/Auth/register", {
-            email: this.$store.state.registerEmail,
-            username: this.$store.state.registerUsername,
-            password: this.$store.state.registerPassword,
-          })
-          .then(function (response) {
-            console.log(response);
-            location.reload();
-
-          })
-          .catch(e => {
-            this.alertMessage = "Email already in use";
-            this.registerError = true;
-            console.log(e);
-          });
+        this.$store.dispatch('doRegister', this.$store.state.registerEmail, this.$store.state.registerUsername, this.$store.state.registerPassword)
       }
     },
 
