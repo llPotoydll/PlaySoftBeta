@@ -13,7 +13,15 @@ export default {
   name: 'HomeView',
   components: {
     CabeceraPlaysoft, CardsPlaylist
-  }
+  },
+  data() {
+    return {
+      languages: [
+        { title: "español", value: "es" },
+        { title: "inglés", value: "en" },
+      ],
+    };
+  },
 }
 </script>
 

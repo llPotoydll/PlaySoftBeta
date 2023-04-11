@@ -13,6 +13,14 @@ export default {
   name: 'HomeView',
   components: {
     CabeceraPlaysoft, HomePageNotLogin
-  }
+  },
+  data() {
+    return {
+      languages: [
+        { title: "español", value: "es" },
+        { title: "inglés", value: "en" },
+      ],
+    };
+  },
 }
 </script>

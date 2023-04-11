@@ -15,6 +15,14 @@ export default {
     name: 'HomeView',
     components: {
         CabeceraPlaysoft, SongListado, SearchBar
-    }
+    },
+    data() {
+        return {
+            languages: [
+                { title: "español", value: "es" },
+                { title: "inglés", value: "en" },
+            ],
+        };
+    },
 }
 </script>
