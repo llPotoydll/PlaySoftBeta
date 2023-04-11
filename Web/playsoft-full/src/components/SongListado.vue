@@ -30,8 +30,6 @@ export default {
     },
     mounted: async function () {
         this.$store.dispatch('getSongs')
-        var songs = JSON.parse(this.$store.state.SongsLines)
-        alert('Cosas ' + songs)
     }
 }
 </script>

@@ -145,9 +145,6 @@ export default {
         this.alertMessage = "All fields are required";
       } else {
         this.$store.dispatch('doLogin')
-        if (this.$store.state.logged) {
-          this.$router.push({ path: '/playlists' })
-        }
       }
     }
 

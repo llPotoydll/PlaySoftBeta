@@ -66,12 +66,11 @@ export default {
         },
 
         async addSong() {
-            alert(this.songName)
             if (this.songName != "") {
                 this.$store.dispatch('checkSong', this.songName)
                 if (this.$store.state.addSong != null) {
                     console.log(this.$store.state.addSong.songID);
-                    this.$store.dispatch('postSong', this.$store.state.PlayListsID, this.$store.state.addSong.songID)
+                    this.$store.dispatch('postSong')
                     this.error = false
                 }
             } else {

@@ -42,7 +42,6 @@
     </div>
 </template>
 <script>
-import axios from 'axios';
 export default {
     data() {
         return {
@@ -63,38 +62,7 @@ export default {
             this.$store.state.dialogCompose = false
         },
         nuevaPl() {
-            const usuario = sessionStorage.getItem("userid");
-            this.$store.state.ukid = usuario;
-            let vue = this
-            console.log(vue.$store.state.privacity)
-            console.log(this.$store.state.playListName)
-            console.log(this.$store.state.playlistDescription)
-            console.log(this.$store.state.privacity)
-            console.log(this.$store.state.ukid)
-            if (this.$store.state.playListName != "") {
-                axios.post("https://playsoft-api.azurewebsites.net/Playlist/NewPlaylist/", {
-                    playListName: this.$store.state.playListName,
-                    userUKID: this.$store.state.ukid,
-                    playlistDescription: this.$store.state.playlistDescription,
-                    privacity: this.$store.state.privacity,
-
-                })
-                    .then(function (response) {
-                        response.data
-                        vue.$store.dispatch('getPlaylists')
-                        setTimeout(function () {
-                            location.reload();
-                        }, 1000);
-
-                    })
-                    .catch(e => {
-                        this.$store.state.loginError = true;
-                        this.alertMessage = "Error create playlist";
-                        console.log(e);
-                    });
-            } else {
-                this.$store.state.error = true
-            }
+            this.$store.dispatch('addPlaylist')
         },
     }
 }

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios';
 import createPersistedState from 'vuex-persistedstate'
+import router from '@/router';
 
 
 Vue.use(Vuex)
@@ -78,6 +79,10 @@ export default new Vuex.Store({
     },
     setLogged(state) {
       state.logged = true
+    },
+    clearForm(state) {
+      state.playListName = ""
+      state.playlistDescription = ""
     }
   },
   actions: {
@@ -104,7 +109,7 @@ export default new Vuex.Store({
           console.log(response);
           commit("setUser", response.data.ukid)
           commit("setLogged")
-          alert(state.logged)
+          router.push({ path: '/playlists' })
           return true;
         })
         .catch(e => {
@@ -142,9 +147,9 @@ export default new Vuex.Store({
       axios.get(`https://playsoft-api.azurewebsites.net/Search/${name}`)
         .then(function (respuesta) {
           if (respuesta.data.songs.length > 0) {
-            let song = respuesta.data
+            let song = respuesta.data.songs[0]
             console.log(song)
-            alert(song)
+            console.log('la cancion es: ' + song.songName)
             commit('setAddSong', song)
           } else {
             alert('Esta cancion no existe')
@@ -152,16 +157,15 @@ export default new Vuex.Store({
           }
         })
         .catch(e => {
-          alert('error pa ti')
           this.alertMessage = "This song doesn't exist";
           this.error = true;
           console.log(e);
         });
     },
-    postSong(playID, songID) {
-      axios.post('https://playsoft-api.azurewebsites.net/Song/addSong', {
-        playlistID: playID,
-        songID: songID,
+    postSong({ state }) {
+      axios.post('https://playsoft-api.azurewebsites.net/Song', {
+        playlistID: state.PlayListsID,
+        songID: state.addSong.songID,
       })
         .then(function (response) {
           response.data
@@ -172,6 +176,35 @@ export default new Vuex.Store({
           this.error = true;
           console.log(e);
         });
+    },
+    addPlaylist({ commit, dispatch, state }) {
+      if (state.playListName != "") {
+        var user = state.usuario.toString()
+        axios.post("https://playsoft-api.azurewebsites.net/Playlist", {
+          playListName: state.playListName,
+          userUKID: user,
+          playlistDescription: state.playlistDescription,
+          privacity: state.privacity,
+
+        })
+          .then(function (response) {
+            response.data
+            dispatch('getPlaylistsAction')
+            setTimeout(function () {
+              commit('clearForm');
+              location.reload();
+            }, 1000);
+
+          })
+          .catch(e => {
+            state.loginError = true;
+            state.alertMessage = "Error create playlist";
+            console.log(e);
+          });
+      } else {
+        this.$store.state.error = true
+      }
+
     }
   },
   plugins: [createPersistedState()]
