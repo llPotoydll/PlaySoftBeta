@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace PlaySoftBeta.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("users")]
 public class UserController : ControllerBase
 {
     private readonly IUserService _userService;

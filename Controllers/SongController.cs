@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace PlaySoftBeta.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("songs")]
 public class SongController : ControllerBase
 {
     private readonly ISongService _songService;

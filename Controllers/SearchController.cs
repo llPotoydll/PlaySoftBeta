@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace PlaySoftBeta.Controllers;
 
-[Route("[controller]")]
+[Route("search")]
 [ApiController]
 public class SearchController : ControllerBase
 {
